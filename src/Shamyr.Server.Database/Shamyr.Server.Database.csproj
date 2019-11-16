@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Shamyr.Service.Mongo" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Shamyr.Server.Common\Shamyr.Server.Common.csproj" />
   </ItemGroup>
 
