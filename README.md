@@ -1,0 +1,1 @@
+# shamyr-server-core
