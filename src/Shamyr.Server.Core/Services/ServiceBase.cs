@@ -34,7 +34,7 @@ namespace Shamyr.Server.Services
       return fRepository.InsertOneAsync(document, cancellationToken);
     }
 
-    public Task<TDocument> GetByIdAsync(ObjectId id, CancellationToken cancellationToken)
+    public Task<TDocument?> GetByIdAsync(ObjectId id, CancellationToken cancellationToken)
     {
       return fRepository.GetByIdAsync(id, cancellationToken);
     }
