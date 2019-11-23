@@ -1,7 +1,11 @@
-﻿namespace Shamyr.Server.Database.Documents.Permissions
+﻿using Shamyr.Database.Mongo.Attributes;
+using Shamyr.Server.Common;
+
+namespace Shamyr.Server.Database.Documents.Permissions
 {
-  public class UserPermission: PermissionBase
+  public class UserPermission
   {
-    public const string _Discriminator = "user";
+    [Indexed]
+    public PermissionKind Kind { get; set; }
   }
 }
