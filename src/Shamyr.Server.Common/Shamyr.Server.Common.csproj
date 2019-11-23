@@ -7,8 +7,6 @@
     <Version>1.0.1</Version>
     <Authors>Ladislav Prix</Authors>
     <Company>Shamyr</Company>
-    <RepositoryUrl>https://github.com/prixladi/shamyr-server-core</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 

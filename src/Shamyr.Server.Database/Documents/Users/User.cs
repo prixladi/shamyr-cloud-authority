@@ -32,8 +32,6 @@ namespace Shamyr.Server.Database.Documents.Users
 
     public DateTime? LogoutUtc { get; set; }
 
-    public DiscordPermission? DiscordPermission { get; set; }
-
     public UserPermission? UserPermission { get; set; }
   }
 }

@@ -1,0 +1,41 @@
+trigger:
+- master
+
+variables:
+  buildConfiguration: release
+
+stages:        
+- stage: nuget
+  displayName: Build nuget
+  jobs:
+  - job: BuildAndPublish
+    displayName: Build and publish nuget package
+    steps:
+    - task: PowerShell@2
+      displayName: Remove old    
+      inputs:
+        targetType: 'inline'
+        script: 'Get-ChildItem .\ -Include *.nupkg -Recurse | foreach ($_) {Remove-Item $_.fullname}'
+
+    - task: DotNetCoreCLI@2
+      displayName: Build      
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '-c $(buildConfiguration)'
+    
+    - task: CopyFiles@2
+      displayName: Copy 
+      inputs:
+        SourceFolder: '$(build.sourcesdirectory)'
+        Contents: '**/bin/$(buildConfiguration)/*.nupkg'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+        flattenFolders: true
+        CleanTargetFolder: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: Publish
+      inputs:
+        PathtoPublish: '$(Build.artifactstagingdirectory)'
+        ArtifactName: 'Packages'
+        publishLocation: 'Container'
