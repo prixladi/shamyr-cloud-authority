@@ -22,7 +22,7 @@ stages:
       inputs:
         command: 'build'
         projects: '**/*.csproj'
-        arguments: '-c $(buildConfiguration) --configfile NuGet.Config'
+        arguments: '-c $(buildConfiguration) --configfile NuGet.config'
     
     - task: CopyFiles@2
       displayName: Copy 
