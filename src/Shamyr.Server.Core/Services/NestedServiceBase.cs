@@ -3,8 +3,7 @@ using Shamyr.Database.Mongo.Repositories;
 
 namespace Shamyr.Server.Services
 {
-  public class NestedServiceBase<TDocument, TNested, TRepository>:
-    INestedServiceBase<TDocument, TNested>
+  public class NestedServiceBase<TDocument, TNested, TRepository>: INestedServiceBase<TDocument, TNested>
     where TDocument : DocumentBase
     where TRepository : INestedRepositoryBase<TDocument, TNested>
   {
