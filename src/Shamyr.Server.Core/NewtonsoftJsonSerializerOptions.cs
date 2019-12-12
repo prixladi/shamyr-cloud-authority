@@ -13,7 +13,7 @@ namespace Shamyr.Server
         {
           TypeNameHandling = TypeNameHandling.Auto,
           ContractResolver = new CamelCasePropertyNamesContractResolver(),
-          Converters = { new NewtonsoftJsonObjectIdConverter() }
+          Converters = { new NewtonsoftObjectIdJsonConverter() }
         };
 
         return options;
