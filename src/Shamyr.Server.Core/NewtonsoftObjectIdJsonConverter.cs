@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Shamyr.Server
 {
-  public class NewtonsoftJsonObjectIdConverter: JsonConverter
+  public class NewtonsoftObjectIdJsonConverter: JsonConverter
   {
     public override bool CanConvert(Type objectType)
     {
