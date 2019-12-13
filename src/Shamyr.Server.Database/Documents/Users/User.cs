@@ -20,7 +20,7 @@ namespace Shamyr.Server.Database.Documents.Users
     [Indexed(Unique = true)]
     public string Email { get; set; } = default!;
 
-    public UserSecret Secret { get; set; } = default!;
+    public Secret Secret { get; set; } = default!;
 
     public string? EmailToken { get; set; } 
 
