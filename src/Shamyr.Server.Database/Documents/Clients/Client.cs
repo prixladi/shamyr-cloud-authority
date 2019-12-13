@@ -1,9 +1,10 @@
-﻿using Shamyr.Database.Mongo.Attributes;
+﻿using Shamyr.Database.Mongo;
+using Shamyr.Database.Mongo.Attributes;
 
 namespace Shamyr.Server.Database.Documents.Clients
 {
   [MongoCollection(nameof(DbCollections.Users))]
-  public class Client
+  public class Client: DocumentBase
   {
     [Indexed(Unique = true)]
     public string ClientId { get; set; } = default!;
