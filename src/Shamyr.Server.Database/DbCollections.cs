@@ -3,6 +3,7 @@
   public enum DbCollections
   {
     Users,
+    Clients,
     DiscordAccountLinkRequests
   }
 }
