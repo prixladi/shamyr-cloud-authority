@@ -3,7 +3,7 @@ using Shamyr.Database.Mongo.Attributes;
 
 namespace Shamyr.Server.Database.Documents.Clients
 {
-  [MongoCollection(nameof(DbCollections.Users))]
+  [MongoCollection(nameof(DbCollections.Clients))]
   public class Client: DocumentBase
   {
     [Indexed(Unique = true)]
