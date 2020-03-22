@@ -22,13 +22,13 @@ namespace Shamyr.Server.Database.Documents.Users
 
     public Secret Secret { get; set; } = default!;
 
-    public string? EmailToken { get; set; } 
+    public string? EmailToken { get; set; }
 
     public string? PasswordToken { get; set; }
 
     public bool Disabled { get; set; }
 
-    public UserToken? RefreshToken { get; set; } 
+    public UserToken? RefreshToken { get; set; }
 
     public DateTime? LogoutUtc { get; set; }
 
