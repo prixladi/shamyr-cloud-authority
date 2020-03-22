@@ -12,9 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Bson" Version="2.10.0" />
-    <PackageReference Include="Shamyr.AspNetCore.Core" Version="1.0.5" />
-    <PackageReference Include="Shamyr.Database.Mongo" Version="1.0.5" />
+    <PackageReference Include="MongoDB.Bson" Version="2.10.2" />
+    <PackageReference Include="Shamyr.AspNetCore.Core" Version="1.0.6" />
+    <PackageReference Include="Shamyr.Database.Mongo" Version="1.0.6" />
   </ItemGroup>
 
   <ItemGroup>
