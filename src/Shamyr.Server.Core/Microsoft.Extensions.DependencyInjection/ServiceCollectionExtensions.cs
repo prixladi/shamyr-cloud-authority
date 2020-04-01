@@ -1,5 +1,6 @@
 ﻿using Shamyr.AspNetCore.Handlers.Exceptions;
 using Shamyr.Server.Handlers.Exceptions;
+using Shamyr.Server.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -8,6 +9,11 @@ namespace Microsoft.Extensions.DependencyInjection
     public static void AddCustomExceptionHandling(this IServiceCollection services)
     {
       services.AddTransient<IExceptionHandler, UserNotVerifiedExceptionHandler>();
+    }
+
+    public static void AddSecretService(this IServiceCollection services)
+    {
+      services.AddTransient<ISecretService, SecretService>();
     }
   }
 }

@@ -1,4 +1,4 @@
-﻿namespace Shamyr.Server.Common
+﻿namespace Shamyr.Server.Database
 {
   public enum PermissionKind
   {

@@ -1,9 +1,8 @@
 ﻿using Shamyr.Database.Mongo.Attributes;
-using Shamyr.Server.Common;
 
-namespace Shamyr.Server.Database.Documents.Permissions
+namespace Shamyr.Server.Database.Documents
 {
-  public class UserPermission
+  public class UserPermissionDoc
   {
     [Indexed]
     public PermissionKind Kind { get; set; }

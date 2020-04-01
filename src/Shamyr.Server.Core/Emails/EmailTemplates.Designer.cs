@@ -19,7 +19,7 @@ namespace Shamyr.Server.Emails {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class EmailTemplates {
@@ -59,18 +59,18 @@ namespace Shamyr.Server.Emails {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-        ///&lt;head&gt;
-        ///&lt;/head&gt;
-        ///&lt;body&gt;
-        ///    &lt;h1&gt;Shamyr&lt;/h1&gt;
-        ///    **CONTENT**
-        ///&lt;/body&gt;
-        ///&lt;/html&gt;.
-        /// </summary>
-        internal static string MainEmailTemplate {
+
+    /// <summary>
+    ///   Looks up a localized string similar to &lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+    ///&lt;head&gt;
+    ///&lt;/head&gt;
+    ///&lt;body&gt;
+    ///    &lt;h1&gt;Shamyr&lt;/h1&gt;
+    ///    **CONTENT**
+    ///&lt;/body&gt;
+    ///&lt;/html&gt;.
+    /// </summary>
+    internal static string MainEmailTemplate {
             get {
                 return ResourceManager.GetString("MainEmailTemplate", resourceCulture);
             }
