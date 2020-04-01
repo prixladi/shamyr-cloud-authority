@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Shamyr.Server.Database.Documents.Users
+namespace Shamyr.Server.Database.Documents
 {
-  public class UserToken
+  public class UserTokenDoc
   {
     public string Value { get; set; } = default!;
 

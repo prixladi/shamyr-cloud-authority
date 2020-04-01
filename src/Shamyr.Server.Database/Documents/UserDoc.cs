@@ -1,12 +1,11 @@
 ﻿using System;
 using Shamyr.Database.Mongo;
 using Shamyr.Database.Mongo.Attributes;
-using Shamyr.Server.Database.Documents.Permissions;
 
-namespace Shamyr.Server.Database.Documents.Users
+namespace Shamyr.Server.Database.Documents
 {
   [MongoCollection(nameof(DbCollections.Users))]
-  public class User: DocumentBase
+  public class UserDoc: DocumentBase
   {
     [Indexed(Unique = true)]
     public string Username { get; set; } = default!;
@@ -20,7 +19,7 @@ namespace Shamyr.Server.Database.Documents.Users
     [Indexed(Unique = true)]
     public string Email { get; set; } = default!;
 
-    public Secret Secret { get; set; } = default!;
+    public SecretDoc Secret { get; set; } = default!;
 
     public string? EmailToken { get; set; }
 
@@ -28,10 +27,10 @@ namespace Shamyr.Server.Database.Documents.Users
 
     public bool Disabled { get; set; }
 
-    public UserToken? RefreshToken { get; set; }
+    public UserTokenDoc? RefreshToken { get; set; }
 
     public DateTime? LogoutUtc { get; set; }
 
-    public UserPermission? UserPermission { get; set; }
+    public UserPermissionDoc? UserPermission { get; set; }
   }
 }

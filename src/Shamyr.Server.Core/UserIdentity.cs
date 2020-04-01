@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Shamyr.Server.Common
+namespace Shamyr.Server
 {
   public class UserIdentity
   {
