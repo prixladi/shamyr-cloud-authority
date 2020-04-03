@@ -9,6 +9,7 @@ namespace Microsoft.Extensions.DependencyInjection
     public static void AddCustomExceptionHandling(this IServiceCollection services)
     {
       services.AddTransient<IExceptionHandler, UserNotVerifiedExceptionHandler>();
+      services.AddTransient<IExceptionHandler, UserDisabledExceptionHandler>();
     }
 
     public static void AddSecretService(this IServiceCollection services)
