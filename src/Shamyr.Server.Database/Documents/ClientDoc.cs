@@ -1,9 +1,10 @@
-﻿using Shamyr.Database.Mongo;
-using Shamyr.Database.Mongo.Attributes;
+﻿using Shamyr.MongoDB;
+using Shamyr.MongoDB.Attributes;
+using Shamyr.MongoDB.Indexes;
 
 namespace Shamyr.Server.Database.Documents
 {
-  [MongoCollection(nameof(DbCollections.Clients))]
+  [Collection(nameof(DbCollections.Clients))]
   public class ClientDoc: DocumentBase
   {
     [Indexed(Unique = true)]

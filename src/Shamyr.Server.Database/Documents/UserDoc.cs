@@ -1,10 +1,11 @@
 ﻿using System;
-using Shamyr.Database.Mongo;
-using Shamyr.Database.Mongo.Attributes;
+using Shamyr.MongoDB;
+using Shamyr.MongoDB.Attributes;
+using Shamyr.MongoDB.Indexes;
 
 namespace Shamyr.Server.Database.Documents
 {
-  [MongoCollection(nameof(DbCollections.Users))]
+  [Collection(nameof(DbCollections.Users))]
   public class UserDoc: DocumentBase
   {
     [Indexed(Unique = true)]

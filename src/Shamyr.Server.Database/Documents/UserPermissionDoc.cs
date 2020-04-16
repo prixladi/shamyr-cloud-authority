@@ -1,4 +1,4 @@
-﻿using Shamyr.Database.Mongo.Attributes;
+﻿using Shamyr.MongoDB.Indexes;
 
 namespace Shamyr.Server.Database.Documents
 {
