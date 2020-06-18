@@ -8,10 +8,10 @@ namespace Shamyr.Server.Database.Documents
   public class ClientDoc: DocumentBase
   {
     [Indexed(Unique = true)]
-    public string ClientId { get; set; } = default!;
+    public string ClientName { get; set; } = default!;
 
     public SecretDoc Secret { get; set; } = default!;
 
-    public bool Enabled { get; set; } = default!;
+    public bool Disabled { get; set; } = default!;
   }
 }

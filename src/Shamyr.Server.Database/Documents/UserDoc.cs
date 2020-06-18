@@ -28,7 +28,7 @@ namespace Shamyr.Server.Database.Documents
 
     public bool Disabled { get; set; }
 
-    public UserTokenDoc? RefreshToken { get; set; }
+    public TokenDoc? RefreshToken { get; set; }
 
     public DateTime? LogoutUtc { get; set; }
 

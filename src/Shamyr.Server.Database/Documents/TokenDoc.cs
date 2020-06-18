@@ -2,7 +2,7 @@
 
 namespace Shamyr.Server.Database.Documents
 {
-  public class UserTokenDoc
+  public class TokenDoc
   {
     public string Value { get; set; } = default!;
 
