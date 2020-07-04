@@ -13,7 +13,7 @@ namespace Shamyr.Server
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-      if (reader == null)
+      if (reader is null)
         throw new ArgumentNullException(nameof(reader));
 
       if (reader.TokenType == JsonToken.Null)
@@ -31,7 +31,7 @@ namespace Shamyr.Server
 
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-      if (writer == null)
+      if (writer is null)
         throw new ArgumentNullException(nameof(writer));
 
       if (value is ObjectId objectId)

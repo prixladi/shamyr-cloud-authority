@@ -31,7 +31,7 @@ namespace Shamyr.Server.Emails
 
     protected string UseBaseTransformation(string body)
     {
-      if (body == null)
+      if (body is null)
         throw new ArgumentNullException(nameof(body));
 
       return EmailTemplates.MainEmailTemplate
