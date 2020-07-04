@@ -8,7 +8,7 @@ namespace Shamyr.Server.Binders
   {
     public IModelBinder GetBinder(ModelBinderProviderContext context)
     {
-      if (context == null)
+      if (context is null)
         throw new ArgumentNullException(nameof(context));
 
       if (context.Metadata.ModelType == typeof(ObjectId)

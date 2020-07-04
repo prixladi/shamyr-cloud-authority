@@ -11,11 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		azure-pipelines.yml = azure-pipelines.yml
-		ChangeVersion.ps1 = ChangeVersion.ps1
 		NuGet.config = NuGet.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shamyr.Server.Swashbuckle", "src\Shamyr.Server.Swashbuckle\Shamyr.Server.Swashbuckle.csproj", "{76D58843-308D-4753-B042-2029FA076AA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shamyr.Server.Swashbuckle", "src\Shamyr.Server.Swashbuckle\Shamyr.Server.Swashbuckle.csproj", "{76D58843-308D-4753-B042-2029FA076AA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

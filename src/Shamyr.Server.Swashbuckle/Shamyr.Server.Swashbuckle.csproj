@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.14</Version>
+    <Version>1.0.15</Version>
     <Authors>Ladislav Prix</Authors>
     <Company>Shamyr</Company>
     <NeutralLanguage>en</NeutralLanguage>
@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="MongoDB.Bson" Version="2.11.0-beta2" />
-    <PackageReference Include="Shamyr.AspNetCore.Swashbuckle" Version="1.0.15" />
+    <PackageReference Include="Shamyr.AspNetCore.Swashbuckle" Version="1.0.16" />
   </ItemGroup>
 
   <ItemGroup>

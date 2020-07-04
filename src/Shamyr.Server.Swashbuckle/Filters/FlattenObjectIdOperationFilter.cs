@@ -24,7 +24,7 @@ namespace Shamyr.Server.Swashbuckle.Filters
         {
           TryAddObjectIdQuery(operation, x, addedParams);
 
-          if (operation.Parameters == null)
+          if (operation.Parameters is null)
             return;
 
           var objectIdParameters = operation.Parameters.Where(y => y.Name == x.Name).ToList();

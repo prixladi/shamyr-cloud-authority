@@ -7,9 +7,9 @@ namespace Shamyr.Server.Swashbuckle.Filters
   {
     protected override IEnumerable<(int statusCode, string description)> GetStatuses()
     {
-      yield return (StatusCodes.Status401Unauthorized, "User is not authorized");
-      yield return (CustomStatusCodes.Status430NotVerified, "Account email is not verified");
-      yield return (CustomStatusCodes.Status431UserDisabled, "User is disabled");
+      yield return (StatusCodes.Status401Unauthorized, "User is not authorized.");
+      yield return (CustomStatusCodes.Status430NotVerified, "Account email is not verified.");
+      yield return (CustomStatusCodes.Status431UserDisabled, "User is disabled.");
     }
   }
 }
