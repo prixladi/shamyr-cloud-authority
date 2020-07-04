@@ -7,7 +7,7 @@ namespace Shamyr.Server.Database.Documents
   [Collection(nameof(DbCollections.Clients))]
   public class ClientDoc: DocumentBase
   {
-    [Indexed(Unique = true)]
+    [Index(Unique = true)]
     public string ClientName { get; set; } = default!;
 
     public SecretDoc Secret { get; set; } = default!;

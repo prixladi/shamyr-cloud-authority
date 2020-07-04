@@ -4,7 +4,7 @@ namespace Shamyr.Server.Database.Documents
 {
   public class UserPermissionDoc
   {
-    [Indexed]
+    [Index]
     public PermissionKind Kind { get; set; }
   }
 }
