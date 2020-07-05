@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   gateway:
-    image: shamyr/server/gateway/service
+    image: shamyr/cloud/gateway/service
     ports:
       - 8080:80
     environment:
@@ -23,9 +23,12 @@ services:
       EMAIL_SENDER_ADDRESS: "shamyr.gateway.api@gmail.com"
       EMAIL_SENDER_ADDRESS_PASSWORD: "Pass@word1"
       APP_INSIGHTS_KEY: "5980b71f-1d5f-4f7f-a18e-4196d90f6cbc"
+    build:
+      context: .
+      dockerfile: ./src/Shamyr.Cloud.Gateway.Service/Dockerfile
 
   identity:
-    image: shamyr/server/identity/service
+    image: shamyr/cloud/identity/service
     ports:
       - 8081:80
     environment:
@@ -34,6 +37,9 @@ services:
       BEARER_TOKEN_ISSUER: "Shamyr gateway"
       BEARER_TOKEN_AUDIENCE: "React"
       BEARER_TOKEN_SYMETRIC_KEY: "U3j5QK5Q6xjRvTV1lKXqGvArG2zTuE9V9os3Out7JVfKEjmwToTPYx2uHk3fKCWpF1QnDamL958HJXQ9450k2Uze4jhC6k0B3TPod2Stb1VcVbbWc5PlVLjgDBLS0Cs1znqoUGRvW2st50OcRauPHWwcy3K0aZO1"
+    build:
+      context: .
+      dockerfile: ./src/Shamyr.Cloud.Identity.Service/Dockerfile
 
   redis:
     image: redis:latest

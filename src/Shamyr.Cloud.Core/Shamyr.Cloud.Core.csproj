@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Version>1.1.0</Version>
+    <Authors>Ladislav Prix</Authors>
+    <Company>Shamyr</Company>
+    <NeutralLanguage>en</NeutralLanguage>
+    <RootNamespace>Shamyr.Cloud</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.17" />
+    <PackageReference Include="Shamyr.Security" Version="1.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Emails\EmailTemplates.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EmailTemplates.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Emails\EmailTemplates.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EmailTemplates.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
