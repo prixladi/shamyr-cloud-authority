@@ -1,0 +1,63 @@
+version: '3.4'
+
+services:
+  gateway:
+    image: shamyr/server/gateway/service
+    ports:
+      - 8080:80
+    environment:
+      MONGO_URL: "mongodb://mongodb:27017"
+      MONGO_DATABASE_NAME: "ShamyrIdentity"
+      GATEWAY_URL: "http://localhost:8080/"
+      PORTAL_URL: "http://localhost:3000/#/"
+      BEARER_TOKEN_ISSUER: "Shamyr gateway"
+      BEARER_TOKEN_AUDIENCE: "React"
+      REFRESH_TOKEN_DURATION: "604800"
+      BEARER_TOKEN_DURATION: "3600"
+      BEARER_TOKEN_SYMETRIC_KEY: "U3j5QK5Q6xjRvTV1lKXqGvArG2zTuE9V9os3Out7JVfKEjmwToTPYx2uHk3fKCWpF1QnDamL958HJXQ9450k2Uze4jhC6k0B3TPod2Stb1VcVbbWc5PlVLjgDBLS0Cs1znqoUGRvW2st50OcRauPHWwcy3K0aZO1"
+      EMAIL_HOST: "smtp.gmail.com"
+      EMAIL_PORT: "587"
+      EMAIL_USE_SSL: "True"
+      EMAIL_SUBJECT_SUFFIX: " | Shamyr"
+      EMAIL_SENDER_ALIAS: "Shamyr"
+      EMAIL_SENDER_ADDRESS: "shamyr.gateway.api@gmail.com"
+      EMAIL_SENDER_ADDRESS_PASSWORD: "Pass@word1"
+      APP_INSIGHTS_KEY: "5980b71f-1d5f-4f7f-a18e-4196d90f6cbc"
+
+  identity:
+    image: shamyr/server/identity/service
+    ports:
+      - 8081:80
+    environment:
+      MONGO_URL: 'mongodb://mongodb:27017'
+      MONGO_DATABASE_NAME: 'ShamyrIdentity'
+      BEARER_TOKEN_ISSUER: "Shamyr gateway"
+      BEARER_TOKEN_AUDIENCE: "React"
+      BEARER_TOKEN_SYMETRIC_KEY: "U3j5QK5Q6xjRvTV1lKXqGvArG2zTuE9V9os3Out7JVfKEjmwToTPYx2uHk3fKCWpF1QnDamL958HJXQ9450k2Uze4jhC6k0B3TPod2Stb1VcVbbWc5PlVLjgDBLS0Cs1znqoUGRvW2st50OcRauPHWwcy3K0aZO1"
+
+  redis:
+    image: redis:latest
+    volumes:
+      - redisdata:/data
+    command: redis-server --maxmemory 500m --maxmemory-policy allkeys-lru
+
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_DATA_DIR: "/data/db"
+      MONGO_LOG_DIR: "/dev/null"
+    volumes:
+      - mongodata:/data/db
+    ports:
+      - 27017:27017
+
+  swaggerui:
+    image: swaggerapi/swagger-ui:latest
+    ports:
+      - "9595:8080"
+    environment:
+      API_URL: "http://localhost:8080/docs/v1/swagger.json"
+
+volumes:
+  redisdata:
+  mongodata:
