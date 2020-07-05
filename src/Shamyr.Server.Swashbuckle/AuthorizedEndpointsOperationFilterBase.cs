@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
-namespace Shamyr.Server.Swashbuckle.Filters
+namespace Shamyr.Server.Swashbuckle
 {
   public abstract class AuthorizedEndpointsOperationFilterBase: AspNetCore.Swashbuckle.Filters.AuthorizedEndpointsOperationFilterBase
   {

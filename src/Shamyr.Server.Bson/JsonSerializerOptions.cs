@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace Shamyr.Server
+namespace Shamyr.Server.Bson
 {
   public static class JsonSerializerOptions
   {

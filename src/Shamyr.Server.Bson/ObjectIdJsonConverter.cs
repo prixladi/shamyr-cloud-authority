@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using MongoDB.Bson;
 
-namespace Shamyr.Server
+namespace Shamyr.Server.Bson
 {
   public class ObjectIdJsonConverter: JsonConverter<ObjectId>
   {
