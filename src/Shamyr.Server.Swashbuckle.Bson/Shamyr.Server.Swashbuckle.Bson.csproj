@@ -11,7 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shamyr.MongoDB" Version="1.0.17" />
+    <PackageReference Include="MongoDB.Bson" Version="2.11.0-beta2" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Shamyr.Server.Swashbuckle\Shamyr.Server.Swashbuckle.csproj" />
   </ItemGroup>
 
 </Project>
