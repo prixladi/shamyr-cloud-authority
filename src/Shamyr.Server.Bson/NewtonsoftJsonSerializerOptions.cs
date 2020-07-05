@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Shamyr.Server
+namespace Shamyr.Server.Bson
 {
   public static class NewtonsoftJsonSerializerOptions
   {

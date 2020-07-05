@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using Newtonsoft.Json;
 
-namespace Shamyr.Server
+namespace Shamyr.Server.Bson
 {
   public class NewtonsoftObjectIdJsonConverter: JsonConverter
   {
