@@ -6,7 +6,7 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Shamyr.Server.Swashbuckle.Filters
+namespace Shamyr.Server.Swashbuckle.Bson.Filters
 {
   public class FlattenObjectIdOperationFilter: IOperationFilter
   {

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -11,7 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shamyr.MongoDB" Version="1.0.17" />
+    <PackageReference Include="MongoDB.Bson" Version="2.11.0-beta2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shamyr.Server.Core\Shamyr.Server.Core.csproj" />
   </ItemGroup>
 
 </Project>

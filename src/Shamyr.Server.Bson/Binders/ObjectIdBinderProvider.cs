@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using MongoDB.Bson;
 
-namespace Shamyr.Server.Binders
+namespace Shamyr.Server.Bson.Binders
 {
   public class ObjectIdBinderProvider: IModelBinderProvider
   {

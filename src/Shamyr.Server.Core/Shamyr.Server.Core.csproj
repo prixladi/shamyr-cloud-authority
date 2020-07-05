@@ -5,16 +5,15 @@
     <RootNamespace>Shamyr.Server</RootNamespace>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.15</Version>
+    <Version>1.0.18</Version>
     <Authors>Ladislav Prix</Authors>
     <Company>Shamyr</Company>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Bson" Version="2.11.0-beta2" />
-    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.16" />
-    <PackageReference Include="Shamyr.Security" Version="1.0.16" />
+    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.17" />
+    <PackageReference Include="Shamyr.Security" Version="1.0.17" />
   </ItemGroup>
 
   <ItemGroup>
