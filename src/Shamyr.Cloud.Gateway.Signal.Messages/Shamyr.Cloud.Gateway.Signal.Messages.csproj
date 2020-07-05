@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Version>1.1.0</Version>
+    <Authors>Ladislav Prix</Authors>
+    <Company>Shamyr</Company>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Shamyr" Version="1.0.17" />
+  </ItemGroup>
+
+</Project>
