@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Authorization;
-using Shamyr.Cloud.Gateway.Service.Extensions.Models;
+using Shamyr.Cloud.Gateway.Service.Extensions;
 using Shamyr.Cloud.Gateway.Service.Repositories.Users;
 using Shamyr.Cloud.Gateway.Signal.Messages;
 

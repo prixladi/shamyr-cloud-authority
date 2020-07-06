@@ -5,7 +5,7 @@ using Shamyr.AspNetCore.Services;
 
 namespace Shamyr.Cloud.Gateway.Service.IoC
 {
-  public static class ApplicationInsights
+  internal static class ApplicationInsights
   {
     public static void AddApplicationInsights(this IServiceCollection services, Action<ApplicationInsightsServiceOptions> setupOptions)
     {

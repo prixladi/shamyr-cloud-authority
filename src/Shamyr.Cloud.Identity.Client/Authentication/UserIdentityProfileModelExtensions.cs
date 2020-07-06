@@ -3,7 +3,7 @@ using Shamyr.Cloud.Identity.Client.Models;
 
 namespace Shamyr.Cloud.Identity.Client.Authentication
 {
-  public static class Extensions
+  public static class UserIdentityProfileModelExtensions
   {
     public static UserIdentity ToIdentity(this UserIdentityProfileModel model)
     {

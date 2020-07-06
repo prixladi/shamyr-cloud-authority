@@ -28,7 +28,7 @@ namespace Shamyr.Cloud.Gateway.Service
       services.AddExceptionHandling();
       services.AddCustomExceptionHandling();
 
-      services.AddDatabaseContext<DatabaseConfig>(DatabaseInitConfig.Setup);
+      services.AddDatabaseContext<DatabaseConfig>(DatabaseConfig.Setup);
 
       services.AddSmtpEmailClient<EmailsConfig>();
 

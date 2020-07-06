@@ -1,3 +1,5 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -5,8 +7,14 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 # restore
 WORKDIR /src
+
 COPY src/Shamyr.Cloud.Gateway.Service/Shamyr.Cloud.Gateway.Service.csproj Shamyr.Cloud.Gateway.Service/
 COPY src/Shamyr.Cloud.Gateway.Signal.Messages/Shamyr.Cloud.Gateway.Signal.Messages.csproj Shamyr.Cloud.Gateway.Signal.Messages/
+COPY src/Shamyr.Cloud.Database/Shamyr.Cloud.Database.csproj Shamyr.Cloud.Database/
+COPY src/Shamyr.Cloud.Bson/Shamyr.Cloud.Bson.csproj Shamyr.Cloud.Bson/
+COPY src/Shamyr.Cloud.Core/Shamyr.Cloud.Core.csproj Shamyr.Cloud.Core/
+COPY src/Shamyr.Cloud.Swashbuckle.Bson/Shamyr.Cloud.Swashbuckle.Bson.csproj Shamyr.Cloud.Swashbuckle.Bson/
+COPY src/Shamyr.Cloud.Swashbuckle/Shamyr.Cloud.Swashbuckle.csproj Shamyr.Cloud.Swashbuckle/
 
 COPY NuGet.config .
 
@@ -15,8 +23,14 @@ RUN dotnet restore --configfile /src/NuGet.config
 
 # build
 WORKDIR /src
+
 COPY src/Shamyr.Cloud.Gateway.Service/ Shamyr.Cloud.Gateway.Service/
 COPY src/Shamyr.Cloud.Gateway.Signal.Messages/ Shamyr.Cloud.Gateway.Signal.Messages/
+COPY src/Shamyr.Cloud.Database/ Shamyr.Cloud.Database/
+COPY src/Shamyr.Cloud.Bson/ Shamyr.Cloud.Bson/
+COPY src/Shamyr.Cloud.Core/ Shamyr.Cloud.Core/
+COPY src/Shamyr.Cloud.Swashbuckle.Bson/ Shamyr.Cloud.Swashbuckle.Bson/
+COPY src/Shamyr.Cloud.Swashbuckle/ Shamyr.Cloud.Swashbuckle/
 
 WORKDIR Shamyr.Cloud.Gateway.Service
 RUN dotnet build -c Release
@@ -26,4 +40,4 @@ RUN dotnet publish -c Release -o /app
 
 FROM base AS final
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "Shamyr.Cloud.Gateway.Service.dll"]
+ENTRYPOINT ["dotnet Shamyr.Cloud.Gateway.Service.dll"]

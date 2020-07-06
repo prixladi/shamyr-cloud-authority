@@ -25,7 +25,7 @@ namespace Shamyr.Cloud.Identity.Service.Controllers
     }
 
     /// <summary>
-    /// Returts user with provided ID
+    /// Returns user with provided ID
     /// </summary>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>

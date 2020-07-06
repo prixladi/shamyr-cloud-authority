@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Shamyr.Cloud.Gateway.Service.Authentication.JwtBearer
 {
-  public static class JwtBearerAuthenticationExtensions
+  public static class AuthenticationBuilderExtensions
   {
     public static AuthenticationBuilder AddJwtBearerAuthentication(this AuthenticationBuilder builder, Action<JwtBearerOptions> configureOptions)
     {
