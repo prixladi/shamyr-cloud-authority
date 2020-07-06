@@ -3,28 +3,27 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.1.0</Version>
+    <Version>1.1.2</Version>
     <Authors>Ladislav Prix</Authors>
     <Company>Shamyr</Company>
     <NeutralLanguage>en</NeutralLanguage>
+    <UserSecretsId>5efbc2d8-1fb2-4a66-a42d-6fe5254d2629</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0-beta2" />
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Shamyr.AspNetCore.Authentication" Version="1.0.17" />
     <PackageReference Include="Shamyr.Extensions.MongoDB" Version="1.0.17" />
     <PackageReference Include="Shamyr.Security" Version="1.0.17" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.30.0-pre1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shamyr.Cloud.Bson\Shamyr.Cloud.Bson.csproj" />
     <ProjectReference Include="..\Shamyr.Cloud.Database\Shamyr.Cloud.Database.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Protobuf Include="Protos\users.proto" GrpcServices="Server" />
   </ItemGroup>
   
 </Project>

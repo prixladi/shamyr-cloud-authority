@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Shamyr.Cloud.Identity.Service.IoC
 {
-  public static class ApplicationInsights
+  internal static class ApplicationInsights
   {
     public static void AddApplicationInsights(this IServiceCollection services, Action<ApplicationInsightsServiceOptions> options)
     {

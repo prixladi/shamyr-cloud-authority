@@ -4,11 +4,9 @@ using Shamyr.Cloud.Gateway.Service.Models;
 
 namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
-  public static class Extensions
+  public static class MongoQueryableExtensions
   {
-    public static IMongoQueryable<TDocument> Pagination<TDocument>(
-      this IMongoQueryable<TDocument> query,
-      PaginationModel pagination)
+    public static IMongoQueryable<TDocument> Pagination<TDocument>(this IMongoQueryable<TDocument> query, PaginationModel pagination)
     {
       if (pagination is null)
         throw new ArgumentNullException(nameof(pagination));

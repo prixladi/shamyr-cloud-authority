@@ -4,9 +4,9 @@ using System.Linq;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Models.Clients;
 
-namespace Shamyr.Cloud.Gateway.Service.Extensions.Models
+namespace Shamyr.Cloud.Gateway.Service.Extensions
 {
-  public static class ClientExtensions
+  public static class ClientDocExtensions
   {
     public static ClientPreviewModel ToModel(this ClientDoc client)
     {

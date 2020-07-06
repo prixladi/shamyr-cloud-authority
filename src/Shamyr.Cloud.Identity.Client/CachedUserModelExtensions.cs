@@ -4,7 +4,7 @@ using Shamyr.Cloud.Identity.Client.Models;
 
 namespace Shamyr.Cloud.Identity.Client
 {
-  public static class ModelExtensions
+  public static class CachedUserModelExtensions
   {
     public static UserIdentityValidationModel ToIdentityModel(this CachedUserModel cachedUserModel)
     {
@@ -17,22 +17,6 @@ namespace Shamyr.Cloud.Identity.Client
       {
         Result = cachedUserModel.IdentityResult.Value,
         User = cachedUserModel.Model
-      };
-    }
-
-    public static CachedUserModel ToCachedUserModel(this UserIdentityValidationModel identityModel, string jwt)
-    {
-      if (identityModel is null)
-        throw new ArgumentNullException(nameof(identityModel));
-
-      if (jwt is null)
-        throw new ArgumentNullException(nameof(jwt));
-
-      return new CachedUserModel
-      {
-        Jwt = jwt,
-        IdentityResult = identityModel.Result,
-        Model = identityModel.User
       };
     }
 

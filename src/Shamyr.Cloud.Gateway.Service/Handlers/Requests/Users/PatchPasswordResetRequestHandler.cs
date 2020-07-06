@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using MongoDB.Bson;
 using Shamyr.Cloud.Database.Documents;
-using Shamyr.Cloud.Gateway.Service.Extensions.Models;
+using Shamyr.Cloud.Gateway.Service.Extensions;
 using Shamyr.Cloud.Gateway.Service.Repositories.Users;
 using Shamyr.Cloud.Gateway.Service.Requests.Users;
 using Shamyr.Cloud.Services;

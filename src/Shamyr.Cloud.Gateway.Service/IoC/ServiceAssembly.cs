@@ -5,7 +5,7 @@ using Shamyr.DependencyInjection;
 
 namespace Shamyr.Cloud.Gateway.Service.IoC
 {
-  public static class ServiceAssembly
+  internal static class ServiceAssembly
   {
     public static void AddServiceAssembly(this IServiceCollection services)
     {
