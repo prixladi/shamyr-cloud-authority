@@ -1,5 +1,4 @@
 ﻿using System;
-using Shamyr.Cloud.Gateway.Service.Models.UserPermissions;
 using Shamyr.Cloud.Gateway.Service.Models.Users;
 
 namespace Shamyr.Cloud.Gateway.Service.Extensions
@@ -16,7 +15,7 @@ namespace Shamyr.Cloud.Gateway.Service.Extensions
         Id = identity.UserId,
         Email = identity.Email,
         Username = identity.Username,
-        UserPermissionDoc = identity.UserPermissionDoc?.ToModel() ?? new PermissionDetailModel(),
+        Admin = identity.Admin
       };
     }
   }

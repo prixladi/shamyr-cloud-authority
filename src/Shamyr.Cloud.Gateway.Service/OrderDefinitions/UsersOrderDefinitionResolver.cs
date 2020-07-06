@@ -25,9 +25,6 @@ namespace Shamyr.Cloud.Gateway.Service.OrderDefinitions
         case UserSortTypes.Email:
           orderBy = x => x.NormalizedEmail;
           break;
-        case UserSortTypes.UserPermission:
-          orderBy = x => x.UserPermission!.Kind;
-          break;
         default:
           throw new InvalidOperationException($"Undefined case for users sort {model.OrderBy}");
       }

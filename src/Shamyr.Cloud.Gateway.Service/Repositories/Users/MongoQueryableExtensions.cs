@@ -34,21 +34,15 @@ namespace Shamyr.Cloud.Gateway.Service.Repositories.Users
       return query.Where(doc => doc.NormalizedEmail.Contains(normalizedEmail));
     }
 
-    public static IMongoQueryable<UserDoc> WhereUserPermission(this IMongoQueryable<UserDoc> query, PermissionKind?[]? kinds)
+    public static IMongoQueryable<UserDoc> WhereAdmin(this IMongoQueryable<UserDoc> query, bool? admin)
     {
       if (query is null)
         throw new ArgumentNullException(nameof(query));
 
-      if (kinds is null)
+      if (admin is null)
         return query;
 
-      bool containsNull = kinds.Any(x => !x.HasValue);
-      var kindsNotNull = kinds.Where(x => x.HasValue).Select(x => (int)x!);
-
-      if (containsNull)
-        return query.Where(doc => doc.UserPermission == null || kindsNotNull.Contains((int)doc.UserPermission.Kind));
-
-      return query.Where(doc => kindsNotNull.Contains((int)doc.UserPermission!.Kind));
+      return query.Where(doc => doc.Admin == admin.Value);
     }
   }
 }

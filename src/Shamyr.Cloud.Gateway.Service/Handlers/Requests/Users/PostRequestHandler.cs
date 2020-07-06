@@ -18,8 +18,6 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
 {
   public class PostRequestHandler: IRequestHandler<PostRequest, IdModel>
   {
-    private const PermissionKind _DefaultUserPermission = PermissionKind.View;
-
     private readonly IUserRepository fUserRepository;
     private readonly ISecretService fSecretService;
     private readonly IEmailService fEmailService;
@@ -61,7 +59,7 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
         LogoutUtc = null,
         Disabled = false,
         EmailToken = SecurityUtils.GetUrlToken(),
-        UserPermission = new UserPermissionDoc { Kind = _DefaultUserPermission }
+        Admin = false
       };
 
       await fUserRepository.InsertAsync(user, cancellationToken);

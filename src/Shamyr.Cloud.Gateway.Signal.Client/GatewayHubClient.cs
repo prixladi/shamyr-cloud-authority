@@ -48,7 +48,6 @@ namespace Shamyr.Cloud.Gateway.Signal.Client
       fHubConnection.Reconnected += ReconnectedAsync;
 
       fHubConnection.On<UserLoggedOutEvent>(nameof(IRemoteClient.UserLoggedOutEventAsync), UserLoggedOutEventAsync);
-      fHubConnection.On<UserUserPermissionChangedEvent>(nameof(IRemoteClient.UserUserPermissionChangedEventAsync), UserUserPermissionChangedEventAsync);
       fHubConnection.On<UserVerificationStatusChangedEvent>(nameof(IRemoteClient.UserVerificationStatusChangedEventAsync), UserVerificationStatusChangedEventAsync);
     }
 

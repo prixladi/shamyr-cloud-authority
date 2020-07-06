@@ -26,7 +26,7 @@ namespace Shamyr.Cloud.Gateway.Service.Repositories.Users
       return await Query
         .WhereUsernameContains(filter.Username)
         .WhereEmailContains(filter.Email)
-        .WhereUserPermission(filter.UserPermissions)
+        .WhereAdmin(filter.Admin)
         .Sort(sort)
         .Pagination(filter)
         .ToListAsync(cancellationToken);
@@ -40,7 +40,7 @@ namespace Shamyr.Cloud.Gateway.Service.Repositories.Users
       return await Query
         .WhereUsernameContains(filter.Username)
         .WhereEmailContains(filter.Email)
-        .WhereUserPermission(filter.UserPermissions)
+        .WhereAdmin(filter.Admin)
         .CountAsync(cancellationToken);
     }
 

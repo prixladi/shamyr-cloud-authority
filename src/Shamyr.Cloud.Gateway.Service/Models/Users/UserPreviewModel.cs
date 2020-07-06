@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
-using Shamyr.Cloud.Gateway.Service.Models.UserPermissions;
 
 namespace Shamyr.Cloud.Gateway.Service.Models.Users
 {
@@ -34,6 +33,6 @@ namespace Shamyr.Cloud.Gateway.Service.Models.Users
     public bool Disabled { get; set; }
 
     [Required]
-    public PermissionDetailModel UserPermissionDoc { get; set; } = default!;
+    public bool Admin { get; set; } = default!;
   }
 }

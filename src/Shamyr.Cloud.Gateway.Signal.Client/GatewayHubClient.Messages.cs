@@ -52,11 +52,6 @@ namespace Shamyr.Cloud.Gateway.Signal.Client
       await HandleEventAsync(@event);
     }
 
-    private async void UserUserPermissionChangedEventAsync(UserUserPermissionChangedEvent @event)
-    {
-      await HandleEventAsync(@event);
-    }
-
     private async void UserVerificationStatusChangedEventAsync(UserVerificationStatusChangedEvent @event)
     {
       await HandleEventAsync(@event);

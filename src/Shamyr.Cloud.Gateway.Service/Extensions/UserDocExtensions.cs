@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using Shamyr.Cloud.Database.Documents;
-using Shamyr.Cloud.Gateway.Service.Models.UserPermissions;
 using Shamyr.Cloud.Gateway.Service.Models.Users;
 
 namespace Shamyr.Cloud.Gateway.Service.Extensions
@@ -21,7 +20,7 @@ namespace Shamyr.Cloud.Gateway.Service.Extensions
         Email = user.Email,
         Username = user.Username,
         Disabled = user.Disabled,
-        UserPermissionDoc = user.UserPermission?.ToModel() ?? new PermissionDetailModel()
+        Admin = user.Admin
       };
     }
 
@@ -36,7 +35,7 @@ namespace Shamyr.Cloud.Gateway.Service.Extensions
         Username = user.Username,
         Secret = user.Secret.ToModel(),
         LogoutUtc = user.LogoutUtc,
-        UserPermissionDoc = user.UserPermission
+        Admin = user.Admin
       };
     }
 
@@ -59,7 +58,7 @@ namespace Shamyr.Cloud.Gateway.Service.Extensions
         Email = user.Email,
         Username = user.Username,
         Disabled = user.Disabled,
-        UserPermissionDoc = user.UserPermission?.ToModel() ?? new PermissionDetailModel()
+        Admin = user.Admin
       };
     }
   }
