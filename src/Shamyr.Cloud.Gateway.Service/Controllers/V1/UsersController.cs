@@ -36,9 +36,9 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     /// <param name="cancellationToken"></param>
     /// <response code="200">Model with list of users</response>
     /// <response code="400">Parameters are not valid</response>
-    /// <response code="403">Insufficient permission, permission needed '<see cref="PermissionKind.View"/>'</response>
+    /// <response code="403">Insufficient permission.</response>
     [HttpGet]
-    [Authorize(UserPolicy._View)]
+    [Authorize(UserPolicy._Admin)]
     [ProducesResponseType(typeof(UserPreviewsModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -54,10 +54,10 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     /// <param name="cancellationToken"></param>
     /// <response code="200">List of users</response>
     /// <response code="400">Model is not valid</response>
-    /// <response code="403">Insufficient permission, permission needed '<see cref="PermissionKind.View"/>'</response>
+    /// <response code="403">Insufficient permission</response>
     /// <response code="404">User with givent id not found</response>
     [HttpGet("{id}", Name = _GetUserRoute)]
-    [Authorize(UserPolicy._View)]
+    [Authorize(UserPolicy._Admin)]
     [ProducesResponseType(typeof(UserDetailModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -119,10 +119,10 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     /// <param name="cancellationToken"></param>
     /// <response code="204">UserDoc vas disabled</response>
     /// <response code="400">Request not valid</response>
-    /// <response code="403">Insufficient permission, permission needed '<see cref="PermissionKind.Configure"/>'.</response>
+    /// <response code="403">Insufficient permission.</response>
     /// <response code="404">UserDoc not found</response>
     [HttpPut("{id}/disabled")]
-    [Authorize(UserPolicy._Configure)]
+    [Authorize(UserPolicy._Admin)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

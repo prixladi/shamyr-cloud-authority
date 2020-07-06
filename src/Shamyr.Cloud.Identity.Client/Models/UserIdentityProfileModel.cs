@@ -17,6 +17,6 @@ namespace Shamyr.Cloud.Identity.Client.Models
     public bool Disabled { get; set; }
 
     [Required]
-    public UserPermissionModel UserPermission { get; set; } = default!;
+    public bool Admin { get; set; } = default!;
   }
 }

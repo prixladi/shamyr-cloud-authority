@@ -19,7 +19,7 @@ namespace Shamyr.Cloud.Gateway.Service
     public string Email { get; set; } = default!;
     public Secret Secret { get; set; } = default!;
     public DateTime? LogoutUtc { get; set; }
-    public UserPermissionDoc? UserPermissionDoc { get; set; }
+    public bool Admin { get; set; }
 
     public UserIdentity Base => new UserIdentity(id: UserId.ToString(), username: Username, email: Email);
   }

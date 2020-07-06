@@ -3,7 +3,6 @@
   public enum UserSortTypes: byte
   {
     Username,
-    Email,
-    UserPermission
+    Email
   }
 }

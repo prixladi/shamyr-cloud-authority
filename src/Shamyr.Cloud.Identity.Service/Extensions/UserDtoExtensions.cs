@@ -17,7 +17,7 @@ namespace Shamyr.Cloud.Identity.Service.Extensions
         Username = user.Username,
         Email = user.Email,
         Disabled = user.Disabled,
-        UserPermission = new UserPermissionModel { Kind = user.PermissionKind },
+        Admin = user.Admin
       };
     }
   }

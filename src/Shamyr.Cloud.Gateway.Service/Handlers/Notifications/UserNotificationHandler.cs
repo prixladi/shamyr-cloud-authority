@@ -14,7 +14,6 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Notifications
   public class UserNotificationHandler:
     INotificationHandler<UserDisabledStatusChangedNotification>,
     INotificationHandler<UserLoggedOutNotification>,
-    INotificationHandler<UserUserPermissionChangedNotification>,
     INotificationHandler<UserVerificationStatusChangedNotification>
   {
     private readonly IClientHubService fClientHubService;
@@ -49,14 +48,6 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Notifications
       var context = fTelemetryService.GetRequestContext();
       var @event = new UserLoggedOutEvent(notification.UserId.ToString(), context);
       var method = nameof(IRemoteClient.UserLoggedOutEventAsync);
-      await fClientHubService.SendEventAsync(context, @event, method, cancellationToken);
-    }
-
-    public async Task Handle(UserUserPermissionChangedNotification notification, CancellationToken cancellationToken)
-    {
-      var context = fTelemetryService.GetRequestContext();
-      var @event = new UserUserPermissionChangedEvent(notification.UserId.ToString(), notification.PermissionKind, context);
-      var method = nameof(IRemoteClient.UserUserPermissionChangedEventAsync);
       await fClientHubService.SendEventAsync(context, @event, method, cancellationToken);
     }
 

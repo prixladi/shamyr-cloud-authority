@@ -10,30 +10,22 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
   public class PutDisabledRequestHandler: IRequestHandler<PutDisabledRequest>
   {
     private readonly IUserRepository fUserRepository;
-    private readonly IUserPermissionRepository fUserPermissionRepository;
-    private readonly IIdentityService fIdentityService;
 
-    public PutDisabledRequestHandler(
-      IUserRepository userRepository,
-      IUserPermissionRepository userPermissionRepository,
-      IIdentityService identityService)
+    public PutDisabledRequestHandler(IUserRepository userRepository)
     {
       fUserRepository = userRepository;
-      fUserPermissionRepository = userPermissionRepository;
-      fIdentityService = identityService;
     }
 
     public async Task<Unit> Handle(PutDisabledRequest request, CancellationToken cancellationToken)
     {
-      var currentUser = fIdentityService.Current;
-
-      var userPermission = await fUserPermissionRepository.GetAsync(request.UserId, cancellationToken);
-
-      if (userPermission != null && userPermission.Kind >= currentUser.UserPermissionDoc?.Kind)
-        throw new ForbiddenException($"User with id '{request.UserId}' has greater or equal permission than current user ({userPermission.Kind}).");
-
-      if (!await fUserRepository.TrySetDisabledAsync(request.UserId, request.Model.Disabled, cancellationToken))
+      var user = await fUserRepository.GetAsync(request.UserId, cancellationToken);
+      if(user == null)
         throw new NotFoundException($"User with ID '{request.UserId}' does not exist.");
+
+      if (user.Admin)
+        throw new ForbiddenException($"User with ID '{request.UserId}' is admin.");
+
+      await fUserRepository.TrySetDisabledAsync(request.UserId, request.Model.Disabled, cancellationToken);
 
       return Unit.Value;
     }

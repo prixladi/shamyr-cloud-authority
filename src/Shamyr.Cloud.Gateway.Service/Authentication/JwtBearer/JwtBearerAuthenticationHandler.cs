@@ -44,8 +44,8 @@ namespace Shamyr.Cloud.Gateway.Service.Authentication.JwtBearer
       var (user, userIdentity) = await ValidateUserAsync(principal.Identity!.Name, (ClaimsIdentity)principal.Identity, Context.RequestAborted);
       ValidateLogin(user, principal);
 
-      foreach (var role in UserPolicy.GetRoles((PermissionKind?)user.UserPermission?.Kind))
-        userIdentity.AddClaim(new Claim(ClaimTypes.Role, role));
+      if(user.Admin)
+        userIdentity.AddClaim(new Claim(ClaimTypes.Role, UserPolicy._Admin));
 
       var userPrincipal = new ClaimsPrincipal(userIdentity);
       var ticket = new AuthenticationTicket(userPrincipal, Options.Challenge);

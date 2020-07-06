@@ -32,6 +32,6 @@ namespace Shamyr.Cloud.Database.Documents
 
     public DateTime? LogoutUtc { get; set; }
 
-    public UserPermissionDoc? UserPermission { get; set; }
+    public bool Admin { get; set; }
   }
 }
