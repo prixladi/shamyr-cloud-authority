@@ -2,11 +2,10 @@
 using System.Linq;
 using MongoDB.Driver.Linq;
 using Shamyr.Cloud.Database.Documents;
-using Shamyr.Cloud.Gateway.Signal.Messages;
 
-namespace Shamyr.Cloud.Gateway.Service.Repositories.Users
+namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
-  public static class MongoQueryableExtensions
+  public static partial class MongoQueryableUserExtensions
   {
     public static IMongoQueryable<UserDoc> WhereUsernameContains(this IMongoQueryable<UserDoc> query, string? username)
     {

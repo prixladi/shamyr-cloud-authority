@@ -4,7 +4,7 @@ using MongoDB.Bson;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.MongoDB.Repositories;
 
-namespace Shamyr.Cloud.Gateway.Service.Repositories.Users
+namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
   public interface IUserTokenRepository: INestedRepositoryBase<UserDoc, TokenDoc>
   {

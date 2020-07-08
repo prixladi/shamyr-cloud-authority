@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using Shamyr.Cloud.Gateway.Service.SignalR;
 using Shamyr.DependencyInjection;
 
-namespace Shamyr.Cloud.Gateway.Service.Repositories.Clients
+namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
   [Singleton]
   public class ClientConnectionRepository: IClientConnectionRepository

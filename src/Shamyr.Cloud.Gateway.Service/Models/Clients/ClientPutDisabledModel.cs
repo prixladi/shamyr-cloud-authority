@@ -1,6 +1,6 @@
 ﻿namespace Shamyr.Cloud.Gateway.Service.Models.Clients
 {
-  public class ClientPatchDisabledModel
+  public class ClientPutDisabledModel
   {
     public bool Disabled { get; set; }
   }

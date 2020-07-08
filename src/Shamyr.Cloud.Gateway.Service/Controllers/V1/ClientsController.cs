@@ -123,9 +123,9 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PatchDisabledAsync([FromRoute] ObjectId id, [FromBody] ClientPatchDisabledModel model, CancellationToken cancellationToken)
+    public async Task<IActionResult> PutDisabledAsync([FromRoute] ObjectId id, [FromBody] ClientPutDisabledModel model, CancellationToken cancellationToken)
     {
-      await fMediator.Send(new PatchDisabledRequest(id, model), cancellationToken);
+      await fMediator.Send(new PutDisabledRequest(id, model), cancellationToken);
       return NoContent();
     }
   }

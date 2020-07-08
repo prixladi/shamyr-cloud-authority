@@ -21,7 +21,7 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.CurrentUser
     {
       var identity = fIdentityService.Current;
 
-      return Task.FromResult(identity.ToModel());
+      return Task.FromResult(identity.ToDetail());
     }
   }
 }

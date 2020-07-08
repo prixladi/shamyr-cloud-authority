@@ -1,6 +1,6 @@
 ﻿using Shamyr.Cloud.Gateway.Service.SignalR;
 
-namespace Shamyr.Cloud.Gateway.Service.Repositories.Clients
+namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
   public interface IClientConnectionRepository
   {

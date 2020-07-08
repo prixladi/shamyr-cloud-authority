@@ -7,7 +7,7 @@ using Shamyr.Cloud.Database.Documents;
 using Shamyr.MongoDB;
 using Shamyr.MongoDB.Repositories;
 
-namespace Shamyr.Cloud.Gateway.Service.Repositories.Users
+namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
   public class UserTokenRepository: NestedRepositoryBase<UserDoc, TokenDoc>, IUserTokenRepository
   {

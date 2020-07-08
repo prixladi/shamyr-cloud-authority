@@ -4,12 +4,12 @@ using Shamyr.Cloud.Gateway.Service.Models.Clients;
 
 namespace Shamyr.Cloud.Gateway.Service.Requests.Clients
 {
-  public class PatchDisabledRequest: IRequest
+  public class PutDisabledRequest: IRequest
   {
     public ObjectId ClientId { get; }
-    public ClientPatchDisabledModel Model { get; }
+    public ClientPutDisabledModel Model { get; }
 
-    public PatchDisabledRequest(ObjectId clientId, ClientPatchDisabledModel model)
+    public PutDisabledRequest(ObjectId clientId, ClientPutDisabledModel model)
     {
       ClientId = clientId;
       Model = model ?? throw new System.ArgumentNullException(nameof(model));

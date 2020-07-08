@@ -6,7 +6,7 @@ using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Dtos.Clients;
 using Shamyr.MongoDB.Repositories;
 
-namespace Shamyr.Cloud.Gateway.Service.Repositories.Clients
+namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
   public interface IClientRepository: IRepositoryBase<ClientDoc>
   {

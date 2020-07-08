@@ -4,6 +4,6 @@
   {
     Users,
     Clients,
-    DiscordAccountLinkRequests
+    EmailTemplates
   }
 }

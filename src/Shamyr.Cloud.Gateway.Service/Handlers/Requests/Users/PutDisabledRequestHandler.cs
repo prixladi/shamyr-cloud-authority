@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Shamyr.Cloud.Gateway.Service.Repositories.Users;
 using Shamyr.Cloud.Gateway.Service.Requests.Users;
-using Shamyr.Cloud.Gateway.Service.Services.Identity;
 
 namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
 {
