@@ -4,7 +4,7 @@ using Shamyr.Cloud.Gateway.Service.Models;
 
 namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
-  public static class MongoQueryableExtensions
+  public static partial class MongoQueryableExtensions
   {
     public static IMongoQueryable<TDocument> Pagination<TDocument>(this IMongoQueryable<TDocument> query, PaginationModel pagination)
     {

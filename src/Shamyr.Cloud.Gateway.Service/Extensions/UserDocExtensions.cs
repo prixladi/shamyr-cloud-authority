@@ -9,7 +9,7 @@ namespace Shamyr.Cloud.Gateway.Service.Extensions
 {
   public static class UserDocExtensions
   {
-    public static UserPreviewModel ToModel(this UserDoc user)
+    public static UserPreviewModel ToPreview(this UserDoc user)
     {
       if (user is null)
         throw new ArgumentNullException(nameof(user));
@@ -39,15 +39,15 @@ namespace Shamyr.Cloud.Gateway.Service.Extensions
       };
     }
 
-    public static ICollection<UserPreviewModel> ToModel(this List<UserDoc> users)
+    public static ICollection<UserPreviewModel> ToPreview(this IEnumerable<UserDoc> users)
     {
       if (users is null)
         throw new ArgumentNullException(nameof(users));
 
-      return users.Select(ToModel).ToList();
+      return users.Select(ToPreview).ToList();
     }
 
-    public static UserDetailModel ToDetailModel(this UserDoc user)
+    public static UserDetailModel ToDetail(this UserDoc user)
     {
       if (user is null)
         throw new ArgumentNullException(nameof(user));

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Shamyr.Cloud.Gateway.Service.Dtos.Clients;
 using Shamyr.Cloud.Gateway.Service.Extensions;
-using Shamyr.Cloud.Gateway.Service.Repositories.Clients;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Requests.Clients;
 using Shamyr.Cloud.Services;
 

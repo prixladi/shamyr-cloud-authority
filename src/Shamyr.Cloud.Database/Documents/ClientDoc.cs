@@ -11,7 +11,6 @@ namespace Shamyr.Cloud.Database.Documents
     public string ClientName { get; set; } = default!;
 
     public SecretDoc Secret { get; set; } = default!;
-
     public bool Disabled { get; set; } = default!;
   }
 }

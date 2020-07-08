@@ -93,8 +93,8 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     /// <param name="model"></param>
     /// <param name="cancellationToken"></param>
     /// <response code="204">New password has been set and user has been logged out</response>
-    /// <response code="400">invalid model or token</response>
-    /// <response code="404">UserDoc not found</response>
+    /// <response code="400">Invalid model or token</response>
+    /// <response code="404">User not found</response>
     /// <response code="409">No password reset requested</response>
     [HttpPatch("{id}/passwordReset")]
     [AllowAnonymous]
@@ -117,21 +117,43 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     /// <param name="id"></param>
     /// <param name="model"></param>
     /// <param name="cancellationToken"></param>
-    /// <response code="204">UserDoc vas disabled</response>
+    /// <response code="204">User disabled</response>
     /// <response code="400">Request not valid</response>
     /// <response code="403">Insufficient permission.</response>
-    /// <response code="404">UserDoc not found</response>
+    /// <response code="404">User not found</response>
     [HttpPut("{id}/disabled")]
     [Authorize(UserPolicy._Admin)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PutDisabledAsync(ObjectId id, [FromBody] UserPatchDisabledModel model, CancellationToken cancellationToken)
+    public async Task<IActionResult> PutDisabledAsync(ObjectId id, [FromBody] UserPutDisabledModel model, CancellationToken cancellationToken)
     {
       await fMediator.Send(new PutDisabledRequest(id, model), cancellationToken);
       await fMediator.Publish(new UserDisabledStatusChangedNotification(id, model.Disabled), cancellationToken);
 
+      return NoContent();
+    }
+
+    /// <summary>
+    /// Changes user admin status.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="model"></param>
+    /// <param name="cancellationToken"></param>
+    /// <response code="204">User admin status changed</response>
+    /// <response code="400">Request not valid</response>
+    /// <response code="403">Insufficient permission.</response>
+    /// <response code="404">User not found</response>
+    [HttpPut("{id}/admin")]
+    [Authorize(UserPolicy._Admin)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> PutAdminAsync(ObjectId id, [FromBody] UserPutAdminModel model, CancellationToken cancellationToken)
+    {
+      await fMediator.Send(new PutAdminRequest(id, model), cancellationToken);
       return NoContent();
     }
   }

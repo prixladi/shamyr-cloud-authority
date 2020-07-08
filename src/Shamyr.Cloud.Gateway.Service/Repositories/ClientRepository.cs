@@ -9,7 +9,7 @@ using Shamyr.Cloud.Gateway.Service.Dtos.Clients;
 using Shamyr.MongoDB;
 using Shamyr.MongoDB.Repositories;
 
-namespace Shamyr.Cloud.Gateway.Service.Repositories.Clients
+namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
   public class ClientRepository: RepositoryBase<ClientDoc>, IClientRepository
   {

@@ -11,7 +11,7 @@ using Shamyr.MongoDB;
 using Shamyr.MongoDB.Repositories;
 using Shamyr.MongoDB.Sorting;
 
-namespace Shamyr.Cloud.Gateway.Service.Repositories.Users
+namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
   public class UserRepository: RepositoryBase<UserDoc>, IUserRepository
   {

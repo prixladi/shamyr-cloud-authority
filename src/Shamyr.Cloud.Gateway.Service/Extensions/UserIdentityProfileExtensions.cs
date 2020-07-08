@@ -5,7 +5,7 @@ namespace Shamyr.Cloud.Gateway.Service.Extensions
 {
   public static class UserIdentityProfileExtensions
   {
-    public static UserDetailModel ToModel(this UserIdentityProfile identity)
+    public static UserDetailModel ToDetail(this UserIdentityProfile identity)
     {
       if (identity is null)
         throw new ArgumentNullException(nameof(identity));
