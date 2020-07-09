@@ -12,7 +12,7 @@ namespace Shamyr.Cloud.Gateway.Service.Repositories
 {
   public interface IEmailTemplateRepository: IRepositoryBase<EmailTemplateDoc>
   {
-    Task<EmailTemplateDoc> GetByTypeAsync(EmailTemplateType type, CancellationToken cancellationToken);
+    Task<EmailTemplateDoc?> GetByTypeAsync(EmailTemplateType type, CancellationToken cancellationToken);
     Task<bool> ExistsByTypeAsync(EmailTemplateType type, CancellationToken cancellationToken);
     Task<List<EmailTemplatePreviewDto>> GetAsync(CancellationToken cancellationToken);
     Task<bool> DeleteAsync(ObjectId id, CancellationToken cancellationToken);

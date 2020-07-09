@@ -2,7 +2,7 @@
 {
   public enum EmailTemplateType
   {
-    Verification,
+    VerifyAccount,
     PasswordReset
   }
 }

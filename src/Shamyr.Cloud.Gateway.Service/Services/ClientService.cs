@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using MongoDB.Bson;
 using Shamyr.Cloud.Gateway.Service.Extensions;
-using Shamyr.Cloud.Gateway.Service.Repositories.Clients;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.SignalR.Hubs;
 using Shamyr.Cloud.Gateway.Signal.Messages.Identity;
 using Shamyr.Cloud.Services;
