@@ -32,7 +32,7 @@ namespace Shamyr.Cloud.Gateway.Service.Repositories
         .ToListAsync(cancellationToken);
     }
 
-    public async Task<EmailTemplateDoc> GetByTypeAsync(EmailTemplateType type, CancellationToken cancellationToken)
+    public async Task<EmailTemplateDoc?> GetByTypeAsync(EmailTemplateType type, CancellationToken cancellationToken)
     {
       return await Query.SingleOrDefaultAsync(doc => doc.Type == type, cancellationToken);
     }

@@ -2,13 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Shamyr.Cloud.Database;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Emails;
 using Shamyr.Cloud.Gateway.Service.Extensions;
 using Shamyr.Cloud.Gateway.Service.Models;
 using Shamyr.Cloud.Gateway.Service.Models.Users;
-using Shamyr.Cloud.Gateway.Service.Repositories.Users;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Requests.Users;
 using Shamyr.Cloud.Gateway.Service.Services;
 using Shamyr.Cloud.Services;
@@ -63,7 +62,6 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
       };
 
       await fUserRepository.InsertAsync(user, cancellationToken);
-
       return user;
     }
 

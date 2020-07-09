@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using Shamyr.Cloud.Gateway.Service.Emails;
-using Shamyr.Cloud.Gateway.Service.Repositories.Users;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Requests.Emails;
 using Shamyr.Cloud.Gateway.Service.Services;
 using Shamyr.Security;
@@ -14,7 +14,10 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Emails
     private readonly IUserRepository fUserRepository;
     private readonly IEmailService fEmailService;
 
-    public PatchPasswordRequestHandler(IUserRepository userRepository, IEmailService emailService)
+    public PatchPasswordRequestHandler(
+      IUserRepository userRepository, 
+      IEmailService emailService,
+      ITele)
     {
       fUserRepository = userRepository;
       fEmailService = emailService;

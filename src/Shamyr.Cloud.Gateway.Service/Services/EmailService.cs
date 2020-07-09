@@ -1,28 +1,44 @@
-﻿using System;
-using Shamyr.AspNetCore.Services;
-using Shamyr.Cloud.Emails;
+﻿using System.Threading;
+using Shamyr.Cloud.Gateway.Service.Emails;
+using Shamyr.Cloud.Gateway.Service.Factories;
 using Shamyr.Emails;
+using Shamyr.Tracking;
 
 namespace Shamyr.Cloud.Gateway.Service.Services
 {
   public class EmailService: IEmailService
   {
+    private readonly ITracker fTracker;
     private readonly IEmailClient fEmailClient;
-    private readonly ITelemetryService fTelemetryService;
+    private readonly IEmailBuilderFactory fEmailBuilderFactory;
 
-    public EmailService(IEmailClient emailClient, ITelemetryService telemetryService)
+    public EmailService(
+      ITracker tracker,
+      IEmailClient emailClient,
+      IEmailBuilderFactory emailBuilderFactory)
     {
+      fTracker = tracker;
       fEmailClient = emailClient;
-      fTelemetryService = telemetryService;
+      fEmailBuilderFactory = emailBuilderFactory;
     }
 
-    public async void SendEmailAsync(EmailBase email)
+    public async void SendEmailAsync(IEmailBuildContext context, CancellationToken cancellationToken)
     {
-      if (email is null)
-        throw new ArgumentNullException(nameof(email));
+      var builder = fEmailBuilderFactory.TryCreate(context);
+      if (builder == null)
+      {
+        fTracker.TrackError(context, $"For email build context of type '{context.GetType()}' does not exist builder.");
+        return;
+      }
 
-      var context = fTelemetryService.GetRequestContext();
-      await fEmailClient.SendEmailAsync(context, email.RecipientAddress, email.Subject, new EmailBody(email.Body, true));
+      var dto = await builder.TryBuildAsync(context, cancellationToken);
+      if (dto == null)
+      {
+        fTracker.TrackError(context, $"For email '{context.EmailType}' does not exist template in DB.");
+        return;
+      }
+
+      await fEmailClient.SendEmailAsync(context, dto.RecipientAddress, dto.Subject, new EmailBody(dto.Body, true));
     }
   }
 }
