@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Repositories;
 
 namespace Shamyr.Cloud.Gateway.Service.Emails
@@ -12,8 +12,8 @@ namespace Shamyr.Cloud.Gateway.Service.Emails
   {
     private readonly IEmailTemplateRepository fTemplateRepository;
 
-    protected abstract (string, Func<TContext, string>)[] BodyReplaceRules { get; }
-    protected abstract (string, Func<TContext, string>)[] SubjectReplaceRules { get; }
+    protected abstract IEnumerable<(string, Func<TContext, string>)> BodyReplaceRules { get; }
+    protected abstract IEnumerable<(string, Func<TContext, string>)> SubjectReplaceRules { get; }
 
     protected EmailBuilderBase(IEmailTemplateRepository templateRepository)
     {
@@ -34,13 +34,13 @@ namespace Shamyr.Cloud.Gateway.Service.Emails
       return new EmailDto
       {
         RecipientAddress = GetMailAddress((TContext)context),
-        Body = BuildBody((TContext)context, template.Body, cancellationToken),
-        Subject = BuildSubject((TContext)context, template.Subject, cancellationToken),
+        Body = BuildBody((TContext)context, template.Body),
+        Subject = BuildSubject((TContext)context, template.Subject),
         IsBodyHtml = template.IsHtml
       };
     }
 
-    private string BuildBody(TContext context, string body, CancellationToken cancellationToken)
+    private string BuildBody(TContext context, string body)
     {
       var content = body;
       foreach (var (mark, selector) in BodyReplaceRules)
@@ -49,7 +49,7 @@ namespace Shamyr.Cloud.Gateway.Service.Emails
       return content;
     }
 
-    private string BuildSubject(TContext context, string subject, CancellationToken cancellationToken)
+    private string BuildSubject(TContext context, string subject)
     {
       var content = subject;
       foreach (var (mark, selector) in SubjectReplaceRules)

@@ -4,7 +4,7 @@ using MediatR;
 using Shamyr.Cloud.Gateway.Service.Extensions;
 using Shamyr.Cloud.Gateway.Service.Models.Users;
 using Shamyr.Cloud.Gateway.Service.OrderDefinitions;
-using Shamyr.Cloud.Gateway.Service.Repositories.Users;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Requests.Users;
 
 namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
@@ -26,7 +26,7 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
 
       return new UserPreviewsModel
       {
-        UserPreviews = users.ToModel(),
+        UserPreviews = users.ToPreview(),
         UserCount = await fUserRepository.GetUserCountAsync(request.Filter, cancellationToken)
       };
     }

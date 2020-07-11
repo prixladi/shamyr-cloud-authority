@@ -38,7 +38,7 @@ namespace Shamyr.Cloud.Gateway.Service.Services
         return;
       }
 
-      await fEmailClient.SendEmailAsync(context, dto.RecipientAddress, dto.Subject, new EmailBody(dto.Body, true));
+      await fEmailClient.SendEmailAsync(context, dto.RecipientAddress, dto.Subject, new EmailBody(dto.Body, dto.IsBodyHtml));
     }
   }
 }

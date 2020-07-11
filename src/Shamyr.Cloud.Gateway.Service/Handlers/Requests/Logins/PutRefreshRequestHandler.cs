@@ -5,7 +5,7 @@ using MediatR;
 using MongoDB.Bson;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Models.Logins;
-using Shamyr.Cloud.Gateway.Service.Repositories.Users;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Requests.Logins;
 using Shamyr.Cloud.Gateway.Service.Services.Identity;
 

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using MongoDB.Bson;
-using Shamyr.Cloud.Gateway.Service.Repositories.Clients;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Services;
 using Shamyr.Cloud.Gateway.Signal.Messages;
 using Shamyr.Tracking;

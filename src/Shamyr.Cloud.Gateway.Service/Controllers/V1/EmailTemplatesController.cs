@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using MongoDB.Bson;
+using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Authorization;
 using Shamyr.Cloud.Gateway.Service.Models.EmailTemplates;
 using Shamyr.Cloud.Gateway.Service.Requests.EmailTemplates;
@@ -118,12 +121,44 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PutNameAsync([FromRoute] ObjectId id, [FromBody] EmailTemplatePutNameModel model, CancellationToken cancellationToken)
+    public async Task<IActionResult> PutNameAsync([FromRoute] ObjectId id, [FromBody] EmailTemplatePatchModel model, CancellationToken cancellationToken)
     {
-      await fMediator.Send(new PatchNameRequest(id, model), cancellationToken);
+      await fMediator.Send(ResolvePatch(id, model), cancellationToken);
       return NoContent();
     }
 
-    private static IRequest ResolvePatch
+    private static IRequest ResolvePatch(ObjectId templateId, EmailTemplatePatchModel model)
+    {
+      if (model is null)
+        throw new ArgumentNullException(nameof(model));
+
+      if (model.Operation != "change")
+        throw new BadRequestException($"Operation '{model.Operation}' is not supported.");
+
+      return model.Property switch
+      {
+        nameof(EmailTemplateDoc.Name) => new PatchNameRequest(templateId, model.Value),
+        nameof(EmailTemplateDoc.Type) => new PatchTypeRequest(templateId, ValidateEnum(model.Value)),
+        nameof(EmailTemplateDoc.Subject) => new PatchSubjectRequest(templateId, model.Value),
+        nameof(EmailTemplateDoc.IsHtml) => new PatchIsHtmlRequest(templateId, ValidateBool(model.Value)),
+        _ => throw new NotSupportedException($"Patch for propery '{model.Property}' is not defined."),
+      };
+    }
+
+    private static bool ValidateBool(string value)
+    {
+      if (value == null || !bool.TryParse(value, out var result))
+        throw new BadRequestException($"Value for '{nameof(EmailTemplatePatchModel.Property)}' has invalid type.");
+
+      return result;
+    }
+
+    private static EmailTemplateType ValidateEnum(string value)
+    {
+      if (value == null || Enum.TryParse(typeof(EmailTemplateType), value, out var result))
+        throw new BadRequestException($"Value for '{nameof(EmailTemplatePatchModel.Property)}' has invalid type.");
+
+      return (EmailTemplateType)result!;
+    }
   }
 }

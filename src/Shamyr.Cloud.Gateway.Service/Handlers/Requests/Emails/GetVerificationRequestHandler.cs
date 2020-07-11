@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Models;
-using Shamyr.Cloud.Gateway.Service.Repositories.Users;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Requests.Emails;
 
 namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Emails

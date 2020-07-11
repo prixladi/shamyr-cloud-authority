@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Shamyr.AspNetCore.Services;
 using Shamyr.Cloud.Gateway.Service.Notifications.Users;
-using Shamyr.Cloud.Gateway.Service.Repositories.Users;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Services;
 using Shamyr.Cloud.Gateway.Signal.Messages;
 using Shamyr.Cloud.Gateway.Signal.Messages.Identity;

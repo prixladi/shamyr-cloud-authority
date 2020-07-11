@@ -1,9 +1,10 @@
 ﻿using System;
+using MediatR;
 using MongoDB.Bson;
 
 namespace Shamyr.Cloud.Gateway.Service.Requests.EmailTemplates
 {
-  public class PatchIsHtmlRequest
+  public class PatchIsHtmlRequest: IRequest
   {
     public ObjectId TemplateId { get; }
     public bool IsHtml { get; }

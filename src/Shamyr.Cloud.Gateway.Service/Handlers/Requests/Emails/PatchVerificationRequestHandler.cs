@@ -1,9 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Shamyr.AspNetCore.Services;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Emails;
-using Shamyr.Cloud.Gateway.Service.Repositories.Users;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Requests.Emails;
 using Shamyr.Cloud.Gateway.Service.Services;
 
@@ -13,11 +14,16 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Emails
   {
     private readonly IUserRepository fUserRepository;
     private readonly IEmailService fEmailService;
+    private readonly ITelemetryService fTelemetryService;
 
-    public PatchVerificationRequestHandler(IUserRepository userRepository, IEmailService emailService)
+    public PatchVerificationRequestHandler(
+      IUserRepository userRepository,
+      IEmailService emailService,
+      ITelemetryService telemetryService)
     {
       fUserRepository = userRepository;
       fEmailService = emailService;
+      fTelemetryService = telemetryService;
     }
 
     public async Task<Unit> Handle(PatchVerificationRequest request, CancellationToken cancellationToken)
@@ -27,7 +33,8 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Emails
       if (user.EmailToken is null)
         throw new ConflictException($"Account with email '{request.Email}' is already verified.");
 
-      fEmailService.SendEmailAsync(VerifyAccountEmail.New(user));
+      var context = fTelemetryService.GetRequestContext();
+      fEmailService.SendEmailAsync(VerifyAccountEmailContext.New(context, user), cancellationToken);
 
       return Unit.Value;
     }
