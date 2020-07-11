@@ -33,20 +33,5 @@
     <ProjectReference Include="..\Shamyr.Cloud.Gateway.Signal.Messages\Shamyr.Cloud.Gateway.Signal.Messages.csproj" />
     <ProjectReference Include="..\Shamyr.Cloud.Swashbuckle.Bson\Shamyr.Cloud.Swashbuckle.Bson.csproj" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Compile Update="Emails\EmailTemplates.Designer.cs">
-      <DependentUpon>EmailTemplates.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <EmbeddedResource Update="Emails\EmailTemplates.resx">
-      <LastGenOutput>EmailTemplates.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGeneratorEx</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
 
 </Project>

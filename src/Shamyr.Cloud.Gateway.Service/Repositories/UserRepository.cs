@@ -112,5 +112,14 @@ namespace Shamyr.Cloud.Gateway.Service.Repositories
       var result = await UpdateAsync(id, update, cancellationToken);
       return result.MatchedCount == 1;
     }
+
+    public async Task<bool> TrySetAdminAsync(ObjectId id, bool admin, CancellationToken cancellationToken)
+    {
+      var update = Builders<UserDoc>.Update
+        .Set(doc => doc.Admin, admin);
+
+      var result = await UpdateAsync(id, update, cancellationToken);
+      return result.MatchedCount == 1;
+    }
   }
 }

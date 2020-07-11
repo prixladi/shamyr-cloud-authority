@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using MongoDB.Bson;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Tracking;
 
@@ -8,16 +9,23 @@ namespace Shamyr.Cloud.Gateway.Service.Emails
   {
     public EmailTemplateType EmailType => EmailTemplateType.PasswordReset;
 
-    public ObjectId UserId { get; }
     public string PasswordToken { get; }
+    public ObjectId UserId { get; }
     public string Username { get; }
+    public string Email { get; }
 
-    public PasswordResetEmailContext(IOperationContext context, ObjectId userId, string passwordToken, string username)
+    public static PasswordResetEmailContext New(IOperationContext context, UserDoc user)
+    {
+      return new PasswordResetEmailContext(context, user.PasswordToken!, user.Id, user.Username, user.Email);
+    }
+
+    public PasswordResetEmailContext(IOperationContext context, string passwordToken, ObjectId userId, string username, string email)
       : base(context)
     {
+      PasswordToken = passwordToken ?? throw new ArgumentNullException(nameof(passwordToken));
       UserId = userId;
-      PasswordToken = passwordToken;
-      Username = username;
+      Username = username ?? throw new ArgumentNullException(nameof(username));
+      Email = email ?? throw new ArgumentNullException(nameof(email));
     }
   }
 }

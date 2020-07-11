@@ -1,4 +1,5 @@
-﻿using Shamyr.Cloud.Database.Documents;
+﻿using System;
+using Shamyr.Cloud.Database.Documents;
 using Shamyr.Tracking;
 
 namespace Shamyr.Cloud.Gateway.Service.Emails
@@ -7,14 +8,22 @@ namespace Shamyr.Cloud.Gateway.Service.Emails
   {
     public EmailTemplateType EmailType => EmailTemplateType.VerifyAccount;
 
+    public string EmailToken { get; }
     public string Email { get; }
-    public string VerfifyToken { get; }
 
-    public VerifyAccountEmailContext(IOperationContext context, string email, string verfifyToken)
-      :base(context)
+    public static VerifyAccountEmailContext New(IOperationContext context, UserDoc user)
     {
-      Email = email ?? throw new System.ArgumentNullException(nameof(email));
-      VerfifyToken = verfifyToken ?? throw new System.ArgumentNullException(nameof(verfifyToken));
+      if (user is null)
+        throw new ArgumentNullException(nameof(user));
+
+      return new VerifyAccountEmailContext(context, user.EmailToken!, user.Email);
+    }
+
+    public VerifyAccountEmailContext(IOperationContext context, string emailToken, string email)
+      : base(context)
+    {
+      EmailToken = emailToken ?? throw new ArgumentNullException(nameof(emailToken));
+      Email = email ?? throw new ArgumentNullException(nameof(email));
     }
   }
 }

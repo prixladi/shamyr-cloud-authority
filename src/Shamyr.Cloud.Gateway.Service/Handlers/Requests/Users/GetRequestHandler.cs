@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Shamyr.Cloud.Gateway.Service.Extensions;
 using Shamyr.Cloud.Gateway.Service.Models.Users;
-using Shamyr.Cloud.Gateway.Service.Repositories.Users;
+using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Requests.Users;
 
 namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
@@ -23,7 +23,7 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
       if (user is null)
         throw new NotFoundException($"User with ID '{request.Id}' does not exist.");
 
-      return user.ToDetailModel();
+      return user.ToDetail();
     }
   }
 }

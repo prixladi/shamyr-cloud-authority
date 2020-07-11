@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Shamyr.AspNetCore.Services;
 using Shamyr.Cloud.Gateway.Service.Emails;
 using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Requests.Emails;
@@ -13,14 +15,16 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Emails
   {
     private readonly IUserRepository fUserRepository;
     private readonly IEmailService fEmailService;
+    private readonly ITelemetryService fTelemetryService;
 
     public PatchPasswordRequestHandler(
-      IUserRepository userRepository, 
+      IUserRepository userRepository,
       IEmailService emailService,
-      ITele)
+      ITelemetryService telemetryService)
     {
       fUserRepository = userRepository;
       fEmailService = emailService;
+      fTelemetryService = telemetryService;
     }
 
     public async Task<Unit> Handle(PatchPasswordResetRequest request, CancellationToken cancellationToken)
@@ -32,8 +36,11 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Emails
       if (user.PasswordToken is null)
         user = await fUserRepository.SetPasswordTokenAsync(request.Email, SecurityUtils.GetUrlToken(), cancellationToken);
 
+      Debug.Assert(user != null);
+
+      var context = fTelemetryService.GetRequestContext();
       // TODO: Solve "too many password reset requests"
-      fEmailService.SendEmailAsync(PasswordResetEmail.New(user!));
+      fEmailService.SendEmailAsync(PasswordResetEmailContext.New(context, user), cancellationToken);
       return Unit.Value;
     }
   }
