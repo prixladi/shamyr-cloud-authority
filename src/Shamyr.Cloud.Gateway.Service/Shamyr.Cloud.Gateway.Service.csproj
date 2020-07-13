@@ -20,7 +20,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Shamyr.AspNetCore.Authentication" Version="1.0.17" />
     <PackageReference Include="Shamyr.Emails" Version="1.0.17" />
-    <PackageReference Include="Shamyr.Extensions.Emails.Smtp" Version="1.0.17" />
     <PackageReference Include="Shamyr.Extensions.MongoDB" Version="1.0.17" />
     <PackageReference Include="Shamyr.Security" Version="1.0.17" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />

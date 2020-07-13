@@ -30,7 +30,7 @@ namespace Shamyr.Cloud.Gateway.Service
 
       services.AddDatabaseContext<DatabaseConfig>(DatabaseConfig.Setup);
 
-      services.AddSmtpEmailClient<EmailsConfig>();
+      services.AddEmails();
 
       services.AddApplicationInsights(AppInsightsConfig.Setup);
 

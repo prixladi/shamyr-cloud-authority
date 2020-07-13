@@ -11,7 +11,7 @@ namespace Shamyr.Cloud.Gateway.Service.Emails
     public string EmailToken { get; }
     public string Email { get; }
 
-    public static VerifyAccountEmailContext New(IOperationContext context, UserDoc user)
+    public static VerifyAccountEmailContext New(UserDoc user, IOperationContext context)
     {
       if (user is null)
         throw new ArgumentNullException(nameof(user));

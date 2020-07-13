@@ -16,12 +16,7 @@
     public const string _BearerTokenDuration = "BEARER_TOKEN_DURATION";
     public const string _BearerTokenSymetricKeey = "BEARER_TOKEN_SYMETRIC_KEY";
 
-    public const string _EmailHost = "EMAIL_HOST";
-    public const string _EmailPort = "EMAIL_PORT";
-    public const string _EmailUseSsl = "EMAIL_USE_SSL";
-    public const string _EmailSubjectSuffix = "EMAIL_SUBJECT_SUFFIX";
-    public const string _EmailSenderAlias = "EMAIL_SENDER_ALIAS";
+    public const string _EmailServerUrl = "EMAIL_SERVER_URL";
     public const string _EmailSenderAddress = "EMAIL_SENDER_ADDRESS";
-    public const string _EmailSenderAddressPassword = "EMAIL_SENDER_ADDRESS_PASSWORD";
   }
 }
