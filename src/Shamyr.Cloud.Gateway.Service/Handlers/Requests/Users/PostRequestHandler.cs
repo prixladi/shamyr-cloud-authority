@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Shamyr.AspNetCore.Services;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Emails;
 using Shamyr.Cloud.Gateway.Service.Extensions;
@@ -20,15 +21,18 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
     private readonly IUserRepository fUserRepository;
     private readonly ISecretService fSecretService;
     private readonly IEmailService fEmailService;
+    private readonly ITelemetryService fTelemetryService;
 
     public PostRequestHandler(
       IUserRepository userRepository,
       ISecretService secretService,
-      IEmailService emailService)
+      IEmailService emailService,
+      ITelemetryService telemetryService)
     {
       fUserRepository = userRepository;
       fSecretService = secretService;
       fEmailService = emailService;
+      fTelemetryService = telemetryService;
     }
 
     public async Task<IdModel> Handle(PostRequest request, CancellationToken cancellationToken)
@@ -39,7 +43,10 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Users
         throw new ConflictException($"User with email '{request.Model.Email}' already exists.");
 
       var user = await RegisterAsync(request.Model, cancellationToken);
-      fEmailService.SendEmailAsync(VerifyAccountEmail.New(user));
+
+      var context = fTelemetryService.GetRequestContext();
+
+      await fEmailService.SendEmailAsync(VerifyAccountEmailContext.New(user, context), cancellationToken);
 
       return new IdModel(user.Id);
     }

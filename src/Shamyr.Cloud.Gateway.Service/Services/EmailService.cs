@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 using Shamyr.Cloud.Gateway.Service.Emails;
 using Shamyr.Cloud.Gateway.Service.Factories;
 using Shamyr.Emails;
@@ -22,7 +23,7 @@ namespace Shamyr.Cloud.Gateway.Service.Services
       fEmailBuilderFactory = emailBuilderFactory;
     }
 
-    public async void SendEmailAsync(IEmailBuildContext context, CancellationToken cancellationToken)
+    public async Task SendEmailAsync(IEmailBuildContext context, CancellationToken cancellationToken)
     {
       var builder = fEmailBuilderFactory.TryCreate(context);
       if (builder == null)

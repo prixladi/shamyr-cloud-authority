@@ -34,7 +34,7 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Emails
         throw new ConflictException($"Account with email '{request.Email}' is already verified.");
 
       var context = fTelemetryService.GetRequestContext();
-      fEmailService.SendEmailAsync(VerifyAccountEmailContext.New(context, user), cancellationToken);
+      await fEmailService.SendEmailAsync(VerifyAccountEmailContext.New(user, context), cancellationToken);
 
       return Unit.Value;
     }

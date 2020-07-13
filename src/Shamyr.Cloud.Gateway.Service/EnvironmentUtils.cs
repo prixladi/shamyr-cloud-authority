@@ -16,12 +16,7 @@ namespace Shamyr.Cloud.Gateway.Service
     public static int BearerTokenDuration { get; } = int.Parse(EnvVariable.Get(EnvVariables._BearerTokenDuration));
     public static string BearerTokenSymetricKeey { get; } = EnvVariable.Get(EnvVariables._BearerTokenSymetricKeey);
 
-    public static string EmailHost { get; } = EnvVariable.Get(EnvVariables._EmailHost);
-    public static int EmailPort { get; } = int.Parse(EnvVariable.Get(EnvVariables._EmailPort));
-    public static bool EmailUseSsl { get; } = bool.Parse(EnvVariable.Get(EnvVariables._EmailUseSsl));
-    public static string EmailSubjectSuffix { get; } = EnvVariable.Get(EnvVariables._EmailSubjectSuffix);
-    public static string EmailSenderAlias { get; } = EnvVariable.Get(EnvVariables._EmailSenderAlias);
+    public static Uri EmailServerUrl { get; } = new Uri(EnvVariable.Get(EnvVariables._EmailServerUrl));
     public static string EmailSenderAddress { get; } = EnvVariable.Get(EnvVariables._EmailSenderAddress);
-    public static string EmailSenderAddressPassword { get; } = EnvVariable.Get(EnvVariables._EmailSenderAddressPassword);
   }
 }

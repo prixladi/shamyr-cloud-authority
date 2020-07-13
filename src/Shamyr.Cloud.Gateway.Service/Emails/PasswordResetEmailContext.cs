@@ -14,7 +14,7 @@ namespace Shamyr.Cloud.Gateway.Service.Emails
     public string Username { get; }
     public string Email { get; }
 
-    public static PasswordResetEmailContext New(IOperationContext context, UserDoc user)
+    public static PasswordResetEmailContext New(UserDoc user, IOperationContext context)
     {
       return new PasswordResetEmailContext(context, user.PasswordToken!, user.Id, user.Username, user.Email);
     }

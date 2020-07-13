@@ -40,7 +40,7 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Emails
 
       var context = fTelemetryService.GetRequestContext();
       // TODO: Solve "too many password reset requests"
-      fEmailService.SendEmailAsync(PasswordResetEmailContext.New(context, user), cancellationToken);
+      await fEmailService.SendEmailAsync(PasswordResetEmailContext.New(user, context), cancellationToken);
       return Unit.Value;
     }
   }
