@@ -155,7 +155,7 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
 
     private static EmailTemplateType ValidateEnum(string value)
     {
-      if (value == null || Enum.TryParse(typeof(EmailTemplateType), value, out var result))
+      if (value == null || !Enum.TryParse(typeof(EmailTemplateType), value, out var result))
         throw new BadRequestException($"Value for '{nameof(EmailTemplatePatchModel.Property)}' has invalid type.");
 
       return (EmailTemplateType)result!;

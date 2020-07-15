@@ -14,7 +14,7 @@ namespace Shamyr.Cloud.Gateway.Service.Extensions
       return new EmailTemplateUpdateDto
       {
         Name = model.Name,
-        Subject = model.SubjectId,
+        Subject = model.Subject,
         Body = model.Body,
         IsHtml = model.IsHtml,
         Type = model.Type

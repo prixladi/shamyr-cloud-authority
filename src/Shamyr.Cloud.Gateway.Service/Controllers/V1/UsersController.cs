@@ -9,7 +9,6 @@ using Shamyr.Cloud.Gateway.Service.Authorization;
 using Shamyr.Cloud.Gateway.Service.Models.Users;
 using Shamyr.Cloud.Gateway.Service.Notifications.Users;
 using Shamyr.Cloud.Gateway.Service.Requests.Users;
-using Shamyr.Cloud.Gateway.Signal.Messages;
 
 namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
 {
