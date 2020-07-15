@@ -35,18 +35,18 @@ services:
       context: .
       dockerfile: ./src/Shamyr.Cloud.Identity.Service/Dockerfile
 
-  test:
-    image: shamyr/cloud/identity/client/test
-    ports:
-      - 8082:80
-    environment:
-      IDENTITY_URL: 'http://identity:80/'
-      GATEWAY_URL: 'http://gateway:80/'
-      CLIENT_ID: '5f02d27b472aa34818a8bea8'
-      CLIENT_SECRET: 'string'
-    build:
-      context: .
-      dockerfile: ./src/Shamyr.Cloud.Identity.Client.Test/Dockerfile
+#  test:
+#    image: shamyr/cloud/identity/client/test
+#    ports:
+#      - 8082:80
+#    environment:
+#      IDENTITY_URL: 'http://identity:80/'
+#      GATEWAY_URL: 'http://gateway:80/'
+#      CLIENT_ID: '5f02d27b472aa34818a8bea8'
+#      CLIENT_SECRET: 'string'
+#    build:
+#      context: .
+#      dockerfile: ./src/Shamyr.Cloud.Identity.Client.Test/Dockerfile
 
   redis:
     image: redis:latest

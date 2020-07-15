@@ -14,7 +14,7 @@ namespace Shamyr.Cloud.Gateway.Service.Emails
     private readonly IEmailClientConfig fConfig;
     private readonly ITracker fTracker;
 
-    public EmailClient(IEmailClientConfig config,ITracker tracker)
+    public EmailClient(IEmailClientConfig config, ITracker tracker)
     {
       fConfig = config;
       fTracker = tracker;
@@ -46,7 +46,7 @@ namespace Shamyr.Cloud.Gateway.Service.Emails
           requestContext.Success();
           fTracker.TrackInformation(requestContext, $"Email with subject '{subject}' from '{fConfig.SenderAddress}' to '{recipient.Address}' succesfuly sent.");
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
           requestContext.Fail();
           fTracker.TrackException(requestContext, ex, $"Error occured while sending with subject '{subject}' from '{fConfig.SenderAddress}' to '{recipient.Address}'.");

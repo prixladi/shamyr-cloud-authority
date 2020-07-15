@@ -8,7 +8,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Dtos.EmailTemplates;
-using Shamyr.Cloud.Gateway.Service.Extensions;
+using Shamyr.Cloud.Gateway.Service.Expressions;
 using Shamyr.MongoDB;
 using Shamyr.MongoDB.Repositories;
 
@@ -28,7 +28,7 @@ namespace Shamyr.Cloud.Gateway.Service.Repositories
     public async Task<List<EmailTemplatePreviewDto>> GetAsync(CancellationToken cancellationToken)
     {
       return await Query
-        .Select(doc => doc.ToPreviewDto())
+        .Select(EmailTemplateDocExpression.ToPreviewDto)
         .ToListAsync(cancellationToken);
     }
 
@@ -48,7 +48,8 @@ namespace Shamyr.Cloud.Gateway.Service.Repositories
         .Set(x => x.Subject, updateDto.Subject)
         .Set(x => x.Name, updateDto.Name)
         .Set(x => x.Body, updateDto.Body)
-        .Set(x => x.IsHtml, updateDto.IsHtml);
+        .Set(x => x.IsHtml, updateDto.IsHtml)
+        .Set(x => x.Type, updateDto.Type);
 
       var result = await UpdateAsync(id, update, cancellationToken);
       return result.MatchedCount == 1;

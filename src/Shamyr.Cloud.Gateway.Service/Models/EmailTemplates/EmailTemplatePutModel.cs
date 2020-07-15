@@ -12,7 +12,7 @@ namespace Shamyr.Cloud.Gateway.Service.Models.EmailTemplates
 
     [StringLength(50, MinimumLength = 1)]
     [Required]
-    public string SubjectId { get; set; } = default!;
+    public string Subject { get; set; } = default!;
 
     [StringLength(int.MaxValue, MinimumLength = 1)]
     [Required]
