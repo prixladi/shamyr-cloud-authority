@@ -9,19 +9,17 @@
     <NeutralLanguage>en</NeutralLanguage>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0-beta2" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0-preview.6.20312.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0-preview.7.20365.19" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
-    <PackageReference Include="Shamyr.AspNetCore.Authentication" Version="1.0.17" />
-    <PackageReference Include="Shamyr.Emails" Version="1.0.17" />
-    <PackageReference Include="Shamyr.Extensions.MongoDB" Version="1.0.17" />
-    <PackageReference Include="Shamyr.Security" Version="1.0.17" />
+    <PackageReference Include="Shamyr.AspNetCore.Authentication" Version="1.0.21" />
+    <PackageReference Include="Shamyr.Emails" Version="1.0.21" />
+    <PackageReference Include="Shamyr.Extensions.MongoDB" Version="1.0.21" />
+    <PackageReference Include="Shamyr.Security" Version="1.0.21" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.5.1" />
   </ItemGroup>
@@ -30,6 +28,7 @@
     <ProjectReference Include="..\Shamyr.Cloud.Bson\Shamyr.Cloud.Bson.csproj" />
     <ProjectReference Include="..\Shamyr.Cloud.Database\Shamyr.Cloud.Database.csproj" />
     <ProjectReference Include="..\Shamyr.Cloud.Gateway.Signal.Messages\Shamyr.Cloud.Gateway.Signal.Messages.csproj" />
+    <ProjectReference Include="..\Shamyr.Cloud.Gateway.Token.Models\Shamyr.Cloud.Gateway.Token.Models.csproj" />
     <ProjectReference Include="..\Shamyr.Cloud.Swashbuckle.Bson\Shamyr.Cloud.Swashbuckle.Bson.csproj" />
   </ItemGroup>
 

@@ -19,9 +19,9 @@ namespace Shamyr.Cloud.Identity.Client.Test
       services.AddControllers();
 
       services
-        .AddIdentity<IdentityRemoteClientConfig>()
-        .AddCacheService<UserCache>(true)
-        .AddGatewayEventClient<GatewayHubClientConfig>();
+        .AddIdentity<IdentityClientConfig>()
+        .AddUserCacheService<UserCache>(true)
+        .AddGatewayEventClient();
 
       services.AddSwaggerGen(SwaggerConfig.SetupSwaggerGen);
 

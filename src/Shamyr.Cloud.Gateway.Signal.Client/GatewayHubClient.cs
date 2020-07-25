@@ -18,7 +18,7 @@ namespace Shamyr.Cloud.Gateway.Signal.Client
     private readonly HubConnection fHubConnection;
 
     private readonly IOperationContext fHubOperationContext;
-    private readonly string fSignalUrl;
+    private readonly Uri fSignalUrl;
 
     private Task? fAuthroizeTask;
 
@@ -39,7 +39,7 @@ namespace Shamyr.Cloud.Gateway.Signal.Client
       fTracker = tracker;
 
       fHubOperationContext = OperationContext.Origin;
-      fSignalUrl = Path.Combine(hubClientConfig.GatewayUrl, Routes._Client);
+      fSignalUrl = hubClientConfig.GatewayUrl.AppendPath(Routes._Client);
       fDisposeCTS = new CancellationTokenSource();
       fHubConnection = fHubService.CreateConnection(fSignalUrl);
 

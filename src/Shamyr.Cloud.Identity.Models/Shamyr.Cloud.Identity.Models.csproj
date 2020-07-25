@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Version>1.1.2</Version>
+    <Authors>Ladislav Prix</Authors>
+    <Company>Shamyr</Company>
+    <NeutralLanguage>en</NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RootNamespace>Shamyr.Cloud.Identity</RootNamespace>
+  </PropertyGroup>
+
+</Project>

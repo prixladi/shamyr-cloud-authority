@@ -22,8 +22,8 @@ namespace Shamyr.Cloud.Identity.Client.SignalR
     public IdentityEventDispatcher(IServiceProvider serviceProvider)
     {
       fServiceProvider = serviceProvider;
-      fTracker = serviceProvider.GetService<ITracker>();
-      fHandlerFactory = serviceProvider.GetService<IUserIdentityEventHandlerFactory>();
+      fTracker = serviceProvider.GetRequiredService<ITracker>();
+      fHandlerFactory = serviceProvider.GetRequiredService<IUserIdentityEventHandlerFactory>();
     }
 
     public async Task DispatchAsync(IdentityUserEventMessageBase message, CancellationToken cancellationToken)

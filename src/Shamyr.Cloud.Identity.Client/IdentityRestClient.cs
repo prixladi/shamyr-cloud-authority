@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -8,54 +7,35 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Shamyr.Base64;
-using Shamyr.Cloud.Identity.Client.Models;
+using Shamyr.Cloud.Identity.Service.Models;
 using Shamyr.Tracking;
 
 namespace Shamyr.Cloud.Identity.Client
 {
-  internal class IdentityRestClient: IIdentityRemoteClient
+  internal class IdentityRestClient: IIdentityClient
   {
-    private readonly IIdentityRemoteClientConfig fIdentityClientConfig;
+    private readonly IIdentityClientConfig fIdentityClientConfig;
     private readonly ITracker fTracker;
 
     public IdentityRestClient(
-      IIdentityRemoteClientConfig identityClientConfig,
+      IIdentityClientConfig identityClientConfig,
       ITracker tracker)
     {
       fIdentityClientConfig = identityClientConfig;
       fTracker = tracker;
     }
 
-    public async Task<UserIdentityValidationModel> GetIdentityByJwtAsync(IOperationContext context, string token, CancellationToken cancellationToken)
-    {
-      using (fTracker.TrackDependency(context, "REST", "Indentity service call", RoleNames._IdentityService, $"Token: {token}", out var dependecyContext))
-      {
-        string url = GetAbsoluteUrl($"api/v1/users/{token}/validated");
-        try
-        {
-          var result = await CallRestAsync<UserIdentityValidationModel>(dependecyContext, (client, cancellation) => client.GetAsync(url, cancellation), cancellationToken);
-
-          Debug.Assert(result != null);
-
-          dependecyContext.Success();
-          return result;
-        }
-        catch
-        {
-          dependecyContext.Fail();
-          throw;
-        }
-      }
-    }
-
-    public async Task<UserIdentityProfileModel?> GetUserByIdAsync(IOperationContext context, string userId, CancellationToken cancellationToken)
+    public async Task<UserModel?> GetUserByIdAsync(string userId, IOperationContext context, CancellationToken cancellationToken)
     {
       using (fTracker.TrackDependency(context, "REST", "Indentity service call", RoleNames._IdentityService, $"ID: {userId}", out var dependecyContext))
       {
         string url = GetAbsoluteUrl($"api/v1/users/{userId}");
+        var message = new HttpRequestMessage(HttpMethod.Get, url);
         try
         {
-          return await CallRestAsync<UserIdentityProfileModel>(dependecyContext, (client, cancellation) => client.GetAsync(url, cancellation), cancellationToken);
+          var model = await CallRestAsync<UserModel>(message, cancellationToken);
+          dependecyContext.Success();
+          return model;
         }
         catch (IdentityException ex)
           when (ex.StatusCode == StatusCodes.Status404NotFound)
@@ -71,54 +51,41 @@ namespace Shamyr.Cloud.Identity.Client
       }
     }
 
-    private async Task<TResponseModel?> CallRestAsync<TResponseModel>(ITrackingContext context, Func<HttpClient, CancellationToken, Task<HttpResponseMessage>> method, CancellationToken cancellationToken)
+    private async Task<TResponseModel?> CallRestAsync<TResponseModel>(HttpRequestMessage message, CancellationToken cancellationToken)
       where TResponseModel : class
     {
-      using var client = CreateClient();
+      using var client = HttpClientContext.Client;
+      AddAuthHeader(message);
       try
       {
-        var response = await method(client, cancellationToken);
-        var model = await HandleResponseAsync<TResponseModel>(response);
-
-        context.Success();
+        var response = await client.SendAsync(message, cancellationToken);
+        var model = await HandleResponseAsync<TResponseModel>(response, cancellationToken);
 
         return model;
       }
-      catch (IdentityException)
-      {
-        context.Fail();
-        throw;
-      }
       catch (Exception ex)
       {
-        context.Fail();
         throw new IdentityException("Unsuccessfull indetity service call.", StatusCodes.Status500InternalServerError, ex.Message);
       }
     }
 
-    private async Task<TResponseModel?> HandleResponseAsync<TResponseModel>(HttpResponseMessage response)
+    private async Task<TResponseModel?> HandleResponseAsync<TResponseModel>(HttpResponseMessage response, CancellationToken cancellationToken)
       where TResponseModel : class
     {
       if (!response.IsSuccessStatusCode)
         throw new IdentityException($"Unsuccessful call identity service.", (int)response.StatusCode, response.ReasonPhrase);
 
-      var responseBody = await response.Content.ReadAsStringAsync();
+      var responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
       if (typeof(TResponseModel) == typeof(object) || string.IsNullOrEmpty(responseBody))
         return default;
 
       return JsonConvert.DeserializeObject<TResponseModel>(responseBody);
     }
 
-    private HttpClient CreateClient()
+    private void AddAuthHeader(HttpRequestMessage message)
     {
-      var client = new HttpClient
-      {
-        Timeout = TimeSpan.FromSeconds(20)
-      };
-
       var credentials = new Base64String($"{fIdentityClientConfig.ClientId}:{fIdentityClientConfig.ClientSecret}");
-      client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials.ToEncodedString());
-      return client;
+      message.Headers.Authorization = new AuthenticationHeaderValue("Basic", credentials.ToEncodedString());
     }
 
     private string GetAbsoluteUrl(string path)

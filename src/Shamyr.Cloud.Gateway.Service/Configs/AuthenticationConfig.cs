@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Shamyr.Security.IdentityModel;
 
 namespace Shamyr.Cloud.Gateway.Service.Configs
 {
@@ -33,13 +35,15 @@ namespace Shamyr.Cloud.Gateway.Service.Configs
           return Task.CompletedTask;
         }
       };
+
+      var rsa = RSA.Create();
       options.TokenValidationParameters = new TokenValidationParameters
       {
         ValidIssuer = config.BearerTokenIssuer,
         ValidAudience = config.BearerTokenAudience,
         ValidateLifetime = true,
         ClockSkew = TimeSpan.FromMinutes(5),
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.BearerTokenSymetricKey)),
+        IssuerSigningKey = rsa.ToSecurityKey(config.BearerPublicKey, true),
         NameClaimType = ClaimTypes.Name,
         RoleClaimType = ClaimTypes.Role
       };

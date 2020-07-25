@@ -41,7 +41,7 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Logins
       if (user.Disabled)
         throw new UserDisabledException();
 
-      string jwt = fTokenService.GenerateUserJwt(user.Id);
+      string jwt = fTokenService.GenerateUserJwt(user);
 
       var userToken = fTokenService.GenerateOrRenewRefreshToken(user.RefreshToken?.Value);
       await fUserTokenRepository.SetRefreshTokenAsync(user.Id, userToken, cancellationToken);

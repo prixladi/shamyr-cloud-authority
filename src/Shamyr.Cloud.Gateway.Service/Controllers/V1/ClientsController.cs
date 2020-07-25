@@ -16,8 +16,9 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
   /// <summary>
   /// Controller for manipulating clients
   /// </summary>
+  [ApiController]
   [Route("api/v1/clients", Name = "Clients")]
-  public class ClientsController: Controller
+  public class ClientsController: ControllerBase
   {
     private const string _GetClientRoute = "GetClient";
 

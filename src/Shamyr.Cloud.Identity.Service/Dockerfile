@@ -6,6 +6,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 # restore
 WORKDIR /src
 COPY src/Shamyr.Cloud.Identity.Service/Shamyr.Cloud.Identity.Service.csproj Shamyr.Cloud.Identity.Service/
+COPY src/Shamyr.Cloud.Identity.Models/Shamyr.Cloud.Identity.Models.csproj Shamyr.Cloud.Identity.Models/
 COPY src/Shamyr.Cloud.Database/Shamyr.Cloud.Database.csproj Shamyr.Cloud.Database/
 COPY src/Shamyr.Cloud.Bson/Shamyr.Cloud.Bson.csproj Shamyr.Cloud.Bson/ 
 COPY src/Shamyr.Cloud.Core/Shamyr.Cloud.Core.csproj Shamyr.Cloud.Core/
@@ -19,6 +20,7 @@ RUN dotnet restore --configfile /src/NuGet.config
 WORKDIR /src
 
 COPY src/Shamyr.Cloud.Identity.Service/ Shamyr.Cloud.Identity.Service/ 
+COPY src/Shamyr.Cloud.Identity.Models/ Shamyr.Cloud.Identity.Models/
 COPY src/Shamyr.Cloud.Database/ Shamyr.Cloud.Database/ 
 COPY src/Shamyr.Cloud.Bson/ Shamyr.Cloud.Bson/ 
 COPY src/Shamyr.Cloud.Core/ Shamyr.Cloud.Core/ 

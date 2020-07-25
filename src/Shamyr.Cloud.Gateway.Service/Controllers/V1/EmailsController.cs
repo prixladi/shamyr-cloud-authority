@@ -13,8 +13,9 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
   /// Controller for manupullating with emails
   /// </summary>
   [AllowAnonymous]
+  [ApiController]
   [Route("api/v1/emails", Name = "Emails")]
-  public class EmailsController: Controller
+  public class EmailsController: ControllerBase
   {
     private readonly IMediator fMediator;
 
@@ -37,7 +38,7 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<NoContentResult> PatchVerifyAsync(string email, CancellationToken cancellationToken)
+    public async Task<NoContentResult> PatchVerifyAsync([FromRoute] string email, CancellationToken cancellationToken)
     {
       await fMediator.Send(new PatchVerificationRequest(email), cancellationToken);
       return NoContent();
@@ -59,7 +60,7 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<RedirectResult> GetVerifyAsync(string email, [FromQuery] string emailToken, CancellationToken cancellationToken)
+    public async Task<RedirectResult> GetVerifyAsync([FromRoute] string email, [FromQuery] string emailToken, CancellationToken cancellationToken)
     {
       var model = await fMediator.Send(new GetVerificationRequest(email: email, emailToken: emailToken), cancellationToken);
       await fMediator.Publish(new UserVerificationStatusChangedNotification(model.Id, true), cancellationToken);
@@ -78,7 +79,7 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<NoContentResult> PatchPasswordResetAsync(string email, CancellationToken cancellationToken)
+    public async Task<NoContentResult> PatchPasswordResetAsync([FromRoute] string email, CancellationToken cancellationToken)
     {
       await fMediator.Send(new PatchPasswordResetRequest(email), cancellationToken);
       return NoContent();

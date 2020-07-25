@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -15,8 +16,7 @@ namespace Shamyr.Cloud.Identity.Service
       services.AddLogging(LoggingConfig.Setup);
       services.AddCors();
       services.AddOptions();
-      services.AddControllers(MvcConfig.SetupMvcOptions)
-        .AddJsonOptions(MvcConfig.SetupJsonOptions);
+      services.AddControllers(MvcConfig.SetupMvcOptions);
 
       services.AddAuthentication(AuthenticationConfig.SetupAuthentication)
         .AddBasicAuthentication<BasicAuthenticationHandler>();
@@ -24,6 +24,8 @@ namespace Shamyr.Cloud.Identity.Service
       services.AddExceptionHandling();
       services.AddDatabaseContext<DatabaseConfig>();
       services.AddApplicationInsights(AppInsightsConfig.Setup);
+
+      services.AddMediatR(typeof(Startup));
 
       services.AddSecretService();
       services.AddServiceAssembly();

@@ -21,7 +21,7 @@ namespace Shamyr.Cloud.Gateway.Signal.Client.Services
       fTracker = tracker;
     }
 
-    public HubConnection CreateConnection(string signalUrl)
+    public HubConnection CreateConnection(Uri signalUrl)
     {
       return new HubConnectionBuilder()
         .WithUrl(signalUrl, SetupUrl)
@@ -30,7 +30,7 @@ namespace Shamyr.Cloud.Gateway.Signal.Client.Services
         .Build();
     }
 
-    public async Task InitialConnectAsync(HubConnection hubConnection, string signalUrl, IOperationContext context, CancellationToken cancellationToken)
+    public async Task InitialConnectAsync(HubConnection hubConnection, Uri signalUrl, IOperationContext context, CancellationToken cancellationToken)
     {
       int? lastErrorCode = null;
       int nextDelay = 1;

@@ -1,8 +1,10 @@
-﻿namespace Shamyr.Cloud.Gateway.Signal.Client
+﻿using System;
+
+namespace Shamyr.Cloud.Gateway.Signal.Client
 {
   public interface IHubClientConfig
   {
-    string GatewayUrl { get; }
+    Uri GatewayUrl { get; }
     string ClientId { get; }
     string ClientSecret { get; }
 

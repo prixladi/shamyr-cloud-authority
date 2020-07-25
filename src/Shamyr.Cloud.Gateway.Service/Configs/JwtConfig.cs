@@ -6,6 +6,7 @@
     public string BearerTokenAudience => EnvironmentUtils.BearerTokenAudience;
     public int RefreshTokenDuration => EnvironmentUtils.RefreshTokenDuration;
     public int BearerTokenDuration => EnvironmentUtils.BearerTokenDuration;
-    public string BearerTokenSymetricKey => EnvironmentUtils.BearerTokenSymetricKeey;
+    public string BearerPrivateKey => EnvironmentUtils.BearerPrivateKey;
+    public string BearerPublicKey => EnvironmentUtils.BearerPrivateKey;
   }
 }

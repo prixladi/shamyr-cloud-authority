@@ -16,8 +16,9 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
   /// Controller for manipulating with currently logged user
   /// </summary>
   [Authorize]
+  [ApiController]
   [Route("api/v1/users/current", Name = "Current user")]
-  public class CurrrentUserController: Controller
+  public class CurrrentUserController: ControllerBase
   {
     private readonly IMediator fMediator;
 

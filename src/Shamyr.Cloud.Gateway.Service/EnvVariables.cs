@@ -14,7 +14,8 @@
     public const string _BearerTokenAudience = "BEARER_TOKEN_AUDIENCE";
     public const string _RefreshTokenDuration = "REFRESH_TOKEN_DURATION";
     public const string _BearerTokenDuration = "BEARER_TOKEN_DURATION";
-    public const string _BearerTokenSymetricKeey = "BEARER_TOKEN_SYMETRIC_KEY";
+    public const string _BearerPrivateKey = "BEARER_PRIVATE_KEY";
+    public const string _BearerPublicKey = "BEARER_PUBLIC_KEY";
 
     public const string _EmailServerUrl = "EMAIL_SERVER_URL";
     public const string _EmailSenderAddress = "EMAIL_SENDER_ADDRESS";

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
 using MongoDB.Bson;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Security;
 
 namespace Shamyr.Cloud.Gateway.Service

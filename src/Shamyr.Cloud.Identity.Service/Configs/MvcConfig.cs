@@ -9,12 +9,6 @@ namespace Shamyr.Cloud.Identity.Service.Configs
     public static void SetupMvcOptions(MvcOptions options)
     {
       options.Filters.Add<ApiValidationAttribute>();
-      options.ModelBinderProviders.Insert(0, new ObjectIdBinderProvider());
-    }
-
-    public static void SetupJsonOptions(JsonOptions options)
-    {
-      options.JsonSerializerOptions.Converters.Add(new ObjectIdJsonConverter());
     }
   }
 }

@@ -14,7 +14,8 @@ namespace Shamyr.Cloud.Gateway.Service
     public static string BearerTokenAudience { get; } = EnvVariable.Get(EnvVariables._BearerTokenAudience);
     public static int RefreshTokenDuration { get; } = int.Parse(EnvVariable.Get(EnvVariables._RefreshTokenDuration));
     public static int BearerTokenDuration { get; } = int.Parse(EnvVariable.Get(EnvVariables._BearerTokenDuration));
-    public static string BearerTokenSymetricKeey { get; } = EnvVariable.Get(EnvVariables._BearerTokenSymetricKeey);
+    public static string BearerPrivateKey { get; } = EnvVariable.Get(EnvVariables._BearerPrivateKey);
+    public static string BearerPublicKey { get; } = EnvVariable.Get(EnvVariables._BearerPublicKey);
 
     public static Uri EmailServerUrl { get; } = new Uri(EnvVariable.Get(EnvVariables._EmailServerUrl));
     public static string EmailSenderAddress { get; } = EnvVariable.Get(EnvVariables._EmailSenderAddress);

@@ -13,8 +13,9 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
   /// <summary>
   /// Controller for logins
   /// </summary>
+  [ApiController]
   [Route("api/v1/logins", Name = "Logins")]
-  public class LoginsController: Controller
+  public class LoginsController: ControllerBase
   {
     private readonly IMediator fMediator;
 

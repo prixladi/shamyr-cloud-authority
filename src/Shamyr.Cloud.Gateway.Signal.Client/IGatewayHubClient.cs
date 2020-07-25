@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Shamyr.Cloud.Gateway.Signal.Client
 {
-  internal interface IGatewayHubClient: IAsyncDisposable
+  public interface IGatewayHubClient: IAsyncDisposable
   {
     void ConnectAsync(CancellationToken cancellationToken);
   }

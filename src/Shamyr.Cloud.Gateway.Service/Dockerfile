@@ -10,6 +10,7 @@ WORKDIR /src
 
 COPY src/Shamyr.Cloud.Gateway.Service/Shamyr.Cloud.Gateway.Service.csproj Shamyr.Cloud.Gateway.Service/
 COPY src/Shamyr.Cloud.Gateway.Signal.Messages/Shamyr.Cloud.Gateway.Signal.Messages.csproj Shamyr.Cloud.Gateway.Signal.Messages/
+COPY src/Shamyr.Cloud.Gateway.Token.Models/Shamyr.Gateway.Token.Models.csproj Shamyr.Cloud.Gateway.Token.Models/
 COPY src/Shamyr.Cloud.Database/Shamyr.Cloud.Database.csproj Shamyr.Cloud.Database/
 COPY src/Shamyr.Cloud.Bson/Shamyr.Cloud.Bson.csproj Shamyr.Cloud.Bson/
 COPY src/Shamyr.Cloud.Core/Shamyr.Cloud.Core.csproj Shamyr.Cloud.Core/
@@ -26,6 +27,7 @@ WORKDIR /src
 
 COPY src/Shamyr.Cloud.Gateway.Service/ Shamyr.Cloud.Gateway.Service/
 COPY src/Shamyr.Cloud.Gateway.Signal.Messages/ Shamyr.Cloud.Gateway.Signal.Messages/
+COPY src/Shamyr.Cloud.Gateway.Token.Models/ Shamyr.Cloud.Gateway.Token.Models/
 COPY src/Shamyr.Cloud.Database/ Shamyr.Cloud.Database/
 COPY src/Shamyr.Cloud.Bson/ Shamyr.Cloud.Bson/
 COPY src/Shamyr.Cloud.Core/ Shamyr.Cloud.Core/

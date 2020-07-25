@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Shamyr.Cloud.Identity.Client.Services;
+using Shamyr.Cloud.Identity.Service.Models;
 
 namespace Shamyr.Cloud.Identity.Client
 {
@@ -10,22 +12,14 @@ namespace Shamyr.Cloud.Identity.Client
   {
     private class Result
     {
-      public Result(CachedUserModel user, string userId)
+      public Result(UserModel user, string userId)
       {
         User = user ?? throw new ArgumentNullException(nameof(user));
         UserId = userId ?? throw new ArgumentNullException(nameof(userId));
       }
 
-      public Result(CachedUserModel user, string userId, long? expirationInSeconds)
-      {
-        User = user ?? throw new ArgumentNullException(nameof(user));
-        UserId = userId ?? throw new ArgumentNullException(nameof(userId));
-        ExpirationInSeconds = expirationInSeconds;
-      }
-
-      public CachedUserModel User { get; }
+      public UserModel User { get; }
       public string UserId { get; }
-      public long? ExpirationInSeconds { get; }
     }
 
     private readonly IUserCacheService[] fServices;
@@ -40,7 +34,7 @@ namespace Shamyr.Cloud.Identity.Client
       fPipelineCancellation = pipelineCancellation;
     }
 
-    public async Task<CachedUserModel?> TryGetCachedUserAsync(string userId)
+    public async Task<UserModel?> TryGetCachedUserAsync(string userId)
     {
       if (userId is null)
         throw new ArgumentNullException(nameof(userId));
@@ -59,7 +53,7 @@ namespace Shamyr.Cloud.Identity.Client
       return null;
     }
 
-    public void SetResult(CachedUserModel user, string userId)
+    public void SetResult(UserModel user, string userId)
     {
       if (user is null)
         throw new ArgumentNullException(nameof(user));
@@ -70,29 +64,13 @@ namespace Shamyr.Cloud.Identity.Client
       fResult = new Result(user, userId);
     }
 
-    public void SetResult(CachedUserModel user, string userId, long expirationInSeconds)
-    {
-      if (user is null)
-        throw new ArgumentNullException(nameof(user));
-
-      if (userId is null)
-        throw new ArgumentNullException(nameof(userId));
-
-      fResult = new Result(user, userId, expirationInSeconds);
-    }
-
     public async ValueTask DisposeAsync()
     {
       if (fResult is null || fUsedServices is null)
         return;
 
       foreach (var service in fUsedServices)
-      {
-        if (fResult.ExpirationInSeconds.HasValue)
-          await service.SaveUserAsync(fResult.UserId, fResult.ExpirationInSeconds.Value, fResult.User, fPipelineCancellation);
-        else
-          await service.SaveUserAsync(fResult.UserId, fResult.User, fPipelineCancellation);
-      }
+        await service.SaveUserAsync(fResult.UserId, fResult.User, fPipelineCancellation);
     }
   }
 }
