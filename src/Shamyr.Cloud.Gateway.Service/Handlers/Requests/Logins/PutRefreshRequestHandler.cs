@@ -2,8 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using MongoDB.Bson;
-using Shamyr.Cloud.Database.Documents;
+using Shamyr.Cloud.Gateway.Service.Extensions;
 using Shamyr.Cloud.Gateway.Service.Models.Logins;
 using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Requests.Logins;
@@ -29,44 +28,27 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.Logins
 
     public async Task<TokensModel> Handle(PutRefreshRequest request, CancellationToken cancellationToken)
     {
-      var (userId, issuedAtUtc) = fTokenService.ValidateJwtWithoutExpiration(request.Model.BearerToken);
-      var user = await ValidateResultAsync(userId, issuedAtUtc, request.Model.RefreshToken, cancellationToken);
-
-      string jwt = fTokenService.GenerateUserJwt(userId, issuedAtUtc);
-
-      var userToken = fTokenService.GenerateOrRenewRefreshToken(user.RefreshToken?.Value);
-      await fUserTokenRepository.SetRefreshTokenAsync(userId, userToken, cancellationToken);
-
-      return new TokensModel
-      {
-        BearerToken = jwt,
-        RefreshToken = userToken.Value,
-        RefreshTokenExpirationUtc = userToken.ExpirationUtc,
-      };
-    }
-
-    private async Task<UserDoc> ValidateResultAsync(ObjectId userId, DateTime issuedAtUtc, string refreshToken, CancellationToken cancellationToken)
-    {
-      if (userId == ObjectId.Empty)
+      var dto = fTokenService.ValidateJwtWithoutExpiration(request.Model.BearerToken);
+      if (dto == null)
         throw new BadRequestException("Bearer token is not valid.");
 
-      var user = await fUserRepository.GetAsync(userId, cancellationToken);
-
+      var user = await fUserRepository.GetAsync(dto.UserId, cancellationToken);
       if (user is null)
-        throw new ForbiddenException($"User with ID '{userId}' was not found.");
-
-      var userToken = user.RefreshToken;
-
-      if (user.LogoutUtc.HasValue && user.LogoutUtc.Value > issuedAtUtc)
+        throw new ForbiddenException($"User with ID '{dto.UserId}' was not found.");
+      if (user.Disabled)
+        throw new UserDisabledException();
+      if (user.LogoutUtc.HasValue && user.LogoutUtc.Value > dto.IssuedAtUtc)
         throw new BadRequestException("User is logged out");
-
-      if (userToken is null || userToken.Value != refreshToken)
+      if (user.RefreshToken is null || user.RefreshToken.Value != request.Model.RefreshToken)
         throw new BadRequestException("Refresh token is not valid.");
-
-      if (userToken.ExpirationUtc < DateTime.UtcNow)
+      if (user.RefreshToken.ExpirationUtc < DateTime.UtcNow)
         throw new BadRequestException("Refresh token expired.");
 
-      return user;
+      string jwt = fTokenService.GenerateUserJwt(user, dto.IssuedAtUtc);
+      var newToken = fTokenService.GenerateOrRenewRefreshToken(user.RefreshToken?.Value);
+      await fUserTokenRepository.SetRefreshTokenAsync(user.Id, newToken, cancellationToken);
+
+      return newToken.ToTokensModel(jwt);
     }
   }
 }

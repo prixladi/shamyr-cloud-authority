@@ -18,18 +18,19 @@ namespace Shamyr.Cloud.Identity.Service.Extensions
         Username = user.Username,
         Email = user.Email,
         Disabled = user.Disabled,
-        Admin = user.Admin
+        Admin = user.Admin,
+        Verified = user.EmailToken is null
       };
     }
 
-    public static UserIdentityProfileModel ToModel(this UserDoc user)
+    public static UserModel ToDetail(this UserDoc user)
     {
       if (user is null)
         throw new ArgumentNullException(nameof(user));
 
-      return new UserIdentityProfileModel
+      return new UserModel
       {
-        Id = user.Id,
+        Id = user.Id.ToString(),
         Username = user.Username,
         Email = user.Email,
         Disabled = user.Disabled,

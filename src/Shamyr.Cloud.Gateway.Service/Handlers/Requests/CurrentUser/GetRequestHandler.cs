@@ -20,7 +20,6 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Requests.CurrentUser
     public Task<UserDetailModel> Handle(GetRequest request, CancellationToken cancellationToken)
     {
       var identity = fIdentityService.Current;
-
       return Task.FromResult(identity.ToDetail());
     }
   }

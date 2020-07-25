@@ -6,6 +6,7 @@
     string BearerTokenAudience { get; }
     int RefreshTokenDuration { get; }
     int BearerTokenDuration { get; }
-    string BearerTokenSymetricKey { get; }
+    string BearerPrivateKey { get; }
+    string BearerPublicKey { get; }
   }
 }

@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using MongoDB.Bson;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Gateway.Service.Authorization;
@@ -18,8 +17,9 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
   /// <summary>
   /// Controller for manipulating email templates
   /// </summary>
+  [ApiController]
   [Route("api/v1/emailTemplates", Name = "Email templates")]
-  public class EmailTemplatesController: Controller
+  public class EmailTemplatesController: ControllerBase
   {
     private const string _GetEmailTemplateRoute = "GetEmailTemplate";
 

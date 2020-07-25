@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
+using Shamyr.Cloud.Identity.Client.Services;
 using Shamyr.DependencyInjection;
 
 namespace Shamyr.Cloud.Identity.Client.Repositories
@@ -23,7 +25,7 @@ namespace Shamyr.Cloud.Identity.Client.Repositories
     public IEnumerable<IUserCacheService> GetCacheServices(IServiceProvider serviceProvider)
     {
       foreach (var type in fUserCacheServiceTypes)
-        yield return (IUserCacheService)serviceProvider.GetService(type)!;
+        yield return (IUserCacheService)serviceProvider.GetRequiredService(type);
     }
   }
 }

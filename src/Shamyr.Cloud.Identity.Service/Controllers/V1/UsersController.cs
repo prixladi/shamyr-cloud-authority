@@ -1,27 +1,25 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using Shamyr.Cloud.Identity.Service.Extensions;
 using Shamyr.Cloud.Identity.Service.Models;
-using Shamyr.Cloud.Identity.Service.Repositories;
-using Shamyr.Cloud.Identity.Service.Services;
+using Shamyr.Cloud.Identity.Service.Requests.Users;
 
 namespace Shamyr.Cloud.Identity.Service.Controllers
 {
   [Authorize]
+  [ApiController]
   [Route("api/v1/users")]
   public class UsersController: ControllerBase
   {
-    private readonly ITokenService fTokenService;
-    private readonly IUserRepository fUserRepository;
+    private readonly IMediator fMediator;
 
-    public UsersController(ITokenService tokenService, IUserRepository userRepository)
+    public UsersController(IMediator mediator)
     {
-      fTokenService = tokenService;
-      fUserRepository = userRepository;
+      fMediator = mediator;
     }
 
     /// <summary>
@@ -31,35 +29,11 @@ namespace Shamyr.Cloud.Identity.Service.Controllers
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(UserIdentityProfileModel), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UserModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<UserIdentityProfileModel> GetAsync(ObjectId id, CancellationToken cancellationToken)
+    public async Task<UserModel> GetAsync([FromRoute] ObjectId id, CancellationToken cancellationToken)
     {
-      var user = await fUserRepository.GetAsync(id, cancellationToken);
-      if (user is null)
-        throw new NotFoundException(nameof(user));
-
-      return user.ToModel();
-    }
-
-    /// <summary>
-    /// Validates provided JWT and returns validation result
-    /// </summary>
-    /// <param name="token">JWT</param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    [HttpGet("{token}/validated")]
-    [ProducesResponseType(typeof(UserIdentityValidationModel), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<UserIdentityValidationModel> GetAsync(string token, CancellationToken cancellationToken)
-    {
-      var (result, message) = await fTokenService.ValidateTokenAsync(token, cancellationToken);
-
-      return new UserIdentityValidationModel
-      {
-        Result = result,
-        User = message?.ToModel()
-      };
+      return await fMediator.Send(new GetRequest(id), cancellationToken);
     }
   }
 }

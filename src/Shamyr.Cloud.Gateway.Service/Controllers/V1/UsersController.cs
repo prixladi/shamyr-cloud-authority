@@ -15,8 +15,9 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
   /// <summary>
   /// Controller for manipulating with user accounts
   /// </summary>
+  [ApiController]
   [Route("api/v1/users", Name = "Users")]
-  public class UsersController: Controller
+  public class UsersController: ControllerBase
   {
     private const string _GetUserRoute = "GetUser";
 
@@ -61,7 +62,7 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<UserDetailModel> GetAsync(ObjectId id, CancellationToken cancellationToken)
+    public async Task<UserDetailModel> GetAsync([FromRoute] ObjectId id, CancellationToken cancellationToken)
     {
       return await fMediator.Send(new GetRequest(id), cancellationToken);
     }
@@ -101,7 +102,7 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> PatchPasswordResetAsync(ObjectId id, [FromBody] UserPatchPasswordModel model, CancellationToken cancellationToken)
+    public async Task<IActionResult> PatchPasswordResetAsync([FromRoute] ObjectId id, [FromBody] UserPatchPasswordModel model, CancellationToken cancellationToken)
     {
       await fMediator.Send(new PatchPasswordResetRequest(id, model), cancellationToken);
       await fMediator.Send(new DeleteLoginRequest(id), cancellationToken);
@@ -126,7 +127,7 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PutDisabledAsync(ObjectId id, [FromBody] UserPutDisabledModel model, CancellationToken cancellationToken)
+    public async Task<IActionResult> PutDisabledAsync([FromRoute] ObjectId id, [FromBody] UserPutDisabledModel model, CancellationToken cancellationToken)
     {
       await fMediator.Send(new PutDisabledRequest(id, model), cancellationToken);
       await fMediator.Publish(new UserDisabledStatusChangedNotification(id, model.Disabled), cancellationToken);
@@ -150,7 +151,7 @@ namespace Shamyr.Cloud.Gateway.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PutAdminAsync(ObjectId id, [FromBody] UserPutAdminModel model, CancellationToken cancellationToken)
+    public async Task<IActionResult> PutAdminAsync([FromRoute] ObjectId id, [FromBody] UserPutAdminModel model, CancellationToken cancellationToken)
     {
       await fMediator.Send(new PutAdminRequest(id, model), cancellationToken);
       return NoContent();

@@ -21,9 +21,7 @@ namespace Shamyr.Cloud.Gateway.Signal.Client
 
     public async Task StopAsync(CancellationToken cancellationToken)
     {
-      await fHubClient
-        .DisposeAsync()
-        .AsTask();
+      await fHubClient.DisposeAsync().AsTask();
     }
   }
 }

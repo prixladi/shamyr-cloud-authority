@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using Shamyr.Cloud.Identity.Client.Services;
 using Shamyr.Cloud.Identity.Client.SignalR;
 
 namespace Shamyr.Cloud.Identity.Client.Repositories
@@ -15,24 +16,21 @@ namespace Shamyr.Cloud.Identity.Client.Repositories
       fRepository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
 
-    public UserCacheServicesRepositoryBuilder AddCacheService<TCache>(bool singleton = false)
-      where TCache : class, IUserCacheService
+    public UserCacheServicesRepositoryBuilder AddUserCacheService<TUserCache>(bool singleton = false)
+      where TUserCache : class, IUserCacheService
     {
       if (singleton)
-        fServices.AddSingleton<TCache>();
+        fServices.AddSingleton<TUserCache>();
       else
-        fServices.AddTransient<TCache>();
+        fServices.AddTransient<TUserCache>();
 
-      fRepository.AddService<TCache>();
-
+      fRepository.AddService<TUserCache>();
       return this;
     }
 
-    public UserCacheServicesRepositoryBuilder AddGatewayEventClient<TConfig>()
-      where TConfig : HubClientConfigBase
+    public UserCacheServicesRepositoryBuilder AddGatewayEventClient()
     {
-      fServices.AddGatewayHubClient<TConfig, IdentityEventDispatcher>();
-
+      fServices.AddGatewayHubClient<HubClientConfig, IdentityEventDispatcher>();
       return this;
     }
   }

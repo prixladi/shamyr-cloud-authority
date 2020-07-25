@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shamyr.Cloud.Gateway.Signal.Messages.Identity;
 using Shamyr.Cloud.Identity.Client.Repositories;
+using Shamyr.Cloud.Identity.Client.Services;
 
 namespace Shamyr.Cloud.Identity.Client.Handlers
 {

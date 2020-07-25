@@ -1,11 +1,11 @@
 ﻿using System;
-using Shamyr.Cloud.Identity.Client.Models;
+using Shamyr.Cloud.Identity.Service.Models;
 
 namespace Shamyr.Cloud.Identity.Client.Authentication
 {
   public static class UserIdentityProfileModelExtensions
   {
-    public static UserIdentity ToIdentity(this UserIdentityProfileModel model)
+    public static UserIdentity ToIdentity(this UserModel model)
     {
       if (model is null)
         throw new ArgumentNullException(nameof(model));
