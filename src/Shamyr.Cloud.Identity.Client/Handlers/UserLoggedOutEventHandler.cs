@@ -1,13 +1,11 @@
-﻿using Shamyr.Cloud.Gateway.Signal.Messages.Identity;
-using Shamyr.Cloud.Identity.Client.Repositories;
+﻿using System;
+using Shamyr.Cloud.Gateway.Signal.Messages.Identity;
 
 namespace Shamyr.Cloud.Identity.Client.Handlers
 {
-  public class UserLoggedOutEventHandler: UserIdentityEventHandlerBase<UserLoggedOutEvent>
+  internal class UserLoggedOutEventHandler: UserIdentityEventHandlerBase<UserLoggedOutEvent>
   {
-    public UserLoggedOutEventHandler(
-      IUserCacheServicesRepository userCacheServicesRepository,
-      IUserLockRepository userLockRepository)
-      : base(userCacheServicesRepository, userLockRepository) { }
+    public UserLoggedOutEventHandler(IServiceProvider serviceProvider)
+      : base(serviceProvider) { }
   }
 }

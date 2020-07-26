@@ -27,7 +27,7 @@ namespace Shamyr.Cloud.Identity.Client.HostedServices
       var configuration = await configurationService!.TryGetAsync(config.GatewayUrl, context, cancellationToken);
       if (configuration is null)
       {
-        tracker.TrackWarning(context, $"Unable to load gateway configuration signing key may be deprecated!");
+        tracker.TrackWarning(context, $"Unable to load gateway configuration. Signing key may be deprecated!");
         return;
       }
 

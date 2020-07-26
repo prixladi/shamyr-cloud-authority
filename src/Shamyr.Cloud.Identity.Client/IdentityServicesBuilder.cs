@@ -1,22 +1,23 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using Shamyr.Cloud.Identity.Client.Repositories;
 using Shamyr.Cloud.Identity.Client.Services;
 using Shamyr.Cloud.Identity.Client.SignalR;
 
-namespace Shamyr.Cloud.Identity.Client.Repositories
+namespace Shamyr.Cloud.Identity.Client
 {
-  public class UserCacheServicesRepositoryBuilder
+  public class IdentityServicesBuilder
   {
     private readonly IServiceCollection fServices;
     private readonly UserCacheServicesRepository fRepository;
 
-    internal UserCacheServicesRepositoryBuilder(IServiceCollection services, UserCacheServicesRepository repository)
+    internal IdentityServicesBuilder(IServiceCollection services, UserCacheServicesRepository repository)
     {
       fServices = services ?? throw new ArgumentNullException(nameof(services));
       fRepository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
 
-    public UserCacheServicesRepositoryBuilder AddUserCacheService<TUserCache>(bool singleton = false)
+    public IdentityServicesBuilder AddUserCacheService<TUserCache>(bool singleton = false)
       where TUserCache : class, IUserCacheService
     {
       if (singleton)
@@ -28,9 +29,9 @@ namespace Shamyr.Cloud.Identity.Client.Repositories
       return this;
     }
 
-    public UserCacheServicesRepositoryBuilder AddGatewayEventClient()
+    public IdentityServicesBuilder AddGatewayEventClient()
     {
-      fServices.AddGatewayHubClient<HubClientConfig, IdentityEventDispatcher>();
+      fServices.AddGatewaySignalRClient<SignalRClientConfig, IdentityEventDispatcher>();
       return this;
     }
   }

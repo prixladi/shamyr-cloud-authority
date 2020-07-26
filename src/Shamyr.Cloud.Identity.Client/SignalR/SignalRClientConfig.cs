@@ -4,11 +4,11 @@ using Shamyr.Cloud.Gateway.Signal.Messages.Identity;
 
 namespace Shamyr.Cloud.Identity.Client.SignalR
 {
-  public class HubClientConfig: IHubClientConfig
+  public class SignalRClientConfig: ISignalRClientConfig
   {
     private readonly IIdentityClientConfig fConfig;
 
-    public HubClientConfig(IIdentityClientConfig config)
+    public SignalRClientConfig(IIdentityClientConfig config)
     {
       fConfig = config;
     }

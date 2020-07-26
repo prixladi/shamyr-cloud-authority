@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
       builder.Services.AddTransient<IPrincipalFactory, TPrincipalFactory>();
 
-      return builder.AddScheme<IdentityAuthenticationOptions, IdentityAuthenticationHandler>
+      return builder.AddScheme<AuthenticationSchemeOptions, IdentityAuthenticationHandler>
         (IdentityAuthenticationDefaults._AuthenticationScheme, "Identity authentication", null);
     }
   }

@@ -4,8 +4,8 @@ using Shamyr.Cloud.Identity.Client.Handlers;
 
 namespace Shamyr.Cloud.Identity.Client.Factories
 {
-  public interface IUserIdentityEventHandlerFactory
+  public interface IIdentityEventHandlerFactory
   {
-    IEnumerable<IUserIdentityEventHandler> Create(IdentityUserEventMessageBase message);
+    IEnumerable<IIdentityEventHandler> Create(IdentityEventBase message);
   }
 }

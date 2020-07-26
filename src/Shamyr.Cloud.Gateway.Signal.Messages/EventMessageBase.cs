@@ -2,7 +2,7 @@
 
 namespace Shamyr.Cloud.Gateway.Signal.Messages
 {
-  public abstract class EventMessageBase: MessageBase
+  public abstract class EventMessageBase: EventBase
   {
     protected EventMessageBase(string operationId, string? parentOperationId)
       : base(operationId, parentOperationId) { }

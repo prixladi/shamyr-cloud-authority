@@ -6,6 +6,6 @@ namespace Shamyr.Cloud.Gateway.Signal.Client
 {
   public interface IIdentityEventDispatcher
   {
-    public Task DispatchAsync(IdentityUserEventMessageBase @event, CancellationToken cancellation);
+    public Task DispatchAsync(IdentityEventBase @event, CancellationToken cancellation);
   }
 }

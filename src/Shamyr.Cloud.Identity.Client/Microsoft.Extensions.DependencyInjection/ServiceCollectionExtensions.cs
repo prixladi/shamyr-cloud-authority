@@ -12,12 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
   public static class ServiceCollectionExtensions
   {
-    /// <summary>
-    /// Adds 'IIdentityClient' to your dependency bootstrap
-    /// </summary>
-    /// <param name="services"></param>
-    /// <param name="identityClientConfig"></param>
-    public static UserCacheServicesRepositoryBuilder AddIdentity<TConfig>(this IServiceCollection services)
+    public static IdentityServicesBuilder AddIdentity<TConfig>(this IServiceCollection services)
       where TConfig : class, IIdentityClientConfig
     {
       if (services is null)
@@ -30,20 +25,19 @@ namespace Microsoft.Extensions.DependencyInjection
       services.AddTransient<ITokenConfigurationService, TokenConfigurationService>();
       services.AddTransient<ITelemetryService, TelemetryService>();
 
-      services.AddSingleton<IUserLockRepository, UserLockRepository>();
       services.AddSingleton<ITokenConfigurationRepository, TokenConfigurationRepository>();
 
       services.AddHostedService<TokenConfigurationCronService>();
 
-      using (var scan = services.CreateScanner<IUserIdentityEventHandler>())
-        scan.AddAllTypesOf<IUserIdentityEventHandler>();
+      using (var scan = services.CreateScanner<IIdentityEventHandler>())
+        scan.AddAllTypesOf<IIdentityEventHandler>();
 
-      services.AddTransient<IUserIdentityEventHandlerFactory, UserIdentityEventHandlerFactory>();
+      services.AddTransient<IIdentityEventHandlerFactory, IdentityEventHandlerFactory>();
 
       var cacheRepository = new UserCacheServicesRepository();
       services.AddSingleton<IUserCacheServicesRepository>(cacheRepository);
 
-      return new UserCacheServicesRepositoryBuilder(services, cacheRepository);
+      return new IdentityServicesBuilder(services, cacheRepository);
     }
   }
 }

@@ -20,7 +20,7 @@ namespace Shamyr.Cloud.Gateway.Service.Services
       fTracker = tracker;
     }
 
-    public async Task SendEventAsync(IOperationContext context, IdentityUserEventMessageBase @event, string method, CancellationToken cancellationToken)
+    public async Task SendEventAsync(IOperationContext context, IdentityUserEventBase @event, string method, CancellationToken cancellationToken)
     {
       if (context is null)
         throw new ArgumentNullException(nameof(context));
