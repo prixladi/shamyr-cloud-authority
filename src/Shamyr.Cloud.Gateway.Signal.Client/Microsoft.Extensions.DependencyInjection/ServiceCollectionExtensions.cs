@@ -5,14 +5,14 @@ namespace Microsoft.Extensions.DependencyInjection
 {
   public static class ServiceCollectionExtensions
   {
-    public static void AddGatewayHubClient<TConfig, TEventDispatcher>(this IServiceCollection services)
-      where TConfig : class, IHubClientConfig
+    public static void AddGatewaySignalRClient<TConfig, TEventDispatcher>(this IServiceCollection services)
+      where TConfig : class, ISignalRClientConfig
       where TEventDispatcher : class, IIdentityEventDispatcher
     {
-      services.AddTransient<IHubClientConfig, TConfig>();
+      services.AddTransient<ISignalRClientConfig, TConfig>();
 
       services.AddSingleton<IHubService, HubService>();
-      services.AddSingleton<IGatewayHubClient, GatewayHubClient>();
+      services.AddSingleton<ISignalRClient, SignalRClient>();
       services.AddSingleton<IIdentityEventDispatcher, TEventDispatcher>();
       services.AddHostedService<SignalRClientManager>();
     }

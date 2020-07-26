@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using MongoDB.Bson;
-using Shamyr.Cloud.Gateway.Service.Repositories;
 using Shamyr.Cloud.Gateway.Service.Services;
 using Shamyr.Cloud.Gateway.Signal.Messages;
 using Shamyr.Tracking;
@@ -11,16 +10,11 @@ namespace Shamyr.Cloud.Gateway.Service.SignalR.Hubs
 {
   public partial class ClientHub: Hub, IRemoteServer
   {
-    private readonly IClientConnectionRepository fClientConnectionRepository;
     private readonly IClientService fClientService;
     private readonly ITracker fTracker;
 
-    public ClientHub(
-      IClientConnectionRepository clientConnectionRepository,
-      IClientService clientService,
-      ITracker tracker)
+    public ClientHub(IClientService clientService, ITracker tracker)
     {
-      fClientConnectionRepository = clientConnectionRepository;
       fClientService = clientService;
       fTracker = tracker;
     }
@@ -28,9 +22,6 @@ namespace Shamyr.Cloud.Gateway.Service.SignalR.Hubs
     public override async Task OnConnectedAsync()
     {
       fTracker.TrackInformation(OperationContext.Origin, $"SignalR client with Connection Id '{Context.ConnectionId}' connected.");
-      var connection = new Connection(Context.ConnectionId);
-      fClientConnectionRepository.AddOrUpdate(connection);
-
       await base.OnConnectedAsync();
     }
 
@@ -40,8 +31,6 @@ namespace Shamyr.Cloud.Gateway.Service.SignalR.Hubs
         fTracker.TrackException(OperationContext.Origin, exception, $"SignalR client with Connection Id '{Context.ConnectionId}' disconnected.");
       else
         fTracker.TrackInformation(OperationContext.Origin, $"SignalR client with Connection Id '{Context.ConnectionId}' disconnected.");
-
-      fClientConnectionRepository.Remove(Context.ConnectionId);
 
       return base.OnDisconnectedAsync(exception);
     }
@@ -55,8 +44,8 @@ namespace Shamyr.Cloud.Gateway.Service.SignalR.Hubs
 
       if (result == ClientLoginStatus.Ok)
       {
-        var connection = new Connection(Context.ConnectionId, clientId);
-        fClientConnectionRepository.AddOrUpdate(connection);
+        var connection = new Connection(clientId);
+        Context.Items.Add(typeof(Connection), connection);
       }
 
       return result switch
@@ -70,8 +59,7 @@ namespace Shamyr.Cloud.Gateway.Service.SignalR.Hubs
 
     public async Task<SubscribeIdentityResourcesResponse> SubscribeResourceAsync(SubscribeIdentityResourcesRequest request)
     {
-      var connection = fClientConnectionRepository.Get(Context.ConnectionId);
-      if (connection is null || connection.ClientId is null)
+      if (!Context.Items.TryGetValue(typeof(Connection), out var value) || !(value is Connection connection) || connection.ClientId is null)
         throw new UnauthorizedException("Client is unauthorized.");
 
       await fClientService.SubscribeToResourcesAsync(request.Resources, Context.ConnectionId, Context.ConnectionAborted);

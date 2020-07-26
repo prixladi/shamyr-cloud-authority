@@ -7,5 +7,6 @@ namespace Shamyr.Cloud.Gateway.Signal.Messages
   {
     Task UserLoggedOutEventAsync(UserLoggedOutEvent @event);
     Task UserVerificationStatusChangedEventAsync(UserVerificationStatusChangedEvent @event);
+    Task TokenConfigurationChangedAsync(TokenConfigurationChangedEvent @event);
   }
 }

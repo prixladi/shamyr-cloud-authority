@@ -14,25 +14,11 @@ namespace Shamyr.Cloud.Identity.Client.Services
 {
   public class TokenService: ITokenService
   {
-    private readonly IHttpContextAccessor fHttpContextAccessor;
     private readonly ITokenConfigurationRepository fTokenConfigurationRepository;
 
-    public TokenService(
-      IHttpContextAccessor httpContextAccessor,
-      ITokenConfigurationRepository tokenConfigurationRepository)
+    public TokenService(ITokenConfigurationRepository tokenConfigurationRepository)
     {
-      fHttpContextAccessor = httpContextAccessor;
       fTokenConfigurationRepository = tokenConfigurationRepository;
-    }
-
-    public TIdentity GetCurrentUserIdentity<TIdentity>()
-      where TIdentity: ClaimsIdentity
-    {
-      var identity = fHttpContextAccessor.HttpContext.User.Identity;
-      if (identity is null)
-        throw new InvalidOperationException("User identity does not exist in current context.");
-
-      return (TIdentity)identity;
     }
 
     public async Task<UserModel?> TryGetUserAsync(string jwt, CancellationToken cancellationToken)

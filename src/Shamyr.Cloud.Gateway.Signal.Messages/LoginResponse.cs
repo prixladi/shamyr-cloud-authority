@@ -3,7 +3,7 @@ using Shamyr.Tracking;
 
 namespace Shamyr.Cloud.Gateway.Signal.Messages
 {
-  public class LoginResponse: MessageBase
+  public class LoginResponse: EventBase
   {
     [JsonConstructor]
     public LoginResponse(string operationId, string? parentOperationId)

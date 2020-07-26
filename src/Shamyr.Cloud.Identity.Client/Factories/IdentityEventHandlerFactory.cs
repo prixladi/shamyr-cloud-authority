@@ -7,12 +7,12 @@ using Shamyr.DependencyInjection;
 
 namespace Shamyr.Cloud.Identity.Client.Factories
 {
-  internal class UserIdentityEventHandlerFactory: FactoryBase<IUserIdentityEventHandler>, IUserIdentityEventHandlerFactory
+  internal class IdentityEventHandlerFactory: FactoryBase<IIdentityEventHandler>, IIdentityEventHandlerFactory
   {
-    public UserIdentityEventHandlerFactory(IServiceProvider serviceProvider)
+    public IdentityEventHandlerFactory(IServiceProvider serviceProvider)
       : base(serviceProvider) { }
 
-    public IEnumerable<IUserIdentityEventHandler> Create(IdentityUserEventMessageBase message)
+    public IEnumerable<IIdentityEventHandler> Create(IdentityEventBase message)
     {
       return GetComponents().Where(x => x.CanHandle(message));
     }

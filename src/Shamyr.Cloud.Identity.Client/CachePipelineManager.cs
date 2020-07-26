@@ -57,7 +57,6 @@ namespace Shamyr.Cloud.Identity.Client
     {
       if (user is null)
         throw new ArgumentNullException(nameof(user));
-
       if (userId is null)
         throw new ArgumentNullException(nameof(userId));
 

@@ -6,9 +6,9 @@ namespace Shamyr.Cloud.Gateway.Signal.Client
 {
   internal class SignalRClientManager: IHostedService
   {
-    private readonly IGatewayHubClient fHubClient;
+    private readonly ISignalRClient fHubClient;
 
-    public SignalRClientManager(IGatewayHubClient hubClient)
+    public SignalRClientManager(ISignalRClient hubClient)
     {
       fHubClient = hubClient;
     }

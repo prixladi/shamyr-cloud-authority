@@ -4,7 +4,7 @@ using Shamyr.Tracking;
 
 namespace Shamyr.Cloud.Gateway.Signal.Messages
 {
-  public class SubscribeIdentityResourcesRequest: MessageBase
+  public class SubscribeIdentityResourcesRequest: EventBase
   {
     public string[] Resources { get; }
 

@@ -35,11 +35,12 @@ namespace Shamyr.Cloud.Gateway.Service.Handlers.Notifications
       var context = fTelemetryService.GetRequestContext();
       var @event = new UserLoggedOutEvent(notification.UserId.ToString(), context);
       var scewedTime = DateTime.UtcNow.Add(TimeSpan.FromSeconds(-1));
+      var method = nameof(IRemoteClient.UserLoggedOutEventAsync);
 
       await Task.WhenAll
       (
         fUserRepository.LogoutAsync(notification.UserId, scewedTime, cancellationToken),
-        fClientHubService.SendEventAsync(context, @event, nameof(IRemoteClient.UserLoggedOutEventAsync), cancellationToken)
+        fClientHubService.SendEventAsync(context, @event, method, cancellationToken)
       );
     }
 

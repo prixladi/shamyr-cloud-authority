@@ -7,26 +7,22 @@ using Shamyr.Cloud.Gateway.Signal.Client;
 using Shamyr.Cloud.Gateway.Signal.Messages;
 using Shamyr.Cloud.Gateway.Signal.Messages.Identity;
 using Shamyr.Cloud.Identity.Client.Factories;
-using Shamyr.DependencyInjection;
 using Shamyr.Tracking;
 
 namespace Shamyr.Cloud.Identity.Client.SignalR
 {
-  [Singleton]
   internal class IdentityEventDispatcher: IIdentityEventDispatcher
   {
-    private readonly IServiceProvider fServiceProvider;
+    private readonly IIdentityEventHandlerFactory fIdentityEventHandlerFactory;
     private readonly ITracker fTracker;
-    private readonly IUserIdentityEventHandlerFactory fHandlerFactory;
 
-    public IdentityEventDispatcher(IServiceProvider serviceProvider)
+    public IdentityEventDispatcher(IIdentityEventHandlerFactory identityEventHandlerFactory, ITracker tracker)
     {
-      fServiceProvider = serviceProvider;
-      fTracker = serviceProvider.GetRequiredService<ITracker>();
-      fHandlerFactory = serviceProvider.GetRequiredService<IUserIdentityEventHandlerFactory>();
+      fIdentityEventHandlerFactory = identityEventHandlerFactory;
+      fTracker = tracker;
     }
 
-    public async Task DispatchAsync(IdentityUserEventMessageBase message, CancellationToken cancellationToken)
+    public async Task DispatchAsync(IdentityEventBase message, CancellationToken cancellationToken)
     {
       if (message is null)
         throw new ArgumentNullException(nameof(message));
@@ -35,12 +31,12 @@ namespace Shamyr.Cloud.Identity.Client.SignalR
       {
         try
         {
-          var handlers = fHandlerFactory.Create(message);
+          var handlers = fIdentityEventHandlerFactory.Create(message).ToArray();
 
           foreach (var handler in handlers)
-            await handler.HandleAsync(fServiceProvider, message, cancellationToken);
+            await handler.HandleAsync(message, cancellationToken);
 
-          if (handlers.Any())
+          if (handlers.Length > 0)
             fTracker.TrackInformation(context, $"Message '{message.GetType()}' handled successfuly.");
           else
             fTracker.TrackWarning(context, $"No handler for message '{message.GetType()}' was found.");

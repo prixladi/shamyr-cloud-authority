@@ -3,7 +3,7 @@ using Shamyr.Tracking;
 
 namespace Shamyr.Cloud.Gateway.Signal.Messages.Identity
 {
-  public class UserVerificationStatusChangedEvent: IdentityUserEventMessageBase
+  public class UserVerificationStatusChangedEvent: IdentityUserEventBase
   {
     public override string Resource => Resources._UserVerificationStatusChanged;
 

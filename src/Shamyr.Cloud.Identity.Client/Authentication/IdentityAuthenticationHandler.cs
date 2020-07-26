@@ -12,14 +12,14 @@ using Shamyr.Cloud.Identity.Client.Services;
 
 namespace Shamyr.Cloud.Identity.Client.Authentication
 {
-  public class IdentityAuthenticationHandler: AuthenticationHandler<IdentityAuthenticationOptions>
+  public class IdentityAuthenticationHandler: AuthenticationHandler<AuthenticationSchemeOptions>
   {
     private readonly IPrincipalFactory fPrincipalFactory;
     private readonly IServiceProvider fServiceProvider;
     private readonly ITokenService fTokenService;
 
     public IdentityAuthenticationHandler(
-      IOptionsMonitor<IdentityAuthenticationOptions> options,
+      IOptionsMonitor<AuthenticationSchemeOptions> options,
       ILoggerFactory logger,
       UrlEncoder encoder,
       ISystemClock clock,

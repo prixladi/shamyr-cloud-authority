@@ -26,11 +26,6 @@ namespace Shamyr.Cloud.Gateway.Service.Repositories
       return await Query.ToListAsync(cancellationToken);
     }
 
-    public async Task<ClientDoc?> GetByClientNameAsync(string clientName, CancellationToken cancellationToken)
-    {
-      return await Query.SingleOrDefaultAsync(doc => doc.ClientName == clientName, cancellationToken);
-    }
-
     public async Task<bool> TrySetDisabledAsync(ObjectId id, bool disabled, CancellationToken cancellationToken)
     {
       var update = Builders<ClientDoc>.Update
