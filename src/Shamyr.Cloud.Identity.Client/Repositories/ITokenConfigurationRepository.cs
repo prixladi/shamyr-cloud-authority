@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Shamyr.Cloud.Gateway.Token.Models;
+using Shamyr.Cloud.Authority.Token.Models;
 
 namespace Shamyr.Cloud.Identity.Client.Repositories
 {

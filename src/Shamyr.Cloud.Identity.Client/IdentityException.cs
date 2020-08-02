@@ -12,7 +12,6 @@ namespace Shamyr.Cloud.Identity.Client
       StatusCode = statusCode;
     }
 
-
     public IdentityException(string message, int statusCode, string? reason)
       : base($"{message} - Status code: {statusCode} - {reason}")
     {

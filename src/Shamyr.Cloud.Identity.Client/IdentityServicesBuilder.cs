@@ -1,38 +1,23 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using Shamyr.Cloud.Identity.Client.Repositories;
-using Shamyr.Cloud.Identity.Client.Services;
-using Shamyr.Cloud.Identity.Client.SignalR;
+using Shamyr.Cloud.Identity.Client.Factories;
 
 namespace Shamyr.Cloud.Identity.Client
 {
   public class IdentityServicesBuilder
   {
     private readonly IServiceCollection fServices;
-    private readonly UserCacheServicesRepository fRepository;
 
-    internal IdentityServicesBuilder(IServiceCollection services, UserCacheServicesRepository repository)
+    internal IdentityServicesBuilder(IServiceCollection services)
     {
       fServices = services ?? throw new ArgumentNullException(nameof(services));
-      fRepository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
 
-    public IdentityServicesBuilder AddUserCacheService<TUserCache>(bool singleton = false)
-      where TUserCache : class, IUserCacheService
+    public IdentityCacheBuilder AddIdentityCaching<TCachePipelineFactory>()
+      where TCachePipelineFactory : class, ICachePipelineFactory
     {
-      if (singleton)
-        fServices.AddSingleton<TUserCache>();
-      else
-        fServices.AddTransient<TUserCache>();
-
-      fRepository.AddService<TUserCache>();
-      return this;
-    }
-
-    public IdentityServicesBuilder AddGatewayEventClient()
-    {
-      fServices.AddGatewaySignalRClient<SignalRClientConfig, IdentityEventDispatcher>();
-      return this;
+      fServices.AddTransient<ICachePipelineFactory, TCachePipelineFactory>();
+      return new IdentityCacheBuilder(fServices);
     }
   }
 }

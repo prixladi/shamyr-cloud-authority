@@ -1,16 +1,16 @@
 version: '3.4'
 
 services:
-  gateway:
-    image: shamyr/cloud/gateway/service
+  authority:
+    image: shamyr/cloud/authority/service
     ports:
       - 8080:80
     environment:
       MONGO_URL: "mongodb://mongodb:27017"
       MONGO_DATABASE_NAME: "ShamyrIdentity"
-      GATEWAY_URL: "http://localhost:8080/"
+      AUTHORITY_URL: "http://localhost:8080/"
       PORTAL_URL: "http://localhost:3000/#/"
-      BEARER_TOKEN_ISSUER: "Shamyr gateway"
+      BEARER_TOKEN_ISSUER: "Shamyr Authority"
       BEARER_TOKEN_AUDIENCE: "React"
       REFRESH_TOKEN_DURATION: "604800"
       BEARER_TOKEN_DURATION: "3600"
@@ -20,7 +20,7 @@ services:
       EMAIL_SENDER_ADDRESS: "noreply@ladislavprix.cz"
     build:
       context: .
-      dockerfile: ./src/Shamyr.Cloud.Gateway.Service/Dockerfile
+      dockerfile: ./src/Shamyr.Cloud.Authority.Service/Dockerfile
 
   identity:
     image: shamyr/cloud/identity/service
@@ -33,18 +33,18 @@ services:
       context: .
       dockerfile: ./src/Shamyr.Cloud.Identity.Service/Dockerfile
 
-#  test:
-#    image: shamyr/cloud/identity/client/test
-#    ports:
-#      - 8082:80
-#    environment:
-#      IDENTITY_URL: 'http://identity:80/'
-#      GATEWAY_URL: 'http://gateway:80/'
-#      CLIENT_ID: '5f02d27b472aa34818a8bea8'
-#      CLIENT_SECRET: 'string'
-#    build:
-#      context: .
-#      dockerfile: ./src/Shamyr.Cloud.Identity.Client.Test/Dockerfile
+  test:
+    image: shamyr/cloud/test/client
+    ports:
+      - 8082:80
+    environment:
+      IDENTITY_URL: 'http://identity:80/'
+      AUTHORITY_URL: 'http://authority:80/'
+      CLIENT_ID: '5f257d6e714ce236e9870292'
+      CLIENT_SECRET: 'string'
+    build:
+      context: .
+      dockerfile: ./src/Shamyr.Cloud.Test.Client/Dockerfile
 
   redis:
     image: redis:latest

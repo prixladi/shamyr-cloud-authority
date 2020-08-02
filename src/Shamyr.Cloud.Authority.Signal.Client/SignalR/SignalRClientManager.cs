@@ -1,0 +1,27 @@
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+
+namespace Shamyr.Cloud.Authority.Client.SignalR
+{
+  internal class SignalRClientManager: IHostedService
+  {
+    private readonly ISignalRClient fHubClient;
+
+    public SignalRClientManager(ISignalRClient hubClient)
+    {
+      fHubClient = hubClient;
+    }
+
+    public Task StartAsync(CancellationToken cancellationToken)
+    {
+      fHubClient.ConnectAsync(cancellationToken);
+      return Task.CompletedTask;
+    }
+
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+      await fHubClient.DisposeAsync().AsTask();
+    }
+  }
+}

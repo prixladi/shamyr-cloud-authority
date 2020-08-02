@@ -15,18 +15,17 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-preview.7.20365.19" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0-preview.7.20364.11" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0-preview.7.20364.11" />
-    <PackageReference Include="Shamyr.ApplicationInsights" Version="1.0.21" />
-    <PackageReference Include="Shamyr.AspNetCore.Authentication" Version="1.0.21" />
-    <PackageReference Include="Shamyr.DependencyInjection" Version="1.0.21" />
-    <PackageReference Include="Shamyr.Security" Version="1.0.21" />
-    <PackageReference Include="Shamyr.Text.Json" Version="1.0.21" />
-    <PackageReference Include="Shamyr.Threading" Version="1.0.21" />
+    <PackageReference Include="Shamyr.ApplicationInsights" Version="1.0.34" />
+    <PackageReference Include="Shamyr.AspNetCore.Authentication" Version="1.0.34" />
+    <PackageReference Include="Shamyr.Security" Version="1.0.34" />
+    <PackageReference Include="Shamyr.Text.Json" Version="1.0.34" />
+    <PackageReference Include="Shamyr.Threading" Version="1.0.34" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shamyr.Cloud.Core\Shamyr.Cloud.Core.csproj" />
-    <ProjectReference Include="..\Shamyr.Cloud.Gateway.Signal.Client\Shamyr.Cloud.Gateway.Signal.Client.csproj" />
-    <ProjectReference Include="..\Shamyr.Cloud.Gateway.Token.Models\Shamyr.Cloud.Gateway.Token.Models.csproj" />
+    <ProjectReference Include="..\Shamyr.Cloud.Authority.Signal.Client\Shamyr.Cloud.Authority.Client.csproj" />
+    <ProjectReference Include="..\Shamyr.Cloud.Authority.Token.Models\Shamyr.Cloud.Authority.Token.Models.csproj" />
     <ProjectReference Include="..\Shamyr.Cloud.Identity.Models\Shamyr.Cloud.Identity.Models.csproj" />
   </ItemGroup>
 </Project>

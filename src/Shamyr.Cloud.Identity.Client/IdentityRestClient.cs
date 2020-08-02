@@ -17,9 +17,7 @@ namespace Shamyr.Cloud.Identity.Client
     private readonly IIdentityClientConfig fIdentityClientConfig;
     private readonly ITracker fTracker;
 
-    public IdentityRestClient(
-      IIdentityClientConfig identityClientConfig,
-      ITracker tracker)
+    public IdentityRestClient(IIdentityClientConfig identityClientConfig, ITracker tracker)
     {
       fIdentityClientConfig = identityClientConfig;
       fTracker = tracker;
@@ -27,9 +25,9 @@ namespace Shamyr.Cloud.Identity.Client
 
     public async Task<UserModel?> GetUserByIdAsync(string userId, IOperationContext context, CancellationToken cancellationToken)
     {
-      using (fTracker.TrackDependency(context, "REST", "Indentity service call", RoleNames._IdentityService, $"ID: {userId}", out var dependecyContext))
+      string url = GetAbsoluteUrl($"api/v1/users/{userId}");
+      using (fTracker.TrackDependency(context, "REST", $"Indentity service call '{url}'", RoleNames._IdentityService, $"ID: {userId}", out var dependecyContext))
       {
-        string url = GetAbsoluteUrl($"api/v1/users/{userId}");
         var message = new HttpRequestMessage(HttpMethod.Get, url);
         try
         {

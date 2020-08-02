@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Shamyr.Cloud.Identity.Client.Factories;
 using Shamyr.Cloud.Identity.Client.Services;
 using Shamyr.Cloud.Identity.Service.Models;
 
@@ -22,15 +24,17 @@ namespace Shamyr.Cloud.Identity.Client
       public string UserId { get; }
     }
 
-    private readonly IUserCacheService[] fServices;
+    private readonly CachePipeline fCachePipeline;
+    private readonly IServiceProvider fServiceProvider;
     private readonly CancellationToken fPipelineCancellation;
 
     private Stack<IUserCacheService>? fUsedServices;
     private Result? fResult;
 
-    public CachePipelineManager(IUserCacheService[] services, CancellationToken pipelineCancellation)
+    public CachePipelineManager(CachePipeline cachePipeline, IServiceProvider serviceProvider, CancellationToken pipelineCancellation)
     {
-      fServices = services ?? throw new ArgumentNullException(nameof(services));
+      fCachePipeline = cachePipeline ?? throw new ArgumentNullException(nameof(cachePipeline));
+      fServiceProvider = serviceProvider;
       fPipelineCancellation = pipelineCancellation;
     }
 
@@ -39,9 +43,9 @@ namespace Shamyr.Cloud.Identity.Client
       if (userId is null)
         throw new ArgumentNullException(nameof(userId));
 
-      fUsedServices = new Stack<IUserCacheService>(fServices.Count());
+      fUsedServices = new Stack<IUserCacheService>(fCachePipeline.Length);
 
-      foreach (var service in fServices)
+      foreach (var service in fCachePipeline.GetServices(fServiceProvider))
       {
         var cachedUser = await service.RetrieveUserAsync(userId, fPipelineCancellation);
         if (cachedUser != null)

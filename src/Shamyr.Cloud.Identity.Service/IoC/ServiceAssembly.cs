@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Shamyr.DependencyInjection;
+using Shamyr.Extensions.DependencyInjection;
 
 namespace Shamyr.Cloud.Identity.Service.IoC
 {
@@ -7,8 +7,7 @@ namespace Shamyr.Cloud.Identity.Service.IoC
   {
     public static void AddServiceAssembly(this IServiceCollection services)
     {
-      using var scan = services.CreateScanner<Startup>();
-      scan.WithDefaultConventions();
+      services.AddDefaultConventions<Startup>();
     }
   }
 }

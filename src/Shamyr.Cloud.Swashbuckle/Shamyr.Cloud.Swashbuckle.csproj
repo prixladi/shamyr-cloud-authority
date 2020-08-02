@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shamyr.AspNetCore.Swashbuckle" Version="1.0.21" />
+    <PackageReference Include="Shamyr.AspNetCore.Swashbuckle" Version="1.0.34" />
   </ItemGroup>
 
   <ItemGroup>
