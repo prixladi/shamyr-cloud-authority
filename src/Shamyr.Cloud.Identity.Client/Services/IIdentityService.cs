@@ -7,6 +7,6 @@ namespace Shamyr.Cloud.Identity.Client.Services
 {
   public interface IIdentityService
   {
-    Task<UserModel?> GetUserModelByIdAsync(IOperationContext context, string userId, CancellationToken cancellationToken);
+    Task<UserModel?> GetUserModelByIdAsync(string userId, IOperationContext context, CancellationToken cancellationToken);
   }
 }

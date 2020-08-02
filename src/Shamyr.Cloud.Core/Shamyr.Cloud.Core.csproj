@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.21" />
-    <PackageReference Include="Shamyr.Security" Version="1.0.21" />
+    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.34" />
+    <PackageReference Include="Shamyr.Security" Version="1.0.34" />
   </ItemGroup>
 
 </Project>

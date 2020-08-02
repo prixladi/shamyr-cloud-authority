@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Version>1.1.2</Version>
+    <Authors>Ladislav Prix</Authors>
+    <Company>Shamyr</Company>
+    <NeutralLanguage>en</NeutralLanguage>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Shamyr" Version="1.0.34" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shamyr.Cloud.Authority.Token.Models\Shamyr.Cloud.Authority.Token.Models.csproj" />
+  </ItemGroup>
+
+</Project>

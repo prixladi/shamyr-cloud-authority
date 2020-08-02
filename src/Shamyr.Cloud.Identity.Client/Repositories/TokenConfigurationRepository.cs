@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Shamyr.Cloud.Gateway.Token.Models;
-using Shamyr.DependencyInjection;
+using Shamyr.Cloud.Authority.Token.Models;
+using Shamyr.Extensions.DependencyInjection;
 using Shamyr.Threading;
 
 namespace Shamyr.Cloud.Identity.Client.Repositories
 {
   [Singleton]
-  public class TokenConfigurationRepository: ITokenConfigurationRepository
+  internal class TokenConfigurationRepository: ITokenConfigurationRepository
   {
     private readonly LinkedList<TaskCompletionSource<TokenConfigurationModel>> fConfigurationSources = new LinkedList<TaskCompletionSource<TokenConfigurationModel>>();
 

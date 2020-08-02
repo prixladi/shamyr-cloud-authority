@@ -7,7 +7,7 @@ namespace Shamyr.Cloud.Swashbuckle
 {
   public static class SwaggerGenOptionsExtensions
   {
-    public const string _SecurityDefinitionName = "Identity";
+    public const string _SecurityDefinitionName = "Bearer";
 
     public static void AddIndentitySecurity(this SwaggerGenOptions options)
     {
@@ -19,8 +19,8 @@ namespace Shamyr.Cloud.Swashbuckle
         Type = SecuritySchemeType.ApiKey,
         Name = "Authorization",
         Description = "Identity authorization",
-        In = ParameterLocation.Query,
-        Scheme = "Identity"
+        In = ParameterLocation.Header,
+        Scheme = _SecurityDefinitionName
       });
 
       options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -28,6 +28,8 @@ namespace Shamyr.Cloud.Swashbuckle
         {
           new OpenApiSecurityScheme
           {
+            Name = _SecurityDefinitionName,
+            In = ParameterLocation.Header,
             Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = _SecurityDefinitionName}
           },
           Array.Empty<string>()

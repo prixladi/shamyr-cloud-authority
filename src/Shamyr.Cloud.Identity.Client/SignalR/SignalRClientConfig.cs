@@ -1,10 +1,10 @@
 ﻿using System;
-using Shamyr.Cloud.Gateway.Signal.Client;
-using Shamyr.Cloud.Gateway.Signal.Messages.Identity;
+using Shamyr.Cloud.Authority.Client.SignalR;
+using Shamyr.Cloud.Authority.Signal.Messages;
 
 namespace Shamyr.Cloud.Identity.Client.SignalR
 {
-  public class SignalRClientConfig: ISignalRClientConfig
+  public class SignalRClientConfig: IAuthoritySignalRClientConfig
   {
     private readonly IIdentityClientConfig fConfig;
 
@@ -13,15 +13,16 @@ namespace Shamyr.Cloud.Identity.Client.SignalR
       fConfig = config;
     }
 
-    public Uri GatewayUrl => fConfig.IdentityUrl;
+    public Uri AuthorityUrl => fConfig.AuthorityUrl;
     public string ClientId => fConfig.ClientId;
     public string ClientSecret => fConfig.ClientSecret;
 
     public string[] SubscribedResources => new string[]
     {
-      Resources._UserLoggedOut,
-      Resources._UserUserPermissionChanged,
-      Resources._UserVerificationStatusChanged
+      Resources._UserAdminChanged,
+      Resources._UserDisabledChanged,
+      Resources._UserVerifiedChanged,
+      Resources._UserLoggedOut
     };
   }
 }
