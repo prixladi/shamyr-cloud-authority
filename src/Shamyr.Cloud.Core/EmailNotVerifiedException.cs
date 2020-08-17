@@ -5,7 +5,6 @@ namespace Shamyr.Cloud
   public class EmailNotVerifiedException: Exception
   {
     public object EmailPrincipal { get; }
-
     public int StatusCode { get; }
 
     public EmailNotVerifiedException(object emailPrincipal)

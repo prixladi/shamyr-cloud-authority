@@ -4,11 +4,11 @@ namespace Shamyr.Cloud.Authority.Service.Models.Users
 {
   public class UserPostModel
   {
-    [StringLength(maximumLength: 500, MinimumLength = 6)]
+    [StringLength(maximumLength: ModelConstants._MaxUsernameLength, MinimumLength = ModelConstants._MinUsernameLength)]
     [Required]
     public string Username { get; set; } = default!;
 
-    [StringLength(maximumLength: int.MaxValue, MinimumLength = 6)]
+    [StringLength(maximumLength: ModelConstants._MaxPasswordLength, MinimumLength = ModelConstants._MinPasswordLength)]
     [Required]
     public string Password { get; set; } = default!;
 

@@ -1,17 +1,17 @@
 ﻿using System;
 using Shamyr.Cloud.Database.Documents;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.Emails
 {
-  public class VerifyAccountEmailContext: OperationContext, IEmailBuildContext
+  public class VerifyAccountEmailContext: LoggingContext, IEmailBuildContext
   {
     public EmailTemplateType EmailType => EmailTemplateType.VerifyAccount;
 
     public string EmailToken { get; }
     public string Email { get; }
 
-    public static VerifyAccountEmailContext New(UserDoc user, IOperationContext context)
+    public static VerifyAccountEmailContext New(UserDoc user, ILoggingContext context)
     {
       if (user is null)
         throw new ArgumentNullException(nameof(user));
@@ -19,7 +19,7 @@ namespace Shamyr.Cloud.Authority.Service.Emails
       return new VerifyAccountEmailContext(user.EmailToken!, user.Email, context);
     }
 
-    public VerifyAccountEmailContext(string emailToken, string email, IOperationContext context)
+    public VerifyAccountEmailContext(string emailToken, string email, ILoggingContext context)
       : base(context)
     {
       EmailToken = emailToken ?? throw new ArgumentNullException(nameof(emailToken));

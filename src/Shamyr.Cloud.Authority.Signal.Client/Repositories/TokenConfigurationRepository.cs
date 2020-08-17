@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Shamyr.Cloud.Authority.Token.Models;
+using Shamyr.Cloud.Authority.Models;
 using Shamyr.Extensions.DependencyInjection;
 using Shamyr.Threading;
 

@@ -4,29 +4,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Shamyr.Cloud.Authority.Service.SignalR.Hubs;
 using Shamyr.Cloud.Authority.Signal.Messages;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.Services
 {
   public class ClientHubService: IClientHubService
   {
     private readonly IHubContext<ClientHub> fHubContext;
-    private readonly ITracker fTracker;
+    private readonly ILogger fLogger;
 
-    public ClientHubService(IHubContext<ClientHub> hubContext, ITracker tracker)
+    public ClientHubService(IHubContext<ClientHub> hubContext, ILogger logger)
     {
       fHubContext = hubContext;
-      fTracker = tracker;
+      fLogger = logger;
     }
 
-    public async Task SendEventAsync(UserEventBase @event, string method, IOperationContext context, CancellationToken cancellationToken)
+    public async Task SendEventAsync(UserEventBase @event, string method, ILoggingContext context, CancellationToken cancellationToken)
     {
       if (context is null)
         throw new ArgumentNullException(nameof(context));
       if (@event is null)
         throw new ArgumentNullException(nameof(@event));
 
-      using (fTracker.TrackRequest(context, $"SignalR - Authority client event - {@event.Resource} {method}.", out var requstContext))
+      using (fLogger.TrackRequest(context, $"SignalR - Authority client event - {@event.Resource} {method}.", out var requstContext))
       {
         try
         {
@@ -37,12 +37,12 @@ namespace Shamyr.Cloud.Authority.Service.Services
             .SendAsync(method, @event, cancellationToken);
 
           requstContext.Success();
-          fTracker.TrackInformation(requstContext, $"Event {@event.GetType()} successfully sent.");
+          fLogger.LogInformation(requstContext, $"Event {@event.GetType()} successfully sent.");
         }
         catch (Exception ex)
         {
           requstContext.Fail();
-          fTracker.TrackException(requstContext, ex, $"Error while sending event '{@event.GetType()}'.");
+          fLogger.LogException(requstContext, ex, $"Error while sending event '{@event.GetType()}'.");
           throw ex;
         }
       }

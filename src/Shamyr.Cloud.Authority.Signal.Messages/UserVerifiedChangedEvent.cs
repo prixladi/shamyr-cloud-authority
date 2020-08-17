@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Signal.Messages
 {
@@ -16,7 +16,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
       Verified = verified;
     }
 
-    public UserVerifiedChangedEvent(string userId, bool verified, IOperationContext context)
+    public UserVerifiedChangedEvent(string userId, bool verified, ILoggingContext context)
       : base(userId, context)
     {
       Verified = verified;

@@ -9,17 +9,17 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Shamyr.Operations;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Client.Services
 {
   internal class HubConnectionService: IHubConnectionService
   {
-    private readonly ITracker fTracker;
+    private readonly ILogger fLogger;
 
-    public HubConnectionService(ITracker tracker)
+    public HubConnectionService(ILogger logger)
     {
-      fTracker = tracker;
+      fLogger = logger;
     }
 
     public HubConnection CreateConnection(Uri signalUrl)
@@ -31,7 +31,7 @@ namespace Shamyr.Cloud.Authority.Client.Services
         .Build();
     }
 
-    public async Task InitialConnectAsync(HubConnection hubConnection, Uri signalUrl, IOperationContext context, CancellationToken cancellationToken)
+    public async Task InitialConnectAsync(HubConnection hubConnection, Uri signalUrl, ILoggingContext context, CancellationToken cancellationToken)
     {
       var config = new RetryOperationConfig
       {
@@ -41,10 +41,10 @@ namespace Shamyr.Cloud.Authority.Client.Services
       };
 
       await new RetryOperation((_, cancellationToken) => hubConnection.StartAsync(cancellationToken), config)
-        .Catch<Unit, WebSocketException>(fTracker)
-        .OnRetryInformation(fTracker, $"Retrying to connect to '{signalUrl}' ...")
-        .OnSuccess(fTracker, $"Successfuly connected to '{signalUrl}'.")
-        .OnFail(fTracker, $"Unable to connect to '{signalUrl}'.")
+        .Catch<Unit, WebSocketException>(fLogger)
+        .OnRetryInformation(fLogger, $"Retrying to connect to '{signalUrl}' ...")
+        .OnSuccess(fLogger, $"Successfuly connected to '{signalUrl}'.")
+        .OnFail(fLogger, $"Unable to connect to '{signalUrl}'.")
         .OnFailRethrow()
         .ExecuteAsync(context, cancellationToken);
     }

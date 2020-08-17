@@ -4,11 +4,11 @@ using Microsoft.Extensions.Hosting;
 
 namespace Shamyr.Cloud.Authority.Client.SignalR
 {
-  internal class SignalRClientManager: IHostedService
+  internal class SignalRClientStarterService: IHostedService
   {
     private readonly ISignalRClient fHubClient;
 
-    public SignalRClientManager(ISignalRClient hubClient)
+    public SignalRClientStarterService(ISignalRClient hubClient)
     {
       fHubClient = hubClient;
     }

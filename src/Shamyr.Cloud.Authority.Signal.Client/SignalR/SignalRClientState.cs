@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Shamyr.Cloud.Authority.Client.Services;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Client.SignalR
 {
   internal class SignalRClientState: IAsyncDisposable
   {
     private readonly IServiceProvider fServiceProvider;
-    private readonly ITracker fTracker;
+    private readonly ILogger fLogger;
 
-    public IOperationContext Context { get; }
+    public ILoggingContext Context { get; }
     public HubConnection Connection { get; }
     public Uri SignalUrl { get; }
     public CancellationTokenSource CancellationSource { get; }
@@ -24,8 +24,8 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
       fServiceProvider = serviceProvider;
 
       CancellationSource = new CancellationTokenSource();
-      Context = OperationContext.Origin;
-      fTracker = serviceProvider.GetRequiredService<ITracker>();
+      Context = LoggingContext.Root;
+      fLogger = serviceProvider.GetRequiredService<ILogger>();
 
       using var scope = fServiceProvider.CreateScope();
       var hubService = scope.ServiceProvider.GetRequiredService<IHubConnectionService>();
@@ -42,7 +42,7 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
     public async ValueTask DisposeAsync()
     {
       CancellationSource.Cancel();
-      using (fTracker.TrackRequest(Context, $"Disconecting from {SignalUrl}.", out var requestContext))
+      using (fLogger.TrackRequest(Context, $"Disconecting from {SignalUrl}.", out var requestContext))
       {
         try
         {
@@ -51,7 +51,7 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
         }
         catch (Exception ex)
         {
-          fTracker.TrackException(requestContext, ex);
+          fLogger.LogException(requestContext, ex);
           requestContext.Fail();
           throw;
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Signal.Messages
 {
@@ -17,7 +17,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
       ClientSecret = clientSecret ?? throw new ArgumentNullException(nameof(clientSecret));
     }
 
-    public LoginRequest(string clientId, string clientSecret, IOperationContext context)
+    public LoginRequest(string clientId, string clientSecret, ILoggingContext context)
       : base(context)
     {
       ClientId = clientId ?? throw new ArgumentNullException(nameof(clientId));

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Shamyr.Cloud.Authority.Service.Models.Logins
+namespace Shamyr.Cloud.Authority.Service.Models.ConnectToken
 {
   public class TokensModel
   {

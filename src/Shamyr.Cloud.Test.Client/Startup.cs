@@ -26,7 +26,7 @@ namespace Shamyr.Cloud.Identity.Client.Test
       services.AddSwaggerGen(SwaggerConfig.SetupSwaggerGen);
 
       services.AddApplicationInsightsTelemetry();
-      services.AddApplicationInsightsTracker("Identity test");
+      services.AddApplicationInsightsLogger("Identity test");
 
       services.AddAuthentication(options =>
       {

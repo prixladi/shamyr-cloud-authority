@@ -32,7 +32,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
         throw new BadRequestException("Password reset token is invalid.");
 
       var secret = fSecretService.CreateSecret(request.Model.Password);
-      await fUserRepository.SetUserSecretAsync(user.Id, secret.ToDoc(), cancellationToken);
+      await fUserRepository.SetSecretAsync(user.Id, secret.ToDoc(), cancellationToken);
 
       return Unit.Value;
     }

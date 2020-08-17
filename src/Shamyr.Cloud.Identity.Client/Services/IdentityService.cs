@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Shamyr.Cloud.Identity.Client.Factories;
 using Shamyr.Cloud.Identity.Service.Models;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Identity.Client.Services
 {
@@ -21,7 +21,7 @@ namespace Shamyr.Cloud.Identity.Client.Services
       fIdentityClient = serviceProvider.GetRequiredService<IIdentityClient>();
     }
 
-    public async Task<UserModel?> GetUserModelByIdAsync(string userId, IOperationContext context, CancellationToken cancellationToken)
+    public async Task<UserModel?> GetUserModelByIdAsync(string userId, ILoggingContext context, CancellationToken cancellationToken)
     {
       var pipeline = fCachePipelineFactory.Create();
 

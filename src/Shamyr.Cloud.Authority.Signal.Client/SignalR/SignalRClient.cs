@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Shamyr.Cloud.Authority.Signal.Messages;
 using Shamyr.Extensions.DependencyInjection;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Client.SignalR
 {
@@ -14,7 +14,7 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
   {
     private readonly SignalRClientState fState;
     private readonly IAuthoritySignalRClientConfig fConfig;
-    private readonly ITracker fTracker;
+    private readonly ILogger fLogger;
     private readonly IServiceProvider fServiceProvider;
 
     private Task? fAuthroizeTask;
@@ -22,7 +22,7 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
     public SignalRClient(IServiceProvider serviceProvider)
     {
       fServiceProvider = serviceProvider;
-      fTracker = serviceProvider.GetRequiredService<ITracker>();
+      fLogger = serviceProvider.GetRequiredService<ILogger>();
       fConfig = serviceProvider.GetRequiredService<IAuthoritySignalRClientConfig>();
 
       var url = fConfig.AuthorityUrl.AppendPath(Routes._Client);
@@ -39,18 +39,18 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
 
     public async void ConnectAsync(CancellationToken cancellationToken)
     {
-      using (fTracker.TrackRequest(fState.Context, $"Connecting to {fState.SignalUrl}.", out var requestContext))
+      using (fLogger.TrackRequest(fState.Context, $"Connecting to {fState.SignalUrl}.", out var requestContext))
       {
         try
         {
           await fState.InitialConnectAsync(cancellationToken);
           fAuthroizeTask = AuthorizeConnectionAsync(requestContext, fState.CancellationSource.Token);
           requestContext.Success();
-          fTracker.TrackInformation(requestContext, $"Successfully connected to '{fState.SignalUrl}'.");
+          fLogger.LogInformation(requestContext, $"Successfully connected to '{fState.SignalUrl}'.");
         }
         catch (Exception ex)
         {
-          fTracker.TrackException(requestContext, ex);
+          fLogger.LogException(requestContext, ex);
           requestContext.Fail();
         }
       }
@@ -61,9 +61,9 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
       await fState.DisposeAsync();
     }
 
-    private async Task AuthorizeConnectionAsync(IOperationContext context, CancellationToken cancellationToken)
+    private async Task AuthorizeConnectionAsync(ILoggingContext context, CancellationToken cancellationToken)
     {
-      using (fTracker.TrackRequest(context, "Authorizing connection", out var requestContext))
+      using (fLogger.TrackRequest(context, "Authorizing connection", out var requestContext))
       {
         try
         {
@@ -73,7 +73,7 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
         }
         catch (Exception ex)
         {
-          fTracker.TrackException(context, ex);
+          fLogger.LogException(context, ex);
           requestContext.Fail();
           throw;
         }

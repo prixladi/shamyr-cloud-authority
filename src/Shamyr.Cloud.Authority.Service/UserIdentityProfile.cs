@@ -16,7 +16,7 @@ namespace Shamyr.Cloud.Authority.Service
     public ObjectId UserId { get; }
     public string Username { get; set; } = default!;
     public string Email { get; set; } = default!;
-    public Secret Secret { get; set; } = default!;
+    public Secret? Secret { get; set; } = default!;
     public DateTime? LogoutUtc { get; set; }
     public bool Admin { get; set; }
 

@@ -8,25 +8,25 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Shamyr.Base64;
 using Shamyr.Cloud.Identity.Service.Models;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Identity.Client
 {
   internal class IdentityRestClient: IIdentityClient
   {
     private readonly IIdentityClientConfig fIdentityClientConfig;
-    private readonly ITracker fTracker;
+    private readonly ILogger fLogger;
 
-    public IdentityRestClient(IIdentityClientConfig identityClientConfig, ITracker tracker)
+    public IdentityRestClient(IIdentityClientConfig identityClientConfig, ILogger logger)
     {
       fIdentityClientConfig = identityClientConfig;
-      fTracker = tracker;
+      fLogger = logger;
     }
 
-    public async Task<UserModel?> GetUserByIdAsync(string userId, IOperationContext context, CancellationToken cancellationToken)
+    public async Task<UserModel?> GetUserByIdAsync(string userId, ILoggingContext context, CancellationToken cancellationToken)
     {
       string url = GetAbsoluteUrl($"api/v1/users/{userId}");
-      using (fTracker.TrackDependency(context, "REST", $"Indentity service call '{url}'", RoleNames._IdentityService, $"ID: {userId}", out var dependecyContext))
+      using (fLogger.TrackDependency(context, "REST", $"Indentity service call '{url}'", RoleNames._IdentityService, $"ID: {userId}", out var dependecyContext))
       {
         var message = new HttpRequestMessage(HttpMethod.Get, url);
         try

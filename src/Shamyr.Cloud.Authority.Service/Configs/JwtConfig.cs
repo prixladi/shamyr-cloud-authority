@@ -2,11 +2,11 @@
 {
   public class JwtConfig: IJwtConfig
   {
-    public string BearerTokenIssuer => EnvironmentUtils.BearerTokenIssuer;
-    public string BearerTokenAudience => EnvironmentUtils.BearerTokenAudience;
-    public int RefreshTokenDuration => EnvironmentUtils.RefreshTokenDuration;
-    public int BearerTokenDuration => EnvironmentUtils.BearerTokenDuration;
-    public string BearerPrivateKey => EnvironmentUtils.BearerPrivateKey;
-    public string BearerPublicKey => EnvironmentUtils.BearerPublicKey;
+    public string BearerTokenIssuer { get; } = EnvVariable.Get(EnvVariables._BearerTokenIssuer);
+    public string BearerTokenAudience { get; } = EnvVariable.Get(EnvVariables._BearerTokenAudience);
+    public int RefreshTokenDuration { get; } = int.Parse(EnvVariable.Get(EnvVariables._RefreshTokenDuration));
+    public int BearerTokenDuration { get; } = int.Parse(EnvVariable.Get(EnvVariables._BearerTokenDuration));
+    public string BearerPrivateKey { get; } = EnvVariable.Get(EnvVariables._BearerPrivateKey);
+    public string BearerPublicKey { get; } = EnvVariable.Get(EnvVariables._BearerPublicKey);
   }
 }

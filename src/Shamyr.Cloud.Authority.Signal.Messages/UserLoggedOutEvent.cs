@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Signal.Messages
 {
@@ -12,7 +12,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
       : base(userId, operationId, parentOperationId) { }
 
 
-    public UserLoggedOutEvent(string userId, IOperationContext operationContext)
+    public UserLoggedOutEvent(string userId, ILoggingContext operationContext)
       : base(userId, operationContext) { }
   }
 }

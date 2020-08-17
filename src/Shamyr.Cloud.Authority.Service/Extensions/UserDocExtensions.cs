@@ -33,13 +33,13 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
       {
         Email = user.Email,
         Username = user.Username,
-        Secret = user.Secret.ToModel(),
+        Secret = user.Secret?.ToModel(),
         LogoutUtc = user.LogoutUtc,
         Admin = user.Admin
       };
     }
 
-    public static ICollection<UserPreviewModel> ToPreview(this IEnumerable<UserDoc> users)
+    public static IReadOnlyCollection<UserPreviewModel> ToPreview(this IEnumerable<UserDoc> users)
     {
       if (users is null)
         throw new ArgumentNullException(nameof(users));

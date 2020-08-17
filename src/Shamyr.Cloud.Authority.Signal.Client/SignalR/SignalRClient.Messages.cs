@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Shamyr.Cloud.Authority.Client.Facades;
 using Shamyr.Cloud.Authority.Signal.Messages;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Client.SignalR
 {
   internal partial class SignalRClient
   {
-    private async Task LoginAsync(string clientId, string clientSecret, IOperationContext context, CancellationToken cancellationToken)
+    private async Task LoginAsync(string clientId, string clientSecret, ILoggingContext context, CancellationToken cancellationToken)
     {
-      using (fTracker.TrackRequest(context, $"Authority Hub Login", out var requestContext))
+      using (fLogger.TrackRequest(context, $"Authority Hub Login", out var requestContext))
       {
         try
         {
@@ -29,9 +29,9 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
       }
     }
 
-    private async Task SubscribeResourcesAsync(string[] resources, IOperationContext context, CancellationToken cancellationToken)
+    private async Task SubscribeResourcesAsync(string[] resources, ILoggingContext context, CancellationToken cancellationToken)
     {
-      using (fTracker.TrackRequest(context, $"Authority Hub Subscribe resources", out var requestContext))
+      using (fLogger.TrackRequest(context, $"Authority Hub Subscribe resources", out var requestContext))
       {
         try
         {
@@ -75,7 +75,7 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
 
     private async Task HandleEventAsync(EventBase @event)
     {
-      using (fTracker.TrackRequest(@event.GetContext(), $"SignalR - Authority client event - '{@event.GetType()}'.", out var requestContext))
+      using (fLogger.TrackRequest(@event.GetContext(), $"SignalR - Authority client event - '{@event.GetType()}'.", out var requestContext))
       {
         try
         {

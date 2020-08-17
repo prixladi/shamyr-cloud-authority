@@ -18,7 +18,7 @@ namespace Shamyr.Cloud.Authority.Service.Emails
       get
       {
         yield return (_PasswordTokenMark, x => x.PasswordToken!);
-        yield return (_UserIdMark, x => x.Id.ToString());
+        yield return (_UserIdMark, x => x.UserId.ToString());
         yield return (_UsernameMark, x => x.Username);
       }
     }

@@ -4,11 +4,11 @@ namespace Shamyr.Cloud.Authority.Service.Models.CurrentUser
 {
   public class CurrentUserPutPasswordModel
   {
-    [StringLength(maximumLength: int.MaxValue, MinimumLength = 6)]
+    [StringLength(maximumLength: ModelConstants._MaxPasswordLength, MinimumLength = ModelConstants._MinPasswordLength)]
     [Required]
     public string OldPassword { get; set; } = default!;
 
-    [StringLength(maximumLength: int.MaxValue, MinimumLength = 6)]
+    [StringLength(maximumLength: ModelConstants._MaxPasswordLength, MinimumLength = ModelConstants._MinPasswordLength)]
     [Required]
     public string NewPassword { get; set; } = default!;
   }

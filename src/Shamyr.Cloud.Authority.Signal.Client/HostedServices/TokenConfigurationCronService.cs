@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Shamyr.Cloud.Authority.Client.Repositories;
 using Shamyr.Cloud.Authority.Client.Services;
-using Shamyr.Cloud.Authority.Token.Models;
+using Shamyr.Cloud.Authority.Models;
 using Shamyr.Extensions.Hosting;
+using Shamyr.Logging;
 using Shamyr.Operations;
-using Shamyr.Tracking;
 
 namespace Shamyr.Cloud.Authority.Client.HostedServices
 {
@@ -25,7 +25,7 @@ namespace Shamyr.Cloud.Authority.Client.HostedServices
       var configurationService = provider.GetRequiredService<ITokenConfigurationService>();
       var config = provider.GetRequiredService<IAuthorityClientConfig>();
 
-      Task<TokenConfigurationModel> Operation(IOperationContext context, CancellationToken cancellationToken)
+      Task<TokenConfigurationModel> Operation(ILoggingContext context, CancellationToken cancellationToken)
       {
         return configurationService.GetAsync(config.AuthorityUrl, context, cancellationToken);
       }
@@ -37,15 +37,15 @@ namespace Shamyr.Cloud.Authority.Client.HostedServices
         SameExceptions = SameExceptions
       };
 
-      using (fTracker.TrackRequest(fContext, "Token configuration service loading.", out var trackingContext))
+      using (fLogger.TrackRequest(fContext, "Token configuration service loading.", out var trackingContext))
       {
         await new RetryOperation<TokenConfigurationModel>(Operation, operationConfig)
-         .Catch<TokenConfigurationModel, HttpRequestException>(fTracker)
-         .Catch<TokenConfigurationModel, Exception>(fTracker, true)
+         .Catch<TokenConfigurationModel, HttpRequestException>(fLogger)
+         .Catch<TokenConfigurationModel, Exception>(fLogger, true)
          .OnFail(trackingContext)
-         .OnFail(fTracker, $"Unable to load authrority configuration. Signing key may be deprecated!")
+         .OnFail(fLogger, $"Unable to load authrority configuration. Signing key may be deprecated!")
          .OnSuccess(trackingContext)
-         .OnSuccess(fTracker, $"Loaded new authrority configuration.")
+         .OnSuccess(fLogger, $"Loaded new authrority configuration.")
          .OnSuccess((result, contex) => configurationRepository.Set(result))
          .ExecuteAsync(trackingContext, cancellationToken);
       }

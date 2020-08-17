@@ -4,33 +4,33 @@ using Microsoft.AspNetCore.SignalR;
 using MongoDB.Bson;
 using Shamyr.Cloud.Authority.Service.Services;
 using Shamyr.Cloud.Authority.Signal.Messages;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.SignalR.Hubs
 {
   public partial class ClientHub: Hub, IRemoteServer
   {
     private readonly IClientService fClientService;
-    private readonly ITracker fTracker;
+    private readonly ILogger fLogger;
 
-    public ClientHub(IClientService clientService, ITracker tracker)
+    public ClientHub(IClientService clientService, ILogger logger)
     {
       fClientService = clientService;
-      fTracker = tracker;
+      fLogger = logger;
     }
 
     public override async Task OnConnectedAsync()
     {
-      fTracker.TrackInformation(OperationContext.Origin, $"SignalR client with Connection Id '{Context.ConnectionId}' connected.");
+      fLogger.LogInformation(LoggingContext.Root, $"SignalR client with Connection Id '{Context.ConnectionId}' connected.");
       await base.OnConnectedAsync();
     }
 
     public override Task OnDisconnectedAsync(Exception exception)
     {
       if (exception != null)
-        fTracker.TrackException(OperationContext.Origin, exception, $"SignalR client with Connection Id '{Context.ConnectionId}' disconnected.");
+        fLogger.LogException(LoggingContext.Root, exception, $"SignalR client with Connection Id '{Context.ConnectionId}' disconnected.");
       else
-        fTracker.TrackInformation(OperationContext.Origin, $"SignalR client with Connection Id '{Context.ConnectionId}' disconnected.");
+        fLogger.LogInformation(LoggingContext.Root, $"SignalR client with Connection Id '{Context.ConnectionId}' disconnected.");
 
       return base.OnDisconnectedAsync(exception);
     }

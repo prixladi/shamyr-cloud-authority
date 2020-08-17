@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
@@ -39,9 +40,9 @@ namespace Shamyr.Cloud.Identity.Client.Authentication
       if (string.IsNullOrEmpty(token) || !IsJwt(token))
         return AuthenticateResult.Fail("Wrong format or missing token.");
 
-      var user = await fTokenService.TryGetUserAsync(token, Context.RequestAborted);
+       var user = await fTokenService.TryGetUserAsync(token, Context.RequestAborted);
       if (user == null)
-        return AuthenticateResult.Fail("Token is in wrong format.");
+        return AuthenticateResult.Fail("Token is in wrong format.");      
 
       var userPrincipal = await fPrincipalFactory.CreateAsync(fServiceProvider, Scheme.Name, user, Context.RequestAborted);
       var ticket = new AuthenticationTicket(userPrincipal, Scheme.Name);

@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Signal.Messages
 {
@@ -16,7 +16,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
       Disabled = disabled;
     }
 
-    public UserDisabledChangedEvent(string userId, bool disabled, IOperationContext context)
+    public UserDisabledChangedEvent(string userId, bool disabled, ILoggingContext context)
       : base(userId, context)
     {
       Disabled = disabled;

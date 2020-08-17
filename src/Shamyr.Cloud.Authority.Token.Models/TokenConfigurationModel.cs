@@ -1,4 +1,4 @@
-﻿namespace Shamyr.Cloud.Authority.Token.Models
+﻿namespace Shamyr.Cloud.Authority.Models
 {
   public class TokenConfigurationModel
   {

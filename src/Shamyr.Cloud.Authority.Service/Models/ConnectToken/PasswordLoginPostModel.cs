@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shamyr.Cloud.Authority.Service.Models.Logins
+namespace Shamyr.Cloud.Authority.Service.Models.ConnectToken
 {
-  public class LoginPostModel
+  public class PasswordLoginPostModel
   {
     [Required]
     public string Username { get; set; } = default!;

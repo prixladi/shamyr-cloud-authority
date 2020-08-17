@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Shamyr.AspNetCore.Services;
+using Shamyr.AspNetCore.ApplicationInsights.Services;
 using Shamyr.Cloud.Authority.Service.Emails;
 using Shamyr.Cloud.Authority.Service.Repositories;
 using Shamyr.Cloud.Authority.Service.Requests.Emails;

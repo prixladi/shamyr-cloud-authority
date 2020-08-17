@@ -6,19 +6,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shamyr.Cloud.Authority.Client.Factories;
 using Shamyr.Cloud.Authority.Signal.Messages;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Client.Facades
 {
   internal class EventReactionFacade: IEventReactionFacade
   {
     private readonly IEventReactionFactory fFactory;
-    private readonly ITracker fTracker;
+    private readonly ILogger fLogger;
 
-    public EventReactionFacade(IEventReactionFactory factory, ITracker tracker)
+    public EventReactionFacade(IEventReactionFactory factory, ILogger logger)
     {
       fFactory = factory;
-      fTracker = tracker;
+      fLogger = logger;
     }
 
     public async Task ReactAsync(EventBase @event, CancellationToken cancellationToken)
@@ -28,7 +28,7 @@ namespace Shamyr.Cloud.Authority.Client.Facades
       var reactions = fFactory.Create(@event).ToArray();
       if (reactions.Length == 0)
       {
-        fTracker.TrackInformation(context, $"No reaction for event '{@event.GetType()}'");
+        fLogger.LogInformation(context, $"No reaction for event '{@event.GetType()}'");
         return;
       }
 

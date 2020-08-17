@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Signal.Messages
 {
@@ -17,7 +17,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
       UserId = userId ?? throw new ArgumentNullException(nameof(userId));
     }
 
-    protected UserEventBase(string userId, IOperationContext context)
+    protected UserEventBase(string userId, ILoggingContext context)
       : base(context)
     {
       UserId = userId ?? throw new ArgumentNullException(nameof(userId));

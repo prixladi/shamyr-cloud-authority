@@ -28,7 +28,7 @@ namespace Shamyr.Cloud.Authority.Service
       services.AddExceptionHandling();
       services.AddCustomExceptionHandling();
 
-      services.AddDatabaseContext<DatabaseConfig>(DatabaseConfig.Setup);
+      services.AddDatabaseContext<DatabaseConfig, DatabaseOptions>();
 
       services.AddEmails();
 

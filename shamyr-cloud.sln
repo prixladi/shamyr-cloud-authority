@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shamyr.Cloud.Authority.Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shamyr.Cloud.Authority.Signal.Messages", "src\Shamyr.Cloud.Authority.Signal.Messages\Shamyr.Cloud.Authority.Signal.Messages.csproj", "{FE46D3FA-5315-4607-B8C6-0123C3742844}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shamyr.Cloud.Authority.Token.Models", "src\Shamyr.Cloud.Authority.Token.Models\Shamyr.Cloud.Authority.Token.Models.csproj", "{4B29B21F-E760-454A-A5BC-CC6B2936C292}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shamyr.Cloud.Authority.Models", "src\Shamyr.Cloud.Authority.Token.Models\Shamyr.Cloud.Authority.Models.csproj", "{4B29B21F-E760-454A-A5BC-CC6B2936C292}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shamyr.Cloud.Test.Client", "src\Shamyr.Cloud.Test.Client\Shamyr.Cloud.Test.Client.csproj", "{A648B051-79AA-415E-8434-4728EDE5002A}"
 EndProject
