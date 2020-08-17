@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Signal.Messages
 {
@@ -16,7 +16,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
       Admin = admin;
     }
 
-    public UserAdminChangedEvent(string userId, bool admin, IOperationContext context)
+    public UserAdminChangedEvent(string userId, bool admin, ILoggingContext context)
       : base(userId, context)
     {
       Admin = admin;

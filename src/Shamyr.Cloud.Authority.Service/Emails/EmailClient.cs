@@ -4,22 +4,22 @@ using System.Net.Http;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Shamyr.Cloud.Authority.Service.Configs;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.Emails
 {
   public class EmailClient: IEmailClient
   {
     private readonly IEmailClientConfig fConfig;
-    private readonly ITracker fTracker;
+    private readonly ILogger fLogger;
 
-    public EmailClient(IEmailClientConfig config, ITracker tracker)
+    public EmailClient(IEmailClientConfig config, ILogger logger)
     {
       fConfig = config;
-      fTracker = tracker;
+      fLogger = logger;
     }
 
-    public async Task SendEmailAsync(MailAddress recipient, string subject, EmailBody body, IOperationContext context)
+    public async Task SendEmailAsync(MailAddress recipient, string subject, EmailBody body, ILoggingContext context)
     {
       if (recipient is null)
         throw new ArgumentNullException(nameof(recipient));
@@ -28,7 +28,7 @@ namespace Shamyr.Cloud.Authority.Service.Emails
       if (body is null)
         throw new ArgumentNullException(nameof(body));
 
-      using (fTracker.TrackRequest(context, $"Sending email to {recipient.Address}.", out var requestContext))
+      using (fLogger.TrackRequest(context, $"Sending email to {recipient.Address}.", out var requestContext))
       {
         try
         {
@@ -43,12 +43,12 @@ namespace Shamyr.Cloud.Authority.Service.Emails
 
           await HttpClientContext.Client.PostAsync(fConfig.ServerUrl, formContent);
           requestContext.Success();
-          fTracker.TrackInformation(requestContext, $"Email with subject '{subject}' from '{fConfig.SenderAddress}' to '{recipient.Address}' succesfuly sent.");
+          fLogger.LogInformation(requestContext, $"Email with subject '{subject}' from '{fConfig.SenderAddress}' to '{recipient.Address}' succesfuly sent.");
         }
         catch (Exception ex)
         {
           requestContext.Fail();
-          fTracker.TrackException(requestContext, ex, $"Error occured while sending with subject '{subject}' from '{fConfig.SenderAddress}' to '{recipient.Address}'.");
+          fLogger.LogException(requestContext, ex, $"Error occured while sending with subject '{subject}' from '{fConfig.SenderAddress}' to '{recipient.Address}'.");
         }
       }
     }

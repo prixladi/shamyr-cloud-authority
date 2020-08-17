@@ -1,11 +1,11 @@
 ﻿using System;
 using MongoDB.Bson;
 using Shamyr.Cloud.Database.Documents;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.Emails
 {
-  public class PasswordResetEmailContext: OperationContext, IEmailBuildContext
+  public class PasswordResetEmailContext: LoggingContext, IEmailBuildContext
   {
     public EmailTemplateType EmailType => EmailTemplateType.PasswordReset;
 
@@ -14,12 +14,12 @@ namespace Shamyr.Cloud.Authority.Service.Emails
     public string Username { get; }
     public string Email { get; }
 
-    public static PasswordResetEmailContext New(UserDoc user, IOperationContext context)
+    public static PasswordResetEmailContext New(UserDoc user, ILoggingContext context)
     {
       return new PasswordResetEmailContext(user.PasswordToken!, user.Id, user.Username, user.Email, context);
     }
 
-    public PasswordResetEmailContext(string passwordToken, ObjectId userId, string username, string email, IOperationContext context)
+    public PasswordResetEmailContext(string passwordToken, ObjectId userId, string username, string email, ILoggingContext context)
       : base(context)
     {
       PasswordToken = passwordToken ?? throw new ArgumentNullException(nameof(passwordToken));

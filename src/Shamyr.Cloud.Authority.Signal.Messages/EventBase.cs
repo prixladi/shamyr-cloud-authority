@@ -1,24 +1,24 @@
 ﻿using System;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Signal.Messages
 {
   public abstract class EventBase
   {
-    public string OperationId { get; }
+    public string ScopeId { get; }
 
-    public string? ParentOperationId { get; internal set; }
+    public string? ParentScopeId { get; internal set; }
 
-    protected EventBase(string operationId, string? parentOperationId)
+    protected EventBase(string scopeId, string? parentScopeId)
     {
-      OperationId = operationId ?? throw new ArgumentNullException(nameof(operationId));
-      ParentOperationId = parentOperationId;
+      ScopeId = scopeId ?? throw new ArgumentNullException(nameof(scopeId));
+      ParentScopeId = parentScopeId;
     }
 
-    protected EventBase(IOperationContext context)
+    protected EventBase(ILoggingContext context)
     {
-      OperationId = context.Id;
-      ParentOperationId = context.ParentId;
+      ScopeId = context.ScopeId;
+      ParentScopeId = context.ParentScopeId;
     }
   }
 }

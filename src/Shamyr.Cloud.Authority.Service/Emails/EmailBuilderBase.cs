@@ -10,6 +10,9 @@ namespace Shamyr.Cloud.Authority.Service.Emails
   public abstract class EmailBuilderBase<TContext>: IEmailBuilder
     where TContext : IEmailBuildContext
   {
+    private const string _AuthorityUrlMark = "{{AUTHORITY_URL}}";
+    private const string _PortalUrlMark = "{{PORTAL_URL}}";
+
     private readonly IEmailTemplateRepository fTemplateRepository;
 
     protected abstract IEnumerable<(string, Func<TContext, string>)> BodyReplaceRules { get; }
@@ -43,6 +46,10 @@ namespace Shamyr.Cloud.Authority.Service.Emails
     private string BuildBody(TContext context, string body)
     {
       var content = body;
+
+      content = content.Replace(_AuthorityUrlMark, EnvironmentUtils.AuthorityUrl.AbsoluteUri);
+      content = content.Replace(_PortalUrlMark, EnvironmentUtils.PortalUrl.AbsoluteUri);
+
       foreach (var (mark, selector) in BodyReplaceRules)
         content = content.Replace(mark, selector(context));
 

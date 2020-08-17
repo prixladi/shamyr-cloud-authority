@@ -1,5 +1,4 @@
 ﻿using System;
-using Shamyr.AspNetCore.Services;
 using Shamyr.Cloud.Identity.Client;
 using Shamyr.Cloud.Identity.Client.Repositories;
 using Shamyr.Cloud.Identity.Client.Services;
@@ -17,7 +16,6 @@ namespace Microsoft.Extensions.DependencyInjection
       services.AddTransient<IIdentityClientConfig, TConfig>();
       services.AddTransient<IIdentityClient, IdentityRestClient>();
       services.AddTransient<IIdentityService, IdentityService>();
-      services.AddTransient<ITelemetryService, TelemetryService>();
 
       services.AddSingleton<ITokenConfigurationRepository, TokenConfigurationRepository>();
 

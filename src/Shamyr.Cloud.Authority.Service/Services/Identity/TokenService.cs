@@ -1,16 +1,12 @@
 ﻿using System;
-using System.IdentityModel.Tokens.Jwt;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using Microsoft.IdentityModel.Tokens;
-using MongoDB.Bson;
-using Shamyr.Cloud.Database.Documents;
+using Shamyr.Cloud.Authority.Models;
 using Shamyr.Cloud.Authority.Service.Configs;
-using Shamyr.Cloud.Authority.Service.Dtos;
+using Shamyr.Cloud.Database.Documents;
 using Shamyr.Security;
 using Shamyr.Security.IdentityModel;
-using System.Collections.Generic;
-using Shamyr.Cloud.Authority.Token.Models;
 
 namespace Shamyr.Cloud.Authority.Service.Services.Identity
 {
@@ -23,14 +19,15 @@ namespace Shamyr.Cloud.Authority.Service.Services.Identity
       fConfig = config;
     }
 
-    public string GenerateUserJwt(UserDoc user, DateTime? issuedAtUtc = null)
+    public string GenerateUserJwt(UserDoc user, string grant)
     {
-      var realIssuedAt = issuedAtUtc ?? DateTime.UtcNow;
+      var issuedAtUtc = DateTime.UtcNow;
       var claims = new List<Claim>(4)
       {
         new Claim(ClaimTypes.Name, user.Id.ToString()),
         new Claim(ClaimTypes.Actor, user.Username),
         new Claim(ClaimTypes.Email, user.Email),
+        new Claim(Constants._GrantClaimType, grant)
       };
 
       if (user.Admin)
@@ -42,8 +39,8 @@ namespace Shamyr.Cloud.Authority.Service.Services.Identity
         Audience = fConfig.BearerTokenAudience,
         Issuer = fConfig.BearerTokenIssuer,
         Claims = claims,
-        NotBefore = realIssuedAt,
-        Expires = realIssuedAt.AddSeconds(fConfig.BearerTokenDuration),
+        NotBefore = issuedAtUtc,
+        Expires = issuedAtUtc.AddSeconds(fConfig.BearerTokenDuration),
         SigningCredentials = rsa.ToSigningCredentials(fConfig.BearerPrivateKey)
       };
 
@@ -56,40 +53,6 @@ namespace Shamyr.Cloud.Authority.Service.Services.Identity
       {
         Value = oldToken ?? SecurityUtils.GetUrlToken(),
         ExpirationUtc = DateTime.UtcNow.AddSeconds(fConfig.RefreshTokenDuration)
-      };
-    }
-
-    public ValidatedJwtDto? ValidateJwtWithoutExpiration(string token)
-    {
-      using var rsa = RSA.Create();
-      var parameters = new TokenValidationParameters
-      {
-        ValidateLifetime = false,
-        ValidateAudience = true,
-        ValidAudience = fConfig.BearerTokenAudience,
-        ValidateIssuer = true,
-        ValidIssuer = fConfig.BearerTokenIssuer,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = rsa.ToSecurityKey(fConfig.BearerPublicKey, true)
-      };
-
-      var principal = JwtHandler.ValidateToken(token, parameters);
-      if (principal == null)
-        return null;
-
-      if (!ObjectId.TryParse(principal.Identity!.Name, out var id))
-        return null;
-
-      var iatClaim = principal.FindFirst(JwtRegisteredClaimNames.Iat);
-      if (iatClaim == null || !long.TryParse(iatClaim.Value, out var iatSeconds))
-        return null;
-
-      var offset = DateTimeOffset.FromUnixTimeSeconds(iatSeconds);
-
-      return new ValidatedJwtDto
-      {
-        UserId = id,
-        IssuedAtUtc = offset.UtcDateTime
       };
     }
   }

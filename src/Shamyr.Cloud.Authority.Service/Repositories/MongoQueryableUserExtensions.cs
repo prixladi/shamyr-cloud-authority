@@ -15,7 +15,7 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
       if (username is null)
         return query;
 
-      string normalizedUsername = username.ToLower();
+      string normalizedUsername = username.Normalize();
 
       return query.Where(doc => doc.NormalizedUsername.Contains(normalizedUsername));
     }
@@ -28,7 +28,7 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
       if (email is null)
         return query;
 
-      string normalizedEmail = email.ToLower();
+      string normalizedEmail = email.Normalize();
 
       return query.Where(doc => doc.NormalizedEmail.Contains(normalizedEmail));
     }

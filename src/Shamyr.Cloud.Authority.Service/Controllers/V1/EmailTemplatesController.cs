@@ -121,7 +121,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PutNameAsync([FromRoute] ObjectId id, [FromBody] EmailTemplatePatchModel model, CancellationToken cancellationToken)
+    public async Task<IActionResult> PatchAsync([FromRoute] ObjectId id, [FromBody] EmailTemplatePatchModel model, CancellationToken cancellationToken)
     {
       await fMediator.Send(ResolvePatch(id, model), cancellationToken);
       return NoContent();

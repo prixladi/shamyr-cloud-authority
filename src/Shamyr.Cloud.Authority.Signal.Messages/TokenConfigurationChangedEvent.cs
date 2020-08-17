@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
-using Shamyr.Cloud.Authority.Token.Models;
-using Shamyr.Tracking;
+using Shamyr.Cloud.Authority.Models;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Signal.Messages
 {
@@ -15,7 +15,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
       Model = model;
     }
 
-    public TokenConfigurationChangedEvent(TokenConfigurationModel model, IOperationContext context)
+    public TokenConfigurationChangedEvent(TokenConfigurationModel model, ILoggingContext context)
       : base(context)
     {
       Model = model;

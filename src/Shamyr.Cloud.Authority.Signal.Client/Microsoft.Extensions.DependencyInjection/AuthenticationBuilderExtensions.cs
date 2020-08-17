@@ -16,9 +16,9 @@ namespace Microsoft.Extensions.DependencyInjection
     {
       builder.Services.AddTransient<IAuthorityClientConfig, TConfig>();
       builder.Services.AddTransient<IPrincipalFactory, TPrincipalFactory>();
-      builder.Services.AddTransient<ITokenService, TokenService>();
       builder.Services.AddTransient<ITokenConfigurationService, TokenConfigurationService>();
 
+      builder.Services.AddSingleton<ITokenService, TokenService>();
       builder.Services.AddSingleton<ITokenConfigurationRepository, TokenConfigurationRepository>();
 
       builder.Services.AddHostedService<TokenConfigurationCronService>();

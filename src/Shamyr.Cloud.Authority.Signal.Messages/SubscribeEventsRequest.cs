@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Signal.Messages
 {
@@ -15,7 +15,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
       Resources = resources ?? throw new ArgumentNullException(nameof(resources));
     }
 
-    public SubscribeEventsRequest(string[] resources, IOperationContext context)
+    public SubscribeEventsRequest(string[] resources, ILoggingContext context)
       : base(context)
     {
       Resources = resources ?? throw new ArgumentNullException(nameof(resources));

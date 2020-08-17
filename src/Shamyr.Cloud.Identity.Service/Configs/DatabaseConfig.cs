@@ -4,7 +4,7 @@ namespace Shamyr.Cloud.Identity.Service.Configs
 {
   public class DatabaseConfig: IDatabaseConfig
   {
-    public string DatabaseUrl => EnvironmentUtils.MongoUrl;
-    public string DatabaseName => EnvironmentUtils.MongoDatabaseName;
+    public string DatabaseUrl => EnvVariable.Get(EnvVariables._MongoUrl);
+    public string DatabaseName => EnvVariable.Get(EnvVariables._MongoDatabaseName);
   }
 }

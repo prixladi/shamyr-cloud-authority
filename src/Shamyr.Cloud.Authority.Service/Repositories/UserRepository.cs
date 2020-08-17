@@ -44,30 +44,39 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
         .CountAsync(cancellationToken);
     }
 
-    public async Task<bool> ExistsByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
+    public async Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken)
     {
-      return await Query.AnyAsync(doc => doc.NormalizedEmail == normalizedEmail, cancellationToken);
+      return await Query.AnyAsync(doc => doc.NormalizedEmail == email.Normalize(), cancellationToken);
     }
 
-    public async Task<bool> ExistsByUsernameAsync(string normalizedUsername, CancellationToken cancellationToken)
+    public async Task<bool> ExistsByUsernameAsync(string username, CancellationToken cancellationToken)
     {
-      return await Query.AnyAsync(doc => doc.NormalizedUsername == normalizedUsername, cancellationToken);
+      return await Query.AnyAsync(doc => doc.NormalizedUsername == username.Normalize(), cancellationToken);
     }
 
-    public async Task<UserDoc?> GetByUsernameAsync(string normalizedUsername, CancellationToken cancellationToken)
+    public async Task<UserDoc?> GetByEmailAsync(string email, CancellationToken cancellationToken)
     {
-      return await Query.SingleOrDefaultAsync(doc => doc.NormalizedUsername == normalizedUsername, cancellationToken);
+      return await Query.SingleOrDefaultAsync(doc => doc.NormalizedEmail == email.Normalize(), cancellationToken);
     }
 
-    public async Task<UserDoc?> GetByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
+    public async Task<UserDoc?> GetByUsernameAsync(string username, CancellationToken cancellationToken)
     {
-      return await Query.SingleOrDefaultAsync(doc => doc.NormalizedEmail == normalizedEmail, cancellationToken);
+      return await Query.SingleOrDefaultAsync(doc => doc.NormalizedUsername == username.Normalize(), cancellationToken);
     }
 
-    public Task LogoutAsync(ObjectId id, DateTime logoutUtc, CancellationToken cancellationToken)
+    public async Task<UserDoc?> GetByRefreshTokenAsync(string refreshToken, CancellationToken cancellationToken)
     {
+      return await Query
+        .Where(doc => doc.RefreshToken != null && doc.RefreshToken.Value == refreshToken)
+        .SingleOrDefaultAsync(cancellationToken);
+    }
+
+    public Task LogoutAsync(ObjectId id, CancellationToken cancellationToken)
+    {
+      var scewedTime = DateTime.UtcNow.Add(TimeSpan.FromSeconds(-1));
+
       var update = Builders<UserDoc>.Update
-        .Set(doc => doc.LogoutUtc, logoutUtc)
+        .Set(doc => doc.LogoutUtc, scewedTime)
         .Unset(doc => doc.RefreshToken);
 
       return UpdateAsync(id, update, cancellationToken);
@@ -95,13 +104,26 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
         new FindOneAndUpdateOptions<UserDoc, UserDoc> { ReturnDocument = ReturnDocument.After }, cancellationToken);
     }
 
-    public async Task SetUserSecretAsync(ObjectId id, SecretDoc secret, CancellationToken cancellationToken)
+    public async Task SetSecretAsync(ObjectId id, SecretDoc secret, CancellationToken cancellationToken)
     {
       var update = Builders<UserDoc>.Update
         .Set(doc => doc.Secret, secret)
         .Set(doc => doc.PasswordToken, null);
 
       await UpdateAsync(id, update, cancellationToken);
+    }
+
+    public async Task<bool> TryAddSecretAsync(ObjectId id, SecretDoc secret, CancellationToken cancellationToken)
+    {
+      var update = Builders<UserDoc>.Update
+        .Set(doc => doc.Secret, secret)
+        .Set(doc => doc.PasswordToken, null);
+
+      var result = await Collection.UpdateOneAsync(
+        doc => doc.Id == id && doc.Secret == null,
+        update, cancellationToken: cancellationToken);
+
+      return result.MatchedCount == 1;
     }
 
     public async Task<bool> TrySetDisabledAsync(ObjectId id, bool disabled, CancellationToken cancellationToken)

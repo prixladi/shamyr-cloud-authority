@@ -6,10 +6,10 @@ namespace Shamyr.Cloud.Identity.Service.IoC
 {
   internal static class ApplicationInsights
   {
-    public static void AddApplicationInsights(this IServiceCollection services, Action<ApplicationInsightsServiceOptions> options)
+    public static void AddApplicationInsights(this IServiceCollection services, Action<ApplicationInsightsServiceOptions> setupOptions)
     {
-      services.AddApplicationInsightsTelemetry(options);
-      services.AddApplicationInsightsTracker("Identity Service");
+      services.AddApplicationInsightsTelemetry(setupOptions);
+      services.AddApplicationInsightsLogger(RoleNames._IdentityService);
     }
   }
 }

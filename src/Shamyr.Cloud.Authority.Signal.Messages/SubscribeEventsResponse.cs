@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Signal.Messages
 {
@@ -9,7 +9,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
     public SubscribeEventsResponse(string operationId, string? parentOperationId)
       : base(operationId, parentOperationId) { }
 
-    public SubscribeEventsResponse(IOperationContext context)
+    public SubscribeEventsResponse(ILoggingContext context)
       : base(context) { }
   }
 }

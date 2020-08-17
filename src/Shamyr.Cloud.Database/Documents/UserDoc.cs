@@ -20,7 +20,7 @@ namespace Shamyr.Cloud.Database.Documents
     [Index(Unique = true)]
     public string Email { get; set; } = default!;
 
-    public SecretDoc Secret { get; set; } = default!;
+    public SecretDoc? Secret { get; set; } = default!;
     public string? EmailToken { get; set; }
     public string? PasswordToken { get; set; }
     public bool Disabled { get; set; }

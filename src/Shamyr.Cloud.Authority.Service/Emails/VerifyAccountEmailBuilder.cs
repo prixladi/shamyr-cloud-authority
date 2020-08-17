@@ -17,7 +17,7 @@ namespace Shamyr.Cloud.Authority.Service.Emails
       get
       {
         yield return (_VerifyTokenMark, x => x.EmailToken!);
-        yield return (_EmailMark, x => x.Id.ToString());
+        yield return (_EmailMark, x => x.Email);
       }
     }
 

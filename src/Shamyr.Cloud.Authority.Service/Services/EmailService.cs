@@ -2,21 +2,21 @@
 using System.Threading.Tasks;
 using Shamyr.Cloud.Authority.Service.Emails;
 using Shamyr.Cloud.Authority.Service.Factories;
-using Shamyr.Tracking;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.Services
 {
   public class EmailService: IEmailService
   {
-    private readonly ITracker fTracker;
+    private readonly ILogger fLogger;
     private readonly IEmailClient fEmailClient;
     private readonly IEmailBuilderFactory fEmailBuilderFactory;
 
-    public EmailService(IEmailClient emailClient, IEmailBuilderFactory emailBuilderFactory, ITracker tracker)
+    public EmailService(IEmailClient emailClient, IEmailBuilderFactory emailBuilderFactory, ILogger logger)
     {
       fEmailClient = emailClient;
       fEmailBuilderFactory = emailBuilderFactory;
-      fTracker = tracker;
+      fLogger = logger;
     }
 
     public async Task SendEmailAsync(IEmailBuildContext context, CancellationToken cancellationToken)
@@ -24,14 +24,14 @@ namespace Shamyr.Cloud.Authority.Service.Services
       var builder = fEmailBuilderFactory.TryCreate(context);
       if (builder == null)
       {
-        fTracker.TrackError(context, $"For email build context of type '{context.GetType()}' does not exist builder.");
+        fLogger.LogError(context, $"For email build context of type '{context.GetType()}' does not exist builder.");
         return;
       }
 
       var dto = await builder.TryBuildAsync(context, cancellationToken);
       if (dto == null)
       {
-        fTracker.TrackError(context, $"For email '{context.EmailType}' does not exist template in DB.");
+        fLogger.LogError(context, $"For email '{context.EmailType}' does not exist template in DB.");
         return;
       }
 

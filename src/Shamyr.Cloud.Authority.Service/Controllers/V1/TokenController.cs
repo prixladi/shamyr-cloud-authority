@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shamyr.Cloud.Authority.Models;
 using Shamyr.Cloud.Authority.Service.Configs;
-using Shamyr.Cloud.Authority.Token.Models;
 
 namespace Shamyr.Cloud.Authority.Service.Controllers.V1
 {
@@ -15,7 +15,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
       fConfig = config;
     }
 
-    [HttpGet("configuration.json")]
+    [HttpGet("configuration")]
     public IActionResult Get()
     {
       return Ok

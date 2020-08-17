@@ -17,7 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
       services.AddSingleton<ISignalRClient, SignalRClient>();
 
-      services.AddHostedService<SignalRClientManager>();
+      services.AddHostedService<SignalRClientStarterService>();
     }
   }
 }
