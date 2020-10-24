@@ -9,8 +9,8 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
     public TokenConfigurationModel Model { get; }
 
     [JsonConstructor]
-    public TokenConfigurationChangedEvent(TokenConfigurationModel model, string operationId, string? parentOperationId)
-      : base(operationId, parentOperationId)
+    public TokenConfigurationChangedEvent(TokenConfigurationModel model, string scopeId, string? parentScopeId)
+      : base(scopeId, parentScopeId)
     {
       Model = model;
     }

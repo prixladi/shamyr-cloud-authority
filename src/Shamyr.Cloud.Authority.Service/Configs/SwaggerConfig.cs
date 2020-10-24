@@ -34,6 +34,8 @@ namespace Shamyr.Cloud.Authority.Service.Configs
       options.MapType<ObjectId?>(() => new OpenApiSchema { Type = "string" });
       options.MapType<byte>(() => new OpenApiSchema { Type = "integer" });
 
+      options.CustomSchemaIds(x => x.FullName);
+
       options.SwaggerDoc(_V1Route, new OpenApiInfo { Title = _V1Title, Version = _V1Route });
       options.DocInclusionPredicate((version, apiDescription) => apiDescription.RelativePath.Contains($"/{version}/"));
 

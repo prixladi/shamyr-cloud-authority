@@ -10,7 +10,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
   {
     private readonly IUserRepository fUserRepository;
 
-    public DeleteLoginRequestHandler(IUserRepository userRepository) 
+    public DeleteLoginRequestHandler(IUserRepository userRepository)
     {
       fUserRepository = userRepository;
     }

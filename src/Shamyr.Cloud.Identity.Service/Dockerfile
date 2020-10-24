@@ -33,4 +33,4 @@ RUN dotnet publish -c Release -o /app
 
 FROM base AS final
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet Shamyr.Cloud.Identity.Service.dll 
+ENTRYPOINT ["dotnet", "Shamyr.Cloud.Identity.Service.dll"]

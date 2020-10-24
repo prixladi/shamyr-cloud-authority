@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shamyr.Cloud.Authority.Service.Models.CurrentUser;
 using Shamyr.Cloud.Authority.Service.Models.Users;
 using Shamyr.Cloud.Authority.Service.Notifications.CurrentUser;
-using Shamyr.Cloud.Authority.Service.Requests.ConnectToken;
+using Shamyr.Cloud.Authority.Service.Requests.Token;
 using Shamyr.Cloud.Authority.Service.Requests.CurrentUser;
 
 namespace Shamyr.Cloud.Authority.Service.Controllers.V1
@@ -33,8 +33,8 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     /// <param name="cancellationToken"></param>
     /// <response code="200">Returns user model with informations about current user</response>
     [HttpGet]
-    [ProducesResponseType(typeof(UserDetailModel), StatusCodes.Status200OK)]
-    public async Task<UserDetailModel> GetAsync(CancellationToken cancellationToken)
+    [ProducesResponseType(typeof(DetailModel), StatusCodes.Status200OK)]
+    public async Task<DetailModel> GetAsync(CancellationToken cancellationToken)
     {
       return await fMediator.Send(new GetRequest { }, cancellationToken);
     }
@@ -51,12 +51,9 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<NoContentResult> PostPasswordAsync([FromBody] CurrentUserPutPasswordModel model, CancellationToken cancellationToken)
+    public async Task<NoContentResult> PostPasswordAsync([FromBody] PostPasswordModel model, CancellationToken cancellationToken)
     {
-      await fMediator.Send(new PutPasswordRequest(model), cancellationToken);
-      await fMediator.Send(new LogoutRequest(), cancellationToken);
-      await fMediator.Publish(new LoggedOutNotification(), cancellationToken);
-
+      await fMediator.Send(new PostPasswordRequest(model), cancellationToken);
       return NoContent();
     }
 
@@ -72,7 +69,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<NoContentResult> PutPasswordAsync([FromBody] CurrentUserPutPasswordModel model, CancellationToken cancellationToken)
+    public async Task<NoContentResult> PutPasswordAsync([FromBody] PutPasswordModel model, CancellationToken cancellationToken)
     {
       await fMediator.Send(new PutPasswordRequest(model), cancellationToken);
       await fMediator.Send(new LogoutRequest(), cancellationToken);

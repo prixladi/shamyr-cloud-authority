@@ -4,7 +4,7 @@ using Shamyr.Cloud.Authority.Service.Models.EmailTemplates;
 
 namespace Shamyr.Cloud.Authority.Service.Requests.EmailTemplates
 {
-  public class GetRequest: IRequest<EmailTemplateDetailModel>
+  public class GetRequest: IRequest<DetailModel>
   {
     public ObjectId TemplateId { get; }
 

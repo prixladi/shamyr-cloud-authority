@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Authority.Service.Dtos.EmailTemplates;
 using Shamyr.Cloud.Authority.Service.Expressions;
+using Shamyr.Cloud.Database.Documents;
 using Shamyr.MongoDB;
 using Shamyr.MongoDB.Repositories;
 
@@ -25,24 +23,14 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
       return result.DeletedCount == 1;
     }
 
-    public async Task<List<EmailTemplatePreviewDto>> GetAsync(CancellationToken cancellationToken)
+    public async Task<List<PreviewDto>> GetAsync(FilterDto filter, CancellationToken cancellationToken)
     {
       return await Query
+        .WhereType(filter.TemplateType)
         .Select(EmailTemplateDocExpression.ToPreviewDto)
         .ToListAsync(cancellationToken);
     }
-
-    public async Task<EmailTemplateDoc?> GetByTypeAsync(EmailTemplateType type, CancellationToken cancellationToken)
-    {
-      return await Query.SingleOrDefaultAsync(doc => doc.Type == type, cancellationToken);
-    }
-
-    public async Task<bool> ExistsByTypeAsync(EmailTemplateType type, CancellationToken cancellationToken)
-    {
-      return await Query.AnyAsync(doc => doc.Type == type, cancellationToken);
-    }
-
-    public async Task<bool> UpdateAsync(ObjectId id, EmailTemplateUpdateDto updateDto, CancellationToken cancellationToken)
+    public async Task<bool> UpdateAsync(ObjectId id, UpdateWithBodyDto updateDto, CancellationToken cancellationToken)
     {
       var update = Builders<EmailTemplateDoc>.Update
         .Set(x => x.Subject, updateDto.Subject)
@@ -55,10 +43,13 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
       return result.MatchedCount == 1;
     }
 
-    public async Task<bool> UpdatePropAsync<T>(ObjectId id, Expression<Func<EmailTemplateDoc, T>> selector, T value, CancellationToken cancellationToken)
+    public async Task<bool> UpdateAsync(ObjectId id, UpdateDto updateDto, CancellationToken cancellationToken)
     {
       var update = Builders<EmailTemplateDoc>.Update
-        .Set(selector, value);
+        .Set(x => x.Subject, updateDto.Subject)
+        .Set(x => x.Name, updateDto.Name)
+        .Set(x => x.IsHtml, updateDto.IsHtml)
+        .Set(x => x.Type, updateDto.Type);
 
       var result = await UpdateAsync(id, update, cancellationToken);
       return result.MatchedCount == 1;

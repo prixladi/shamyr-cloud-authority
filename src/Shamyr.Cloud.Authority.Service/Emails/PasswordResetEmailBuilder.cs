@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Mail;
 using Shamyr.Cloud.Authority.Service.Repositories;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.Emails
 {
@@ -25,8 +26,8 @@ namespace Shamyr.Cloud.Authority.Service.Emails
 
     protected override IEnumerable<ReplaceRule> SubjectReplaceRules => Array.Empty<ReplaceRule>();
 
-    public PasswordResetEmailBuilder(IEmailTemplateRepository templateRepository)
-      : base(templateRepository) { }
+    public PasswordResetEmailBuilder(IEmailTemplateRepository templateRepository, ILogger logger)
+      : base(templateRepository, logger) { }
 
     protected override MailAddress GetMailAddress(PasswordResetEmailContext context)
     {

@@ -13,7 +13,8 @@ namespace Shamyr.Cloud.Bson
 
       if (ObjectId.TryParse(objectIdString, out var objectId))
         return objectId;
-
+      
+      return ObjectId.Empty;
       throw new FormatException($"Read string cannot be converted to type '{typeof(ObjectId)}'.");
     }
 

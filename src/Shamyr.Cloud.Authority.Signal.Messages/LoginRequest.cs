@@ -10,8 +10,8 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
     public string ClientSecret { get; }
 
     [JsonConstructor]
-    public LoginRequest(string clientId, string clientSecret, string operationId, string? parentOperationId)
-      : base(operationId, parentOperationId)
+    public LoginRequest(string clientId, string clientSecret, string scopeId, string? parentScopeId)
+      : base(scopeId, parentScopeId)
     {
       ClientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
       ClientSecret = clientSecret ?? throw new ArgumentNullException(nameof(clientSecret));

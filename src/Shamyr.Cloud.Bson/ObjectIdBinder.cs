@@ -19,7 +19,7 @@ namespace Shamyr.Cloud.Bson
       string firstValue = valueProviderResult.FirstValue;
       if (!ObjectId.TryParse(firstValue, out var objectId))
       {
-        bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, $"Parametr '{bindingContext.ModelName}' must be in right format.");
+        bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, $"Parameter '{bindingContext.ModelName}' must be in right format.");
         return Task.CompletedTask;
       }
 

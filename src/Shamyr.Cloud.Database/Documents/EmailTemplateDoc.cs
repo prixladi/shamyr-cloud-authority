@@ -1,4 +1,5 @@
-﻿using Shamyr.MongoDB;
+﻿using MongoDB.Bson;
+using Shamyr.MongoDB;
 using Shamyr.MongoDB.Attributes;
 using Shamyr.MongoDB.Indexes;
 
@@ -11,8 +12,6 @@ namespace Shamyr.Cloud.Database.Documents
     public string Subject { get; set; } = default!;
     public string Body { get; set; } = default!;
     public bool IsHtml { get; set; }
-    
-    [Index(Unique = true)]
     public EmailTemplateType Type { get; set; }
   }
 }

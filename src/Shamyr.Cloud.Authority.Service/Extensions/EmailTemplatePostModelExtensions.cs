@@ -1,12 +1,12 @@
 ﻿using System;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Authority.Service.Models.EmailTemplates;
+using Shamyr.Cloud.Database.Documents;
 
 namespace Shamyr.Cloud.Authority.Service.Extensions
 {
   public static class EmailTemplatePostModelExtensions
   {
-    public static EmailTemplateDoc ToDoc(this EmailTemplatePostModel model)
+    public static EmailTemplateDoc ToDoc(this PostModel model)
     {
       if (model is null)
         throw new ArgumentNullException(nameof(model));

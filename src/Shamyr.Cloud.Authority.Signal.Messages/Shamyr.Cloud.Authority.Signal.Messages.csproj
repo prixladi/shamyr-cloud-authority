@@ -11,11 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shamyr" Version="1.0.35" />
+    <PackageReference Include="Shamyr" Version="1.0.38" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shamyr.Cloud.Authority.Token.Models\Shamyr.Cloud.Authority.Models.csproj" />
+    <ProjectReference Include="..\Shamyr.Cloud.Authority.Models\Shamyr.Cloud.Authority.Models.csproj" />
   </ItemGroup>
 
 </Project>

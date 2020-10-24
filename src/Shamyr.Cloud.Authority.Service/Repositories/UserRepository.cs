@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using Shamyr.Cloud.Authority.Service.Dtos.Users;
+using Shamyr.Cloud.Authority.Service.Extensions;
 using Shamyr.Cloud.Database.Documents;
-using Shamyr.Cloud.Authority.Service.Models.Users;
 using Shamyr.MongoDB;
 using Shamyr.MongoDB.Repositories;
 using Shamyr.MongoDB.Sorting;
@@ -18,7 +19,7 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
     public UserRepository(IDatabaseContext dbContext)
       : base(dbContext) { }
 
-    public async Task<List<UserDoc>> GetSortedUsersAsync(UserQueryFilter filter, OrderDefinition<UserDoc>? sort, CancellationToken cancellationToken)
+    public async Task<List<UserDoc>> GetAsync(FilterDto filter, OrderDefinition<UserDoc>? sort, CancellationToken cancellationToken)
     {
       if (filter is null)
         throw new ArgumentNullException(nameof(filter));
@@ -32,7 +33,7 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
         .ToListAsync(cancellationToken);
     }
 
-    public async Task<int> GetUserCountAsync(UserQueryFilter filter, CancellationToken cancellationToken)
+    public async Task<int> GetUserCountAsync(FilterDto filter, CancellationToken cancellationToken)
     {
       if (filter is null)
         throw new ArgumentNullException(nameof(filter));
@@ -46,22 +47,22 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
 
     public async Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken)
     {
-      return await Query.AnyAsync(doc => doc.NormalizedEmail == email.Normalize(), cancellationToken);
+      return await Query.AnyAsync(doc => doc.NormalizedEmail == email.CompareNormalize(), cancellationToken);
     }
 
     public async Task<bool> ExistsByUsernameAsync(string username, CancellationToken cancellationToken)
     {
-      return await Query.AnyAsync(doc => doc.NormalizedUsername == username.Normalize(), cancellationToken);
+      return await Query.AnyAsync(doc => doc.NormalizedUsername == username.CompareNormalize(), cancellationToken);
     }
 
     public async Task<UserDoc?> GetByEmailAsync(string email, CancellationToken cancellationToken)
     {
-      return await Query.SingleOrDefaultAsync(doc => doc.NormalizedEmail == email.Normalize(), cancellationToken);
+      return await Query.SingleOrDefaultAsync(doc => doc.NormalizedEmail == email.CompareNormalize(), cancellationToken);
     }
 
     public async Task<UserDoc?> GetByUsernameAsync(string username, CancellationToken cancellationToken)
     {
-      return await Query.SingleOrDefaultAsync(doc => doc.NormalizedUsername == username.Normalize(), cancellationToken);
+      return await Query.SingleOrDefaultAsync(doc => doc.NormalizedUsername == username.CompareNormalize(), cancellationToken);
     }
 
     public async Task<UserDoc?> GetByRefreshTokenAsync(string refreshToken, CancellationToken cancellationToken)

@@ -5,17 +5,19 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
 {
   public static class UserIdentityProfileExtensions
   {
-    public static UserDetailModel ToDetail(this UserIdentityProfile identity)
+    public static DetailModel ToDetail(this UserIdentityProfile identity)
     {
       if (identity is null)
         throw new ArgumentNullException(nameof(identity));
 
-      return new UserDetailModel
+      return new DetailModel
       {
         Id = identity.UserId,
         Email = identity.Email,
         Username = identity.Username,
-        Admin = identity.Admin
+        Admin = identity.Admin,
+        GivenName = identity.GivenName,
+        FamilyName = identity.FamilyName
       };
     }
   }

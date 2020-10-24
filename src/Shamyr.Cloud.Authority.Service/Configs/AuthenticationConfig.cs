@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -29,7 +28,7 @@ namespace Shamyr.Cloud.Authority.Service.Configs
         OnMessageReceived = context =>
         {
           string authorization = context.Request.Headers["Authorization"];
-          if (authorization != null && authorization.StartsWith("Bearer "))
+          if (authorization is not null && authorization.StartsWith("Bearer "))
             context.Token = authorization.Substring("Bearer ".Length);
 
           return Task.CompletedTask;

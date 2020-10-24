@@ -3,12 +3,12 @@ using Shamyr.Cloud.Authority.Service.Models.Users;
 
 namespace Shamyr.Cloud.Authority.Service.Requests.Users
 {
-  public class GetManyRequest: IRequest<UserPreviewsModel>
+  public class GetManyRequest: IRequest<PreviewsModel>
   {
-    public UserQueryFilter Filter { get; }
-    public UserSortModel Sort { get; }
+    public QueryFilter Filter { get; }
+    public SortModel Sort { get; }
 
-    public GetManyRequest(UserQueryFilter filter, UserSortModel sort)
+    public GetManyRequest(QueryFilter filter, SortModel sort)
     {
       Filter = filter ?? throw new System.ArgumentNullException(nameof(filter));
       Sort = sort ?? throw new System.ArgumentNullException(nameof(sort));

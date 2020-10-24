@@ -6,9 +6,9 @@ namespace Shamyr.Cloud.Authority.Service.Requests.Clients
 {
   public class PostRequest: IRequest<IdModel>
   {
-    public ClientPostModel Model { get; }
+    public PostModel Model { get; }
 
-    public PostRequest(ClientPostModel model)
+    public PostRequest(PostModel model)
     {
       Model = model ?? throw new System.ArgumentNullException(nameof(model));
     }

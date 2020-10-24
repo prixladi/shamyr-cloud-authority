@@ -30,7 +30,8 @@ namespace Shamyr.Cloud.Authority.Service.Services
       var client = await fClientRepository.GetAsync(clientId, cancellationToken);
       if (client is null)
         return ClientLoginStatus.ClientNotFound;
-
+      if (client.Secret is null)
+        return ClientLoginStatus.SecretNotSet;
       if (!fSecretService.ComparePasswords(clientSecret, client.Secret.ToModel()))
         return ClientLoginStatus.InvalidSecret;
 

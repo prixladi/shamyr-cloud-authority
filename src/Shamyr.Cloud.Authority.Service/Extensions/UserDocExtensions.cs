@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Authority.Service.Models.Users;
+using Shamyr.Cloud.Database.Documents;
 
 namespace Shamyr.Cloud.Authority.Service.Extensions
 {
   public static class UserDocExtensions
   {
-    public static UserPreviewModel ToPreview(this UserDoc user)
+    public static PreviewModel ToPreview(this UserDoc user)
     {
       if (user is null)
         throw new ArgumentNullException(nameof(user));
 
-      return new UserPreviewModel
+      return new PreviewModel
       {
         Id = user.Id,
         Email = user.Email,
         Username = user.Username,
         Disabled = user.Disabled,
+        GivenName = user.GivenName,
+        FamilyName = user.FamilyName,
         Admin = user.Admin
       };
     }
@@ -33,13 +35,15 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
       {
         Email = user.Email,
         Username = user.Username,
+        GivenName = user.GivenName,
+        FamilyName = user.FamilyName,
         Secret = user.Secret?.ToModel(),
         LogoutUtc = user.LogoutUtc,
         Admin = user.Admin
       };
     }
 
-    public static IReadOnlyCollection<UserPreviewModel> ToPreview(this IEnumerable<UserDoc> users)
+    public static IReadOnlyCollection<PreviewModel> ToPreview(this IEnumerable<UserDoc> users)
     {
       if (users is null)
         throw new ArgumentNullException(nameof(users));
@@ -47,12 +51,12 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
       return users.Select(ToPreview).ToList();
     }
 
-    public static UserDetailModel ToDetail(this UserDoc user)
+    public static DetailModel ToDetail(this UserDoc user)
     {
       if (user is null)
         throw new ArgumentNullException(nameof(user));
 
-      return new UserDetailModel
+      return new DetailModel
       {
         Id = user.Id,
         Email = user.Email,

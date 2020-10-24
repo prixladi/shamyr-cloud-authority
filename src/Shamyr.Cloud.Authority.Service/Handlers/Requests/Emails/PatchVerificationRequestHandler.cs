@@ -14,27 +14,33 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Emails
   {
     private readonly IUserRepository fUserRepository;
     private readonly IEmailService fEmailService;
+    private readonly IClientRepository fClientRepository;
     private readonly ITelemetryService fTelemetryService;
 
     public PatchVerificationRequestHandler(
       IUserRepository userRepository,
       IEmailService emailService,
+      IClientRepository clientRepository,
       ITelemetryService telemetryService)
     {
       fUserRepository = userRepository;
       fEmailService = emailService;
+      fClientRepository = clientRepository;
       fTelemetryService = telemetryService;
     }
 
     public async Task<Unit> Handle(PatchVerificationRequest request, CancellationToken cancellationToken)
     {
-      var user = await GetUserByEmailOrThrowAsync(request.Email, cancellationToken);
+      var client = await fClientRepository.GetAsync(request.Model.ClientId, cancellationToken);
+      if (client is null)
+        throw new BadRequestException($"Client with ID '{request.Model.ClientId}' doesn't exist.");
 
+      var user = await GetUserByEmailOrThrowAsync(request.Email, cancellationToken);
       if (user.EmailToken is null)
         throw new ConflictException($"Account with email '{request.Email}' is already verified.");
 
       var context = fTelemetryService.GetRequestContext();
-      await fEmailService.SendEmailAsync(VerifyAccountEmailContext.New(user, context), cancellationToken);
+      await fEmailService.SendEmailAsync(VerifyAccountEmailContext.New(user, client, context), cancellationToken);
 
       return Unit.Value;
     }

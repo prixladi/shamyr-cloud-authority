@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shamyr.AspNetCore.Attributes;
-using Shamyr.Cloud.Bson;
 
 namespace Shamyr.Cloud.Identity.Service.Configs
 {

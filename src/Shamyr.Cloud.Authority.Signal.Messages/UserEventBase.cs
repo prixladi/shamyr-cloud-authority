@@ -11,8 +11,8 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
 
     public string UserId { get; set; }
 
-    protected UserEventBase(string userId, string operationId, string? parentOperationId)
-      : base(operationId, parentOperationId)
+    protected UserEventBase(string userId, string scopeId, string? parentScopeId)
+      : base(scopeId, parentScopeId)
     {
       UserId = userId ?? throw new ArgumentNullException(nameof(userId));
     }

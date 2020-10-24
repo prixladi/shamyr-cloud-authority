@@ -6,9 +6,9 @@ namespace Shamyr.Cloud.Authority.Service.Requests.EmailTemplates
 {
   public class PostRequest: IRequest<IdModel>
   {
-    public EmailTemplatePostModel Model { get; }
+    public PostModel Model { get; }
 
-    public PostRequest(EmailTemplatePostModel model)
+    public PostRequest(PostModel model)
     {
       Model = model ?? throw new System.ArgumentNullException(nameof(model));
     }

@@ -11,8 +11,7 @@ namespace Shamyr.Cloud.Identity.Client.Reactions
 
     protected override UserModel MutateUserAsync(UserModel model, UserDisabledChangedEvent @event)
     {
-      model.Disabled = @event.Disabled;
-      return model;
+      return model with { Disabled = @event.Disabled };
     }
   }
 }

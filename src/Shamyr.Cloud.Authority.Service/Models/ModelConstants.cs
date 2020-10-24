@@ -5,7 +5,7 @@
     public const int _MaxPasswordLength = int.MaxValue;
     public const int _MinPasswordLength = 6;
 
-    public const int _MaxUsernameLength = int.MaxValue;
+    public const int _MaxUsernameLength = 60;
     public const int _MinUsernameLength = 6;
   }
 }

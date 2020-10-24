@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Authority.Service.Authorization;
 using Shamyr.Cloud.Authority.Service.Extensions;
 using Shamyr.Cloud.Authority.Service.Repositories;
+using Shamyr.Cloud.Database.Documents;
 
 namespace Shamyr.Cloud.Authority.Service.Authentication.JwtBearer
 {
@@ -43,7 +43,7 @@ namespace Shamyr.Cloud.Authority.Service.Authentication.JwtBearer
       var (user, userIdentity) = await ValidateUserAsync(principal.Identity!.Name, (ClaimsIdentity)principal.Identity, Context.RequestAborted);
       ValidateLogin(user, principal);
 
-      if(user.Admin)
+      if (user.Admin)
         userIdentity.AddClaim(new Claim(ClaimTypes.Role, UserPolicy._Admin));
 
       var userPrincipal = new ClaimsPrincipal(userIdentity);

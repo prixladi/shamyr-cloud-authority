@@ -10,8 +10,8 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
     public bool Verified { get; }
 
     [JsonConstructor]
-    public UserVerifiedChangedEvent(string userId, bool verified, string operationId, string? parentOperationId)
-      : base(userId, operationId, parentOperationId)
+    public UserVerifiedChangedEvent(string userId, bool verified, string scopeId, string? parentScopeId)
+      : base(userId, scopeId, parentScopeId)
     {
       Verified = verified;
     }

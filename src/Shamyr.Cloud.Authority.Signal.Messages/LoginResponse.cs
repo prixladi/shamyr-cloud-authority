@@ -6,8 +6,8 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
   public class LoginResponse: EventBase
   {
     [JsonConstructor]
-    public LoginResponse(string operationId, string? parentOperationId)
-      : base(operationId, parentOperationId) { }
+    public LoginResponse(string scopeId, string? parentScopeId)
+      : base(scopeId, parentScopeId) { }
 
     public LoginResponse(ILoggingContext context)
       : base(context) { }

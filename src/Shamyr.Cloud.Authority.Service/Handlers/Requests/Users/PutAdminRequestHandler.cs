@@ -18,9 +18,8 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
     public async Task<Unit> Handle(PutAdminRequest request, CancellationToken cancellationToken)
     {
       var user = await fUserRepository.GetAsync(request.UserId, cancellationToken);
-      if (user == null)
+      if (user is null)
         throw new NotFoundException($"User with ID '{request.UserId}' does not exist.");
-
       if (user.Admin)
         throw new ForbiddenException($"User with ID '{request.UserId}' is admin.");
 

@@ -19,7 +19,7 @@ namespace Shamyr.Cloud.Bson
       if (reader.TokenType == JsonToken.Null)
         return reader.Value;
 
-      if (reader.TokenType != JsonToken.String)
+      if (reader.TokenType is not JsonToken.String)
         throw new InvalidOperationException($"Unexpected token parsing ObjectId. Expected String, got {reader.TokenType}.");
 
       string value = (string)reader.Value;

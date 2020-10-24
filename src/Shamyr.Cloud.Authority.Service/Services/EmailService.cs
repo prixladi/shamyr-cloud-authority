@@ -22,14 +22,14 @@ namespace Shamyr.Cloud.Authority.Service.Services
     public async Task SendEmailAsync(IEmailBuildContext context, CancellationToken cancellationToken)
     {
       var builder = fEmailBuilderFactory.TryCreate(context);
-      if (builder == null)
+      if (builder is null)
       {
-        fLogger.LogError(context, $"For email build context of type '{context.GetType()}' does not exist builder.");
+        fLogger.LogError(context, $"For email build context of type '{context.GetType()}' doesn't exist any builder.");
         return;
       }
 
       var dto = await builder.TryBuildAsync(context, cancellationToken);
-      if (dto == null)
+      if (dto is null)
       {
         fLogger.LogError(context, $"For email '{context.EmailType}' does not exist template in DB.");
         return;

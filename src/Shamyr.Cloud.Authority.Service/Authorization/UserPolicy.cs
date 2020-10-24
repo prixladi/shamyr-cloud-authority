@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Shamyr.Cloud.Authority.Signal.Messages;
-
-namespace Shamyr.Cloud.Authority.Service.Authorization
+﻿namespace Shamyr.Cloud.Authority.Service.Authorization
 {
   internal static class UserPolicy
   {

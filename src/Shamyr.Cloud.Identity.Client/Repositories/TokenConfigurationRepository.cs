@@ -23,7 +23,7 @@ namespace Shamyr.Cloud.Identity.Client.Repositories
       {
         lock (fConfigurationSources)
         {
-          if (fConfiguration != null)
+          if (fConfiguration is not null)
             return fConfiguration;
 
           source = new TaskCompletionSource<TokenConfigurationModel>(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -34,7 +34,7 @@ namespace Shamyr.Cloud.Identity.Client.Repositories
       }
       finally
       {
-        if (source != null)
+        if (source is not null)
           lock (fConfigurationSources)
             fConfigurationSources.Remove(source);
       }

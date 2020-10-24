@@ -25,7 +25,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.CurrentUser
     public async Task<Unit> Handle(PutPasswordRequest request, CancellationToken cancellationToken)
     {
       var user = fIdentityService.Current;
-      if (user.Secret == null)
+      if (user.Secret is null)
         throw new ConflictException("User does not have any password set.");
 
       if (!fSecretService.ComparePasswords(request.Model.OldPassword, user.Secret))

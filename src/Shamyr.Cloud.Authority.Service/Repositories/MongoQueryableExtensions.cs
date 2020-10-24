@@ -1,12 +1,11 @@
 ﻿using System;
 using MongoDB.Driver.Linq;
-using Shamyr.Cloud.Authority.Service.Models;
 
 namespace Shamyr.Cloud.Authority.Service.Repositories
 {
   public static partial class MongoQueryableExtensions
   {
-    public static IMongoQueryable<TDocument> Pagination<TDocument>(this IMongoQueryable<TDocument> query, PaginationModel pagination)
+    public static IMongoQueryable<TDocument> Pagination<TDocument>(this IMongoQueryable<TDocument> query, IPagination pagination)
     {
       if (pagination is null)
         throw new ArgumentNullException(nameof(pagination));

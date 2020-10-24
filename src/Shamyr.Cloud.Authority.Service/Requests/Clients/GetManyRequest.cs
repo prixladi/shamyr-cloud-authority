@@ -4,7 +4,7 @@ using Shamyr.Cloud.Authority.Service.Models.Clients;
 
 namespace Shamyr.Cloud.Authority.Service.Requests.Clients
 {
-  public class GetManyRequest: IRequest<ICollection<ClientPreviewModel>>
+  public class GetManyRequest: IRequest<ICollection<PreviewModel>>
   {
   }
 }

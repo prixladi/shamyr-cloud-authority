@@ -11,8 +11,7 @@ namespace Shamyr.Cloud.Identity.Client.Reactions
 
     protected override UserModel MutateUserAsync(UserModel model, UserVerifiedChangedEvent @event)
     {
-      model.Verified = @event.Verified;
-      return model;
+      return model with { Verified = @event.Verified };
     }
   }
 }

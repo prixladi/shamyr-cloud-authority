@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using MediatR;
 using MongoDB.Bson;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Authority.Service.Extensions;
 using Shamyr.Cloud.Authority.Service.Repositories;
 using Shamyr.Cloud.Authority.Service.Requests.Users;
+using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Services;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
@@ -27,7 +27,6 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
 
       if (user.PasswordToken is null)
         throw new ConflictException($"User with name '{user.Username}' and email '{user.Email}' doesn't have password reset requested.");
-
       if (user.PasswordToken != request.Model.PasswordToken)
         throw new BadRequestException("Password reset token is invalid.");
 

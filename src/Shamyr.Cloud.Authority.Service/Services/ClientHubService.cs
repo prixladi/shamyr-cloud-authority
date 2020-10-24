@@ -43,7 +43,7 @@ namespace Shamyr.Cloud.Authority.Service.Services
         {
           requstContext.Fail();
           fLogger.LogException(requstContext, ex, $"Error while sending event '{@event.GetType()}'.");
-          throw ex;
+          throw;
         }
       }
     }

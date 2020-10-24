@@ -1,5 +1,4 @@
-﻿using Shamyr.Cloud.Database;
-using Shamyr.MongoDB.Configs;
+﻿using Shamyr.MongoDB.Configs;
 
 namespace Shamyr.Cloud.Authority.Service.Configs
 {

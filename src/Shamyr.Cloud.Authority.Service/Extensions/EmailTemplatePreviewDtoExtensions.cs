@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Shamyr.Cloud.Authority.Service.Dtos.EmailTemplates;
 using Shamyr.Cloud.Authority.Service.Models.EmailTemplates;
 
@@ -9,12 +8,12 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
 {
   public static class EmailTemplatePreviewDtoExtensions
   {
-    public static EmailTemplatePreviewModel ToPreview(this EmailTemplatePreviewDto dto)
+    public static PreviewModel ToPreview(this PreviewDto dto)
     {
       if (dto is null)
         throw new ArgumentNullException(nameof(dto));
 
-      return new EmailTemplatePreviewModel
+      return new PreviewModel
       {
         Id = dto.Id,
         Name = dto.Name,
@@ -24,7 +23,7 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
       };
     }
 
-    public static ICollection<EmailTemplatePreviewModel> ToPreview(this IEnumerable<EmailTemplatePreviewDto> dtos)
+    public static ICollection<PreviewModel> ToPreview(this IEnumerable<PreviewDto> dtos)
     {
       if (dtos is null)
         throw new ArgumentNullException(nameof(dtos));

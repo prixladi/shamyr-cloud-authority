@@ -9,8 +9,8 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
     public string[] Resources { get; }
 
     [JsonConstructor]
-    public SubscribeEventsRequest(string[] resources, string operationId, string? parentOperationId)
-      : base(operationId, parentOperationId)
+    public SubscribeEventsRequest(string[] resources, string scopeId, string? parentScopeId)
+      : base(scopeId, parentScopeId)
     {
       Resources = resources ?? throw new ArgumentNullException(nameof(resources));
     }
