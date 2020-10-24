@@ -25,7 +25,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.CurrentUser
     public async Task<Unit> Handle(PostPasswordRequest request, CancellationToken cancellationToken)
     {
       var user = fIdentityService.Current;
-      if (user.Secret != null)
+      if (user.Secret is not null)
         throw new ConflictException("User already has his password set.");
 
       var secret = fSecretService.CreateSecret(request.Model.Password);

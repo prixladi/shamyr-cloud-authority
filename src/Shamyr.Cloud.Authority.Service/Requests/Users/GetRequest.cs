@@ -4,7 +4,7 @@ using Shamyr.Cloud.Authority.Service.Models.Users;
 
 namespace Shamyr.Cloud.Authority.Service.Requests.Users
 {
-  public class GetRequest: IRequest<UserDetailModel>
+  public class GetRequest: IRequest<DetailModel>
   {
     public ObjectId Id { get; }
 

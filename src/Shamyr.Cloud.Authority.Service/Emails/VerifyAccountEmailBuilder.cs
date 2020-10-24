@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Mail;
 using Shamyr.Cloud.Authority.Service.Repositories;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.Emails
 {
@@ -23,8 +24,8 @@ namespace Shamyr.Cloud.Authority.Service.Emails
 
     protected override IEnumerable<ReplaceRule> SubjectReplaceRules => Array.Empty<ReplaceRule>();
 
-    public VerifyAccountEmailBuilder(IEmailTemplateRepository templateRepository)
-      : base(templateRepository) { }
+    public VerifyAccountEmailBuilder(IEmailTemplateRepository templateRepository, ILogger logger)
+      : base(templateRepository, logger) { }
 
     protected override MailAddress GetMailAddress(VerifyAccountEmailContext context)
     {

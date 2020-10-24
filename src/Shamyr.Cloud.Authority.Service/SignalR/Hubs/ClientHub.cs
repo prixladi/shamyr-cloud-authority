@@ -25,9 +25,9 @@ namespace Shamyr.Cloud.Authority.Service.SignalR.Hubs
       await base.OnConnectedAsync();
     }
 
-    public override Task OnDisconnectedAsync(Exception exception)
+    public override Task OnDisconnectedAsync(Exception? exception)
     {
-      if (exception != null)
+      if (exception is not null)
         fLogger.LogException(LoggingContext.Root, exception, $"SignalR client with Connection Id '{Context.ConnectionId}' disconnected.");
       else
         fLogger.LogInformation(LoggingContext.Root, $"SignalR client with Connection Id '{Context.ConnectionId}' disconnected.");
@@ -41,7 +41,6 @@ namespace Shamyr.Cloud.Authority.Service.SignalR.Hubs
         throw new BadRequestException("ClientId has invalid format.");
 
       var result = await fClientService.LoginAsync(clientId, request.ClientSecret, Context.ConnectionAborted);
-
       if (result == ClientLoginStatus.Ok)
       {
         var connection = new Connection(clientId);
@@ -52,8 +51,9 @@ namespace Shamyr.Cloud.Authority.Service.SignalR.Hubs
       {
         ClientLoginStatus.Ok => new LoginResponse(request.GetContext()),
         ClientLoginStatus.ClientNotFound => throw new UnauthorizedException($"Client with Id '{request.ClientId}' not found."),
+        ClientLoginStatus.SecretNotSet => throw new UnauthorizedException($"Client does not have secret set."),
         ClientLoginStatus.InvalidSecret => throw new UnauthorizedException($"Invalid client secret."),
-        _ => throw new NotImplementedException($"Login result '{result} is not implemented."),
+        _ => throw new NotImplementedException(result.ToString()),
       };
     }
 

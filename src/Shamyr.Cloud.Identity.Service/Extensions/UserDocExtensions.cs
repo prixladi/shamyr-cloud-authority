@@ -34,6 +34,9 @@ namespace Shamyr.Cloud.Identity.Service.Extensions
         Username = user.Username,
         Email = user.Email,
         Disabled = user.Disabled,
+        GivenName = user.GivenName,
+        FamilyName = user.FamilyName,
+        Verified = user.EmailToken is null,
         Admin = user.Admin
       };
     }

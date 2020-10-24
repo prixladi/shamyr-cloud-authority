@@ -29,7 +29,7 @@ namespace Shamyr.Cloud.Identity.Client.Services
       await using var manager = new CachePipelineManager(pipeline, scope.ServiceProvider, cancellationToken);
 
       var user = await manager.TryGetCachedUserAsync(userId);
-      if (user == null)
+      if (user is null)
       {
         user = await fIdentityClient.GetUserByIdAsync(userId, context, cancellationToken);
         if (user is null)

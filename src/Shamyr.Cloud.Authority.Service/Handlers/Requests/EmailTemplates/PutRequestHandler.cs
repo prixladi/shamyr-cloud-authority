@@ -18,15 +18,10 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.EmailTemplates
 
     public async Task<Unit> Handle(PutRequest request, CancellationToken cancellationToken)
     {
-      var template = await fTemplateRepository.GetAsync(request.TemplateId, cancellationToken);
-      if (template == null)
+      var updateDto = request.Model.ToDto();
+      if (!await fTemplateRepository.UpdateAsync(request.TemplateId, updateDto, cancellationToken))
         throw new NotFoundException($"Email template with ID '{request.TemplateId}' does not exist.");
 
-      if (template.Type != request.Model.Type && await fTemplateRepository.ExistsByTypeAsync(request.Model.Type, cancellationToken))
-        throw new ConflictException($"Email template with type '{request.Model.Type}' already exists.");
-
-      var updateDto = request.Model.ToDto();
-      await fTemplateRepository.UpdateAsync(request.TemplateId, updateDto, cancellationToken);
       return Unit.Value;
     }
   }

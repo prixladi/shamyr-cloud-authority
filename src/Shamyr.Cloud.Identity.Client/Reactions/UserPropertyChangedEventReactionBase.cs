@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Pipelines;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Shamyr.Cloud.Authority.Client.Reactions;
 using Shamyr.Cloud.Authority.Signal.Messages;
 using Shamyr.Cloud.Identity.Client.Factories;
-using Shamyr.Cloud.Identity.Client.Repositories;
 using Shamyr.Cloud.Identity.Client.Services;
 using Shamyr.Cloud.Identity.Service.Models;
 
@@ -42,7 +40,6 @@ namespace Shamyr.Cloud.Identity.Client.Reactions
       await Task.WhenAll(tasks);
     }
 
-    // TODO: Don't mutate, use with expression
     protected abstract UserModel MutateUserAsync(UserModel model, TEvent @event);
 
     private async Task ReactAsync(IUserCacheService cache, TEvent @event, CancellationToken cancellationToken)

@@ -9,7 +9,7 @@ using Shamyr.Cloud.Authority.Service.Requests.Users;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
 {
-  public class GetManyRequestHandler: IRequestHandler<GetManyRequest, UserPreviewsModel>
+  public class GetManyRequestHandler: IRequestHandler<GetManyRequest, PreviewsModel>
   {
     private readonly IUserRepository fUserRepository;
 
@@ -18,16 +18,17 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
       fUserRepository = userRepository;
     }
 
-    public async Task<UserPreviewsModel> Handle(GetManyRequest request, CancellationToken cancellationToken)
+    public async Task<PreviewsModel> Handle(GetManyRequest request, CancellationToken cancellationToken)
     {
       var sortDefinition = UsersOrderDefinitionResolver.FromModel(request.Sort);
+      var filter = request.Filter.ToDto();
 
-      var users = await fUserRepository.GetSortedUsersAsync(request.Filter, sortDefinition, cancellationToken);
+      var users = await fUserRepository.GetAsync(filter, sortDefinition, cancellationToken);
 
-      return new UserPreviewsModel
+      return new PreviewsModel
       {
         UserPreviews = users.ToPreview(),
-        UserCount = await fUserRepository.GetUserCountAsync(request.Filter, cancellationToken)
+        UserCount = await fUserRepository.GetUserCountAsync(filter, cancellationToken)
       };
     }
   }

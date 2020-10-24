@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shamyr.MongoDB" Version="1.0.35" />
+    <PackageReference Include="Shamyr.MongoDB" Version="1.0.38" />
   </ItemGroup>
 
 </Project>

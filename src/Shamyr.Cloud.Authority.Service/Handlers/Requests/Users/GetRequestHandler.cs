@@ -8,7 +8,7 @@ using Shamyr.Cloud.Authority.Service.Requests.Users;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
 {
-  public class GetRequestHandler: IRequestHandler<GetRequest, UserDetailModel>
+  public class GetRequestHandler: IRequestHandler<GetRequest, DetailModel>
   {
     private readonly IUserRepository fUserRepository;
 
@@ -17,7 +17,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
       fUserRepository = userRepository;
     }
 
-    public async Task<UserDetailModel> Handle(GetRequest request, CancellationToken cancellationToken)
+    public async Task<DetailModel> Handle(GetRequest request, CancellationToken cancellationToken)
     {
       var user = await fUserRepository.GetAsync(request.Id, cancellationToken);
       if (user is null)

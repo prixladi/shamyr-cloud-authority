@@ -4,6 +4,7 @@
   {
     Ok,
     ClientNotFound,
-    InvalidSecret
+    SecretNotSet,
+    InvalidSecret,
   }
 }

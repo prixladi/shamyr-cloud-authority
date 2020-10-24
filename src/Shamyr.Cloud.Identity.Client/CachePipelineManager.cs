@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Shamyr.Cloud.Identity.Client.Factories;
 using Shamyr.Cloud.Identity.Client.Services;
 using Shamyr.Cloud.Identity.Service.Models;
 
@@ -48,7 +45,7 @@ namespace Shamyr.Cloud.Identity.Client
       foreach (var service in fCachePipeline.GetServices(fServiceProvider))
       {
         var cachedUser = await service.RetrieveUserAsync(userId, fPipelineCancellation);
-        if (cachedUser != null)
+        if (cachedUser is not null)
           return cachedUser;
 
         fUsedServices.Push(service);

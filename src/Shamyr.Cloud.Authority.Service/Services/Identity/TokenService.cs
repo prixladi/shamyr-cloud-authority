@@ -22,7 +22,7 @@ namespace Shamyr.Cloud.Authority.Service.Services.Identity
     public string GenerateUserJwt(UserDoc user, string grant)
     {
       var issuedAtUtc = DateTime.UtcNow;
-      var claims = new List<Claim>(4)
+      var claims = new List<Claim>(8)
       {
         new Claim(ClaimTypes.Name, user.Id.ToString()),
         new Claim(ClaimTypes.Actor, user.Username),
@@ -30,6 +30,10 @@ namespace Shamyr.Cloud.Authority.Service.Services.Identity
         new Claim(Constants._GrantClaimType, grant)
       };
 
+      if (user.GivenName != null)
+        claims.Add(new Claim(ClaimTypes.GivenName, user.GivenName));
+      if (user.FamilyName != null)
+        claims.Add(new Claim(ClaimTypes.Surname, user.FamilyName));
       if (user.Admin)
         claims.Add(new Claim(ClaimTypes.Role, nameof(UserDoc.Admin)));
 

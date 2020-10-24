@@ -8,8 +8,8 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
     public override string Resource => Resources._UserLoggedOut;
 
     [JsonConstructor]
-    public UserLoggedOutEvent(string userId, string operationId, string? parentOperationId)
-      : base(userId, operationId, parentOperationId) { }
+    public UserLoggedOutEvent(string userId, string scopeId, string? parentScopeId)
+      : base(userId, scopeId, parentScopeId) { }
 
 
     public UserLoggedOutEvent(string userId, ILoggingContext operationContext)

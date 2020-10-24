@@ -6,7 +6,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
   {
     Task UserLoggedOutEventAsync(UserLoggedOutEvent @event);
     Task UserVerifiedChangedEventAsync(UserVerifiedChangedEvent @event);
-    Task UserDisabledChangedEventAsync(UserDisabledChangedEvent  @event);
+    Task UserDisabledChangedEventAsync(UserDisabledChangedEvent @event);
     Task UserAdminChangedEventAsync(UserAdminChangedEvent @event);
     Task TokenConfigurationChangedAsync(TokenConfigurationChangedEvent @event);
   }

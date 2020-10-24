@@ -10,8 +10,8 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
     public bool Admin { get; }
 
     [JsonConstructor]
-    public UserAdminChangedEvent(string userId, bool admin, string operationId, string? parentOperationId)
-      : base(userId, operationId, parentOperationId)
+    public UserAdminChangedEvent(string userId, bool admin, string scopeId, string? parentScopeId)
+      : base(userId, scopeId, parentScopeId)
     {
       Admin = admin;
     }

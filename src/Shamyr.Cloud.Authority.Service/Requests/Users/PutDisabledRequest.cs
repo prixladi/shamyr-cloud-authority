@@ -7,9 +7,9 @@ namespace Shamyr.Cloud.Authority.Service.Requests.Users
   public class PutDisabledRequest: IRequest
   {
     public ObjectId UserId { get; }
-    public UserPutDisabledModel Model { get; }
+    public PutDisabledModel Model { get; }
 
-    public PutDisabledRequest(ObjectId userId, UserPutDisabledModel model)
+    public PutDisabledRequest(ObjectId userId, PutDisabledModel model)
     {
       UserId = userId;
       Model = model ?? throw new System.ArgumentNullException(nameof(model));

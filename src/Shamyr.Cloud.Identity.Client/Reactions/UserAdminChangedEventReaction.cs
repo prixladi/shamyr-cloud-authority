@@ -11,8 +11,7 @@ namespace Shamyr.Cloud.Identity.Client.Reactions
 
     protected override UserModel MutateUserAsync(UserModel model, UserAdminChangedEvent @event)
     {
-      model.Admin = @event.Admin;
-      return model;
+      return model with { Admin = @event.Admin };
     }
   }
 }

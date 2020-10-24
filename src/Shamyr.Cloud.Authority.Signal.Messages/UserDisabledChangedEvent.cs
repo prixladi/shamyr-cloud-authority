@@ -10,8 +10,8 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
     public bool Disabled { get; }
 
     [JsonConstructor]
-    public UserDisabledChangedEvent(string userId, bool disabled, string operationId, string? parentOperationId)
-      : base(userId, operationId, parentOperationId)
+    public UserDisabledChangedEvent(string userId, bool disabled, string scopeId, string? parentScopeId)
+      : base(userId, scopeId, parentScopeId)
     {
       Disabled = disabled;
     }

@@ -14,10 +14,12 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
 
       return new UserDoc
       {
-        NormalizedUsername = payload.Email.Normalize(),
-        Username = payload.Email,
-        NormalizedEmail = payload.Email.Normalize(),
-        Email = payload.Email
+        NormalizedUsername = payload.Name.CompareNormalize(),
+        Username = payload.Name,
+        NormalizedEmail = payload.Email.CompareNormalize(),
+        Email = payload.Email,
+        GivenName = payload.GivenName,
+        FamilyName = payload.FamilyName
       };
     }
   }

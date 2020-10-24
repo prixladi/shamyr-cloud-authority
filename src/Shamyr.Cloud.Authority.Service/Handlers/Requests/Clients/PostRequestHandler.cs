@@ -1,42 +1,57 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Authority.Service.Extensions;
 using Shamyr.Cloud.Authority.Service.Models;
 using Shamyr.Cloud.Authority.Service.Repositories;
 using Shamyr.Cloud.Authority.Service.Requests.Clients;
+using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Services;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Clients
 {
   public class PostRequestHandler: IRequestHandler<PostRequest, IdModel>
   {
+    private readonly IEmailTemplateRepository fEmailTemplateRepository;
     private readonly IClientRepository fClientRepository;
     private readonly ISecretService fSecretService;
 
-    public PostRequestHandler(IClientRepository clientRepository, ISecretService secretService)
+    public PostRequestHandler(
+      IEmailTemplateRepository emailTemplateRepository,
+      IClientRepository clientRepository,
+      ISecretService secretService)
     {
+      fEmailTemplateRepository = emailTemplateRepository;
       fClientRepository = clientRepository;
       fSecretService = secretService;
     }
 
     public async Task<IdModel> Handle(PostRequest request, CancellationToken cancellationToken)
     {
-      if (await fClientRepository.ExistsByClientNameAsync(request.Model.ClientName, cancellationToken))
-        throw new ConflictException($"Client with name '{request.Model.ClientName}' already exists.");
+      if (await fClientRepository.ExistsByClientNameAsync(request.Model.Name, cancellationToken))
+        throw new ConflictException($"Client with name '{request.Model.Name}' already exists.");
 
-      var secret = fSecretService.CreateSecret(request.Model.ClientSecret);
-      var clientDoc = new ClientDoc
-      {
-        ClientName = request.Model.ClientName,
-        Secret = secret.ToDoc(),
-        Disabled = false
-      };
+      await CheckEmailTemplateIdsAsync(request, cancellationToken);
 
-      await fClientRepository.InsertAsync(clientDoc, cancellationToken);
+      SecretDoc? secret = null;
+      if (request.Model.Secret is not null)
+        secret = fSecretService.CreateSecret(request.Model.Secret).ToDoc();
 
-      return new IdModel(clientDoc.Id);
+      var doc = request.Model.ToDoc(secret);
+      await fClientRepository.InsertAsync(doc, cancellationToken);
+
+      return new IdModel { Id = doc.Id };
+    }
+
+    public async Task CheckEmailTemplateIdsAsync(PostRequest request, CancellationToken cancellationToken)
+    {
+      var passwordResetId = request.Model.PasswordResetEmailTemplateId;
+      if (passwordResetId.HasValue && !await fEmailTemplateRepository.ExistsAsync(passwordResetId.Value, cancellationToken))
+        throw new BadRequestException($"Email template with ID '{passwordResetId.Value}' dosn't exist.");
+
+      var verifyAccountId = request.Model.PasswordResetEmailTemplateId;
+      if (verifyAccountId.HasValue && !await fEmailTemplateRepository.ExistsAsync(verifyAccountId.Value, cancellationToken))
+        throw new BadRequestException($"Email template with ID '{verifyAccountId.Value}' dosn't exist.");
     }
   }
 }

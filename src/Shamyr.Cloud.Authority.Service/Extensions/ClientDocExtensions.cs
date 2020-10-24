@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Authority.Service.Models.Clients;
+using Shamyr.Cloud.Database.Documents;
 
 namespace Shamyr.Cloud.Authority.Service.Extensions
 {
   public static class ClientDocExtensions
   {
-    public static ClientPreviewModel ToPreview(this ClientDoc client)
+    public static PreviewModel ToPreview(this ClientDoc client)
     {
       if (client is null)
         throw new ArgumentNullException(nameof(client));
 
-      return new ClientPreviewModel
+      return new PreviewModel
       {
         Id = client.Id,
-        ClientName = client.ClientName,
+        Name = client.Name,
         Disabled = client.Disabled,
       };
     }
 
-    public static ICollection<ClientPreviewModel> ToPreview(this IEnumerable<ClientDoc> clients)
+    public static ICollection<PreviewModel> ToPreview(this IEnumerable<ClientDoc> clients)
     {
       if (clients is null)
         throw new ArgumentNullException(nameof(clients));
@@ -29,16 +29,20 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
       return clients.Select(ToPreview).ToList();
     }
 
-    public static ClientDetailModel ToDetail(this ClientDoc client)
+    public static DetailModel ToDetail(this ClientDoc client)
     {
       if (client is null)
         throw new ArgumentNullException(nameof(client));
 
-      return new ClientDetailModel
+      return new DetailModel
       {
         Id = client.Id,
-        ClientName = client.ClientName,
-        Disabled = client.Disabled
+        Name = client.Name,
+        Disabled = client.Disabled,
+        PasswordResetEmailTemplateId = client.PasswordResetEmailTemplateId,
+        VerifyAccountEmailTemplateId = client.VerifyAccountEmailTemplateId,
+        AuthorityUrl = client.AuthorityUrl,
+        PortalUrl = client.PortalUrl
       };
     }
   }

@@ -41,7 +41,7 @@ dotnet_style_coalesce_expression = true:suggestion
 dotnet_style_prefer_is_null_check_over_reference_equality_method = true:silent 
 dotnet_prefer_inferred_tuple_names = true:suggestion 
 dotnet_prefer_inferred_anonymous_type_member_names = true:suggestion 
-dotnet_style_prefer_auto_properties = true:silent 
+dotnet_style_prefer_auto_properties = true:suggestion 
 dotnet_style_prefer_conditional_expression_over_assignment = true:silent 
 dotnet_style_prefer_conditional_expression_over_return = true:silent 
 # INTERFACE
@@ -70,7 +70,7 @@ dotnet_naming_symbols.field_symbols.applicable_accessibilities = private, protec
 dotnet_naming_style.field_style.capitalization                 = pascal_case 
 dotnet_naming_style.field_style.required_prefix                = f
 # ASYNC METHODS
-dotnet_naming_rule.async_method_rule.severity                         = error 
+dotnet_naming_rule.async_method_rule.severity                         = suggestion 
 dotnet_naming_rule.async_method_rule.symbols                          = async_method_symbols 
 dotnet_naming_rule.async_method_rule.style                            = async_method_style
 dotnet_naming_symbols.async_method_symbols.applicable_kinds           = method 

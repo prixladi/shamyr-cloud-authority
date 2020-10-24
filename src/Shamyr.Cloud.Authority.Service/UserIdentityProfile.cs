@@ -7,18 +7,20 @@ namespace Shamyr.Cloud.Authority.Service
 {
   public class UserIdentityProfile: ClaimsIdentity
   {
+    public ObjectId UserId { get; }
+    public string Username { get; init; } = default!;
+    public string Email { get; init; } = default!;
+    public string? GivenName { get; init; } = default!;
+    public string? FamilyName { get; init; } = default!;
+    public Secret? Secret { get; init; } = default!;
+    public DateTime? LogoutUtc { get; init; }
+    public bool Admin { get; init; }
+
     public UserIdentityProfile(ObjectId userId, ClaimsIdentity other)
       : base(other)
     {
       UserId = userId;
     }
-
-    public ObjectId UserId { get; }
-    public string Username { get; set; } = default!;
-    public string Email { get; set; } = default!;
-    public Secret? Secret { get; set; } = default!;
-    public DateTime? LogoutUtc { get; set; }
-    public bool Admin { get; set; }
 
     public UserIdentity Base => new UserIdentity(id: UserId.ToString(), username: Username, email: Email);
   }

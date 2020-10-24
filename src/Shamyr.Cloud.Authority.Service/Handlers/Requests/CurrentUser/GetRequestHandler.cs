@@ -8,7 +8,7 @@ using Shamyr.Cloud.Authority.Service.Services.Identity;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.CurrentUser
 {
-  public class GetRequestHandler: IRequestHandler<GetRequest, UserDetailModel>
+  public class GetRequestHandler: IRequestHandler<GetRequest, DetailModel>
   {
     private readonly IIdentityService fIdentityService;
 
@@ -17,7 +17,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.CurrentUser
       fIdentityService = identityService;
     }
 
-    public Task<UserDetailModel> Handle(GetRequest request, CancellationToken cancellationToken)
+    public Task<DetailModel> Handle(GetRequest request, CancellationToken cancellationToken)
     {
       var identity = fIdentityService.Current;
       return Task.FromResult(identity.ToDetail());

@@ -8,9 +8,9 @@ namespace Shamyr.Cloud.Authority.Service.Requests.EmailTemplates
   public class PutRequest: IRequest
   {
     public ObjectId TemplateId { get; }
-    public EmailTemplatePutModel Model { get; }
+    public PutModel Model { get; }
 
-    public PutRequest(ObjectId templateId, EmailTemplatePutModel model)
+    public PutRequest(ObjectId templateId, PutModel model)
     {
       TemplateId = templateId;
       Model = model ?? throw new ArgumentNullException(nameof(model));

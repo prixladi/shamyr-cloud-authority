@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using Shamyr.Cloud.Database;
 using Shamyr.Cloud.Authority.Service.Authorization;
 using Shamyr.Cloud.Authority.Service.Models.Clients;
 using Shamyr.Cloud.Authority.Service.Requests.Clients;
@@ -44,7 +43,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> PostAsync([FromBody] ClientPostModel model, CancellationToken cancellationToken)
+    public async Task<IActionResult> PostAsync([FromBody] PostModel model, CancellationToken cancellationToken)
     {
       var idModel = await fMediator.Send(new PostRequest(model), cancellationToken);
       return CreatedAtRoute(_GetClientRoute, new { id = idModel.Id.ToString() }, idModel);
@@ -59,9 +58,9 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     /// <response code="404">Client with given id not found</response>
     [HttpGet]
     [Authorize(UserPolicy._Admin)]
-    [ProducesResponseType(typeof(ICollection<ClientPreviewModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ICollection<PreviewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<ICollection<ClientPreviewModel>> GetManyAsync(CancellationToken cancellationToken)
+    public async Task<ICollection<PreviewModel>> GetManyAsync(CancellationToken cancellationToken)
     {
       return await fMediator.Send(new GetManyRequest(), cancellationToken);
     }
@@ -76,10 +75,10 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     /// <response code="404">Client with given id not found</response>
     [HttpGet("{id}", Name = _GetClientRoute)]
     [Authorize(UserPolicy._Admin)]
-    [ProducesResponseType(typeof(ClientPreviewModel), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PreviewModel), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ClientDetailModel> GetAsync([FromRoute] ObjectId id, CancellationToken cancellationToken)
+    public async Task<DetailModel> GetAsync([FromRoute] ObjectId id, CancellationToken cancellationToken)
     {
       return await fMediator.Send(new GetRequest(id), cancellationToken);
     }
@@ -102,7 +101,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> PutAsync([FromRoute] ObjectId id, [FromBody] ClientPutModel model, CancellationToken cancellationToken)
+    public async Task<IActionResult> PutAsync([FromRoute] ObjectId id, [FromBody] PutModel model, CancellationToken cancellationToken)
     {
       await fMediator.Send(new PutRequest(id, model), cancellationToken);
       return NoContent();
@@ -124,7 +123,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PutDisabledAsync([FromRoute] ObjectId id, [FromBody] ClientPutDisabledModel model, CancellationToken cancellationToken)
+    public async Task<IActionResult> PutDisabledAsync([FromRoute] ObjectId id, [FromBody] PutDisabledModel model, CancellationToken cancellationToken)
     {
       await fMediator.Send(new PutDisabledRequest(id, model), cancellationToken);
       return NoContent();

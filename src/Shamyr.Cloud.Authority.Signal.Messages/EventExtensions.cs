@@ -17,7 +17,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
     {
       if (message is null)
         throw new ArgumentNullException(nameof(message));
-      if (context is null)  
+      if (context is null)
         throw new ArgumentNullException(nameof(context));
 
       if (context.ScopeId != message.ScopeId)

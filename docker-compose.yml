@@ -6,29 +6,24 @@ services:
     ports:
       - 8080:80
     environment:
-      MONGO_URL: "mongodb://mongodb:27017"
-      MONGO_DATABASE_NAME: "ShamyrIdentity"
-      AUTHORITY_URL: "http://localhost:8080/"
-      PORTAL_URL: "http://localhost:3000/#/"
-      BEARER_TOKEN_ISSUER: "Shamyr Authority"
-      BEARER_TOKEN_AUDIENCE: "React"
-      REFRESH_TOKEN_DURATION: "604800"
-      BEARER_TOKEN_DURATION: "3600"
-      BEARER_PRIVATE_KEY: "MIIEpAIBAAKCAQEAkpa5lhUqEqXdeM6Rb7eHovdPXehjIueJg3Zed9qVbDimHpxRYUUzplt2t2DZxA8S9IiGymr53B0yYATMVFHJJVWd3nbFE7W/O6rJN/4Gm9Jy8mIIsvnQfBOkdku5P/aHonIOG6TgwJbM3B90YMuJDcImtaEGzftzqTnVOO+BT/9dGxPW9+z+womfW5OlQL0UIC/ItELfrFm59yDxcJfIeMIWHvvWCDgZG12M+HsAJcSb4tSRVnn1HdzzMlBWwmDi4iqw+ochbUS8z6oBqsVorQtB6s7usSVWJdtR5pPQLIibSpCaHrXAzq4j0UJJkqRv9yA5OaiwBWPPnT0hjrDSeQIDAQABAoIBADTrOsZGj7C5tjFFiVVmUQ3w7/L70MYqBgeydLoZ6/VsofPNBMfzvoig3kOnMBZKRtKGcvqiEd93ntbxBH6wI8hZlytXfx/1bbrxlcCj8OjR2XNNFszdyHjycl3OSmsf6akoOZWbORPtnLkeldnXwHt6CpVpM1arHv8JhMMQG4OwJYltdgl9hRJp3Qg3GRbTk11zvoJoZBgEQ8FMDaRAIGwAyG1/E2YbycL/r4n8ylmPYydsnydZA54OkabhfbrMKjE4grQ9LYvFXWqhCGm9IGY6AfWkj37AOqmQVSrDDp2AbUF9MqCv7bOmrhdDK5I4BPuEPwx9JVN0y+UCf4044Y0CgYEAyT3gU3LNZjPsMcpM2CQA1ZdOzSlna4cnkzU7SKJCCIDgcvRrRjhLPnBzc97dVJbSZvHO8QVlG8mT2Rw0kbr1klFD0gGml6x+4iDJ4qiOT6myagGH81xxEd4NLnt1YvDdHgYwS2lRBLkEPNUbF1UWSiYWSecrxdbdg0ve36tz+OMCgYEAunnTnkeHE4KVVyAHXmNJutbWtCBG/gZ71HvZDeXUHTeW+M6IHLarGZcx3/NBBa2Be59XVfAFRJdWbMrtPwEZ6bP8HLzeT7lGeXCvjEEC0qTm8h8+a9wXkmq5BRO1jR1iE1NNryx6FEPBJbYkas4p4jc2o37kjfxAbUzwOrpBkfMCgYEAp0FzIUgoKIp9A4DUz0tVGjCQgPmph/gjzziN1jdtVG3wnfpA8nK1Lub9Pc97+uMDaiYNTcqjFy45YFgN5RUTJxG9oVxX3nWyWzTPNj/LT7CFpY8yM/Sf0S7Rm9FmZd40mNCh8PtOJ/Ox7vFbe8/vH596JOAqRFrpbkdvrExuresCgYBpJ9wjDJjqcp/+oqwlGP5x40buCqmeBE/+MdzjznAADeIP6n+tGYGBC9bvQECxj/dNnDxm1NRTqrfs375L4jYXqQyJtCP1dzh7sQT9pYeO+7jUXrQXpOSSB6bQax3dNu2gkkBjgURSeybHOmBs7leGHrasGhmOy+oU+OcbZv8k6wKBgQCZCAjAi8TqvDWwApJyD/M9JfxhsP8OhjQ8FNlzylpdB/oGOIX/KqaLt+G7f5rGA1DYc9etdkT2FIWXF9jCHmI0SQvZ/a/CD7laTMnJ6Z2HakKpBXYcdmURc6zDd/lTIRcF5/VinVMBlFy2X+cj0Uv9jdLFiXrWToZpPitmR4jngQ=="
-      BEARER_PUBLIC_KEY: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkpa5lhUqEqXdeM6Rb7eHovdPXehjIueJg3Zed9qVbDimHpxRYUUzplt2t2DZxA8S9IiGymr53B0yYATMVFHJJVWd3nbFE7W/O6rJN/4Gm9Jy8mIIsvnQfBOkdku5P/aHonIOG6TgwJbM3B90YMuJDcImtaEGzftzqTnVOO+BT/9dGxPW9+z+womfW5OlQL0UIC/ItELfrFm59yDxcJfIeMIWHvvWCDgZG12M+HsAJcSb4tSRVnn1HdzzMlBWwmDi4iqw+ochbUS8z6oBqsVorQtB6s7usSVWJdtR5pPQLIibSpCaHrXAzq4j0UJJkqRv9yA5OaiwBWPPnT0hjrDSeQIDAQAB"
-      EMAIL_SERVER_URL: "http://server.ladislavprix.cz/sendMail.php"
-      EMAIL_SENDER_ADDRESS: "noreply@ladislavprix.cz"
-    build:
-      context: .
-      dockerfile: ./src/Shamyr.Cloud.Authority.Service/Dockerfile
+      MONGO_URL: mongodb://mongodb
+      MONGO_DATABASE_NAME: ShamyrIdentity
+      BEARER_TOKEN_ISSUER: Shamyr Authority
+      BEARER_TOKEN_AUDIENCE: React
+      REFRESH_TOKEN_DURATION: 604800
+      BEARER_TOKEN_DURATION: 3600
+      BEARER_PRIVATE_KEY: MIIEpAIBAAKCAQEAkpa5lhUqEqXdeM6Rb7eHovdPXehjIueJg3Zed9qVbDimHpxRYUUzplt2t2DZxA8S9IiGymr53B0yYATMVFHJJVWd3nbFE7W/O6rJN/4Gm9Jy8mIIsvnQfBOkdku5P/aHonIOG6TgwJbM3B90YMuJDcImtaEGzftzqTnVOO+BT/9dGxPW9+z+womfW5OlQL0UIC/ItELfrFm59yDxcJfIeMIWHvvWCDgZG12M+HsAJcSb4tSRVnn1HdzzMlBWwmDi4iqw+ochbUS8z6oBqsVorQtB6s7usSVWJdtR5pPQLIibSpCaHrXAzq4j0UJJkqRv9yA5OaiwBWPPnT0hjrDSeQIDAQABAoIBADTrOsZGj7C5tjFFiVVmUQ3w7/L70MYqBgeydLoZ6/VsofPNBMfzvoig3kOnMBZKRtKGcvqiEd93ntbxBH6wI8hZlytXfx/1bbrxlcCj8OjR2XNNFszdyHjycl3OSmsf6akoOZWbORPtnLkeldnXwHt6CpVpM1arHv8JhMMQG4OwJYltdgl9hRJp3Qg3GRbTk11zvoJoZBgEQ8FMDaRAIGwAyG1/E2YbycL/r4n8ylmPYydsnydZA54OkabhfbrMKjE4grQ9LYvFXWqhCGm9IGY6AfWkj37AOqmQVSrDDp2AbUF9MqCv7bOmrhdDK5I4BPuEPwx9JVN0y+UCf4044Y0CgYEAyT3gU3LNZjPsMcpM2CQA1ZdOzSlna4cnkzU7SKJCCIDgcvRrRjhLPnBzc97dVJbSZvHO8QVlG8mT2Rw0kbr1klFD0gGml6x+4iDJ4qiOT6myagGH81xxEd4NLnt1YvDdHgYwS2lRBLkEPNUbF1UWSiYWSecrxdbdg0ve36tz+OMCgYEAunnTnkeHE4KVVyAHXmNJutbWtCBG/gZ71HvZDeXUHTeW+M6IHLarGZcx3/NBBa2Be59XVfAFRJdWbMrtPwEZ6bP8HLzeT7lGeXCvjEEC0qTm8h8+a9wXkmq5BRO1jR1iE1NNryx6FEPBJbYkas4p4jc2o37kjfxAbUzwOrpBkfMCgYEAp0FzIUgoKIp9A4DUz0tVGjCQgPmph/gjzziN1jdtVG3wnfpA8nK1Lub9Pc97+uMDaiYNTcqjFy45YFgN5RUTJxG9oVxX3nWyWzTPNj/LT7CFpY8yM/Sf0S7Rm9FmZd40mNCh8PtOJ/Ox7vFbe8/vH596JOAqRFrpbkdvrExuresCgYBpJ9wjDJjqcp/+oqwlGP5x40buCqmeBE/+MdzjznAADeIP6n+tGYGBC9bvQECxj/dNnDxm1NRTqrfs375L4jYXqQyJtCP1dzh7sQT9pYeO+7jUXrQXpOSSB6bQax3dNu2gkkBjgURSeybHOmBs7leGHrasGhmOy+oU+OcbZv8k6wKBgQCZCAjAi8TqvDWwApJyD/M9JfxhsP8OhjQ8FNlzylpdB/oGOIX/KqaLt+G7f5rGA1DYc9etdkT2FIWXF9jCHmI0SQvZ/a/CD7laTMnJ6Z2HakKpBXYcdmURc6zDd/lTIRcF5/VinVMBlFy2X+cj0Uv9jdLFiXrWToZpPitmR4jngQ==
+      BEARER_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkpa5lhUqEqXdeM6Rb7eHovdPXehjIueJg3Zed9qVbDimHpxRYUUzplt2t2DZxA8S9IiGymr53B0yYATMVFHJJVWd3nbFE7W/O6rJN/4Gm9Jy8mIIsvnQfBOkdku5P/aHonIOG6TgwJbM3B90YMuJDcImtaEGzftzqTnVOO+BT/9dGxPW9+z+womfW5OlQL0UIC/ItELfrFm59yDxcJfIeMIWHvvWCDgZG12M+HsAJcSb4tSRVnn1HdzzMlBWwmDi4iqw+ochbUS8z6oBqsVorQtB6s7usSVWJdtR5pPQLIibSpCaHrXAzq4j0UJJkqRv9yA5OaiwBWPPnT0hjrDSeQIDAQAB
+      EMAIL_SERVER_URL: http://server.ladislavprix.cz/sendMail.php
+      EMAIL_SENDER_ADDRESS: noreply@ladislavprix.cz
 
   identity:
     image: shamyr/cloud/identity/service
     ports:
       - 8081:80
     environment:
-      MONGO_URL: 'mongodb://mongodb:27017'
-      MONGO_DATABASE_NAME: 'ShamyrIdentity'
+      MONGO_URL: mongodb://mongodb
+      MONGO_DATABASE_NAME: ShamyrIdentity
     build:
       context: .
       dockerfile: ./src/Shamyr.Cloud.Identity.Service/Dockerfile
@@ -38,10 +33,10 @@ services:
     ports:
       - 8082:80
     environment:
-      IDENTITY_URL: 'http://identity:80/'
-      AUTHORITY_URL: 'http://authority:80/'
-      CLIENT_ID: '5f257d6e714ce236e9870292'
-      CLIENT_SECRET: 'string'
+      IDENTITY_URL: http://identity/
+      AUTHORITY_URL: http://authority/
+      CLIENT_ID: 5f257d6e714ce236e9870292
+      CLIENT_SECRET: string
     build:
       context: .
       dockerfile: ./src/Shamyr.Cloud.Test.Client/Dockerfile
@@ -54,20 +49,20 @@ services:
 
   mongodb:
     image: mongo:latest
-    environment:
-      MONGO_DATA_DIR: "/data/db"
-      MONGO_LOG_DIR: "/dev/null"
-    volumes:
-      - mongodata:/data/db
     ports:
       - 27017:27017
+    environment:
+      MONGO_DATA_DIR: /data/db
+      MONGO_LOG_DIR: /dev/null
+    volumes:
+      - mongodata:/data/db
 
   swaggerui:
     image: swaggerapi/swagger-ui:latest
     ports:
-      - "9595:8080"
+      - 9595:8080
     environment:
-      API_URL: "http://localhost:8080/docs/v1/swagger.json"
+      API_URL: http://localhost:8080/docs/v1/swagger.json
 
 volumes:
   redisdata:

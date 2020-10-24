@@ -1,5 +1,4 @@
-﻿using Shamyr.Cloud.Authority.Service.Dtos;
-using Shamyr.Cloud.Database.Documents;
+﻿using Shamyr.Cloud.Database.Documents;
 
 namespace Shamyr.Cloud.Authority.Service.Services.Identity
 {

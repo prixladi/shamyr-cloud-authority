@@ -2,13 +2,8 @@
 
 namespace Shamyr.Cloud.Authority.Service.Models
 {
-  public class IdModel
+  public record IdModel
   {
-    public ObjectId Id { get; }
-
-    public IdModel(ObjectId id)
-    {
-      Id = id;
-    }
+    public ObjectId Id { get; init; }
   }
 }

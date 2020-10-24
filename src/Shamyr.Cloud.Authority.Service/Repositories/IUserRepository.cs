@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using Shamyr.Cloud.Authority.Service.Dtos.Users;
 using Shamyr.Cloud.Database.Documents;
-using Shamyr.Cloud.Authority.Service.Models.Users;
 using Shamyr.MongoDB.Repositories;
 using Shamyr.MongoDB.Sorting;
 
@@ -12,8 +11,8 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
 {
   public interface IUserRepository: IRepositoryBase<UserDoc>
   {
-    Task<List<UserDoc>> GetSortedUsersAsync(UserQueryFilter filter, OrderDefinition<UserDoc>? sort, CancellationToken cancellationToken);
-    Task<int> GetUserCountAsync(UserQueryFilter filter, CancellationToken cancellationToken);
+    Task<List<UserDoc>> GetAsync(FilterDto filter, OrderDefinition<UserDoc>? sort, CancellationToken cancellationToken);
+    Task<int> GetUserCountAsync(FilterDto filter, CancellationToken cancellationToken);
     Task<bool> ExistsByUsernameAsync(string username, CancellationToken cancellationToken);
     Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken);
     Task<UserDoc?> GetByUsernameAsync(string username, CancellationToken cancellationToken);

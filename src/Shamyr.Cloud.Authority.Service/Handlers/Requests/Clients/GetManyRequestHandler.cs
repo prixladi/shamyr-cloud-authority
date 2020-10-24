@@ -9,7 +9,7 @@ using Shamyr.Cloud.Authority.Service.Requests.Clients;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Clients
 {
-  public class GetManyRequestHandler: IRequestHandler<GetManyRequest, ICollection<ClientPreviewModel>>
+  public class GetManyRequestHandler: IRequestHandler<GetManyRequest, ICollection<PreviewModel>>
   {
     private readonly IClientRepository fClientRepository;
 
@@ -18,7 +18,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Clients
       fClientRepository = clientRepository;
     }
 
-    public async Task<ICollection<ClientPreviewModel>> Handle(GetManyRequest request, CancellationToken cancellationToken)
+    public async Task<ICollection<PreviewModel>> Handle(GetManyRequest request, CancellationToken cancellationToken)
     {
       var docs = await fClientRepository.GetAsync(cancellationToken);
       return docs.ToPreview();

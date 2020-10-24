@@ -19,13 +19,10 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.EmailTemplates
 
     public async Task<IdModel> Handle(PostRequest request, CancellationToken cancellationToken)
     {
-      if (await fTemplateRepository.ExistsByTypeAsync(request.Model.Type, cancellationToken))
-        throw new ConflictException($"Email template with type '{request.Model.Type}' already exists.");
-
       var doc = request.Model.ToDoc();
       await fTemplateRepository.InsertAsync(doc, cancellationToken);
 
-      return new IdModel(doc.Id);
+      return new IdModel { Id = doc.Id };
     }
   }
 }

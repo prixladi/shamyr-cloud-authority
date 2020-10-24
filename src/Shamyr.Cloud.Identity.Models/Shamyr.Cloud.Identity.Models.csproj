@@ -8,7 +8,6 @@
     <Company>Shamyr</Company>
     <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <RootNamespace>Shamyr.Cloud.Identity</RootNamespace>
   </PropertyGroup>
 
 </Project>

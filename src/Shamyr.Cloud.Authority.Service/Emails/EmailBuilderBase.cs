@@ -4,6 +4,7 @@ using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using Shamyr.Cloud.Authority.Service.Repositories;
+using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.Emails
 {
@@ -14,13 +15,15 @@ namespace Shamyr.Cloud.Authority.Service.Emails
     private const string _PortalUrlMark = "{{PORTAL_URL}}";
 
     private readonly IEmailTemplateRepository fTemplateRepository;
+    private readonly ILogger fLogger;
 
     protected abstract IEnumerable<(string, Func<TContext, string>)> BodyReplaceRules { get; }
     protected abstract IEnumerable<(string, Func<TContext, string>)> SubjectReplaceRules { get; }
 
-    protected EmailBuilderBase(IEmailTemplateRepository templateRepository)
+    protected EmailBuilderBase(IEmailTemplateRepository templateRepository, ILogger logger)
     {
       fTemplateRepository = templateRepository;
+      fLogger = logger;
     }
 
     public bool CanBuild(IEmailBuildContext context)
@@ -30,25 +33,35 @@ namespace Shamyr.Cloud.Authority.Service.Emails
 
     public async Task<EmailDto?> TryBuildAsync(IEmailBuildContext context, CancellationToken cancellationToken)
     {
-      var template = await fTemplateRepository.GetByTypeAsync(context.EmailType, cancellationToken);
-      if (template == null)
+      if (context.EmailTemplateId is null)
         return null;
 
+      var template = await fTemplateRepository.GetAsync(context.EmailTemplateId.Value, cancellationToken);
+      if (template is null)
+        throw new InvalidOperationException($"Email template with ID '{context.EmailTemplateId.Value}' does not exists.");
+
       return new EmailDto
-      {
-        RecipientAddress = GetMailAddress((TContext)context),
-        Body = BuildBody((TContext)context, template.Body),
-        Subject = BuildSubject((TContext)context, template.Subject),
-        IsBodyHtml = template.IsHtml
-      };
+      (
+        RecipientAddress: GetMailAddress((TContext)context),
+        Body: BuildBody((TContext)context, template.Body),
+        Subject: BuildSubject((TContext)context, template.Subject),
+        IsBodyHtml: template.IsHtml
+      );
     }
 
     private string BuildBody(TContext context, string body)
     {
       var content = body;
 
-      content = content.Replace(_AuthorityUrlMark, EnvironmentUtils.AuthorityUrl.AbsoluteUri);
-      content = content.Replace(_PortalUrlMark, EnvironmentUtils.PortalUrl.AbsoluteUri);
+      if (context.Client.AuthorityUrl is not null)
+        content = content.Replace(_AuthorityUrlMark, context.Client.AuthorityUrl);
+      else
+        fLogger.LogWarning(context, $"Client with ID '{context.Client.Id}' doesn't have authority URL set.");
+
+      if (context.Client.PortalUrl is not null)
+        content = content.Replace(_PortalUrlMark, context.Client.PortalUrl);
+      else
+        fLogger.LogWarning(context, $"Client with ID '{context.Client.Id}' doesn't have portal URL set.");
 
       foreach (var (mark, selector) in BodyReplaceRules)
         content = content.Replace(mark, selector(context));

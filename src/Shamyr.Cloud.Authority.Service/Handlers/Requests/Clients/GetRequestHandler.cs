@@ -8,7 +8,7 @@ using Shamyr.Cloud.Authority.Service.Requests.Clients;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Clients
 {
-  public class GetRequestHandler: IRequestHandler<GetRequest, ClientDetailModel>
+  public class GetRequestHandler: IRequestHandler<GetRequest, DetailModel>
   {
     private readonly IClientRepository fClientRepository;
 
@@ -17,7 +17,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Clients
       fClientRepository = clientRepository;
     }
 
-    public async Task<ClientDetailModel> Handle(GetRequest request, CancellationToken cancellationToken)
+    public async Task<DetailModel> Handle(GetRequest request, CancellationToken cancellationToken)
     {
       var client = await fClientRepository.GetAsync(request.ClientId, cancellationToken);
       if (client is null)

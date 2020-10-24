@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using MongoDB.Driver.Linq;
+using Shamyr.Cloud.Authority.Service.Extensions;
 using Shamyr.Cloud.Database.Documents;
 
 namespace Shamyr.Cloud.Authority.Service.Repositories
@@ -15,7 +16,7 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
       if (username is null)
         return query;
 
-      string normalizedUsername = username.Normalize();
+      string normalizedUsername = username.CompareNormalize();
 
       return query.Where(doc => doc.NormalizedUsername.Contains(normalizedUsername));
     }
@@ -28,7 +29,7 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
       if (email is null)
         return query;
 
-      string normalizedEmail = email.Normalize();
+      string normalizedEmail = email.CompareNormalize();
 
       return query.Where(doc => doc.NormalizedEmail.Contains(normalizedEmail));
     }
@@ -42,6 +43,17 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
         return query;
 
       return query.Where(doc => doc.Admin == admin.Value);
+    }
+
+    public static IMongoQueryable<EmailTemplateDoc> WhereType(this IMongoQueryable<EmailTemplateDoc> query, EmailTemplateType? templateType)
+    {
+      if (query is null)
+        throw new ArgumentNullException(nameof(query));
+
+      if (templateType is null)
+        return query;
+
+      return query.Where(doc => doc.Type == templateType);
     }
   }
 }

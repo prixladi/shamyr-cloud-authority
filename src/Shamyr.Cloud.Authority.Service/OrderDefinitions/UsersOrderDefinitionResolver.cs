@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Authority.Service.Models.Users;
+using Shamyr.Cloud.Database.Documents;
 using Shamyr.MongoDB.Sorting;
 
 namespace Shamyr.Cloud.Authority.Service.OrderDefinitions
 {
   public static class UsersOrderDefinitionResolver
   {
-    public static OrderDefinition<UserDoc>? FromModel(UserSortModel model)
+    public static OrderDefinition<UserDoc>? FromModel(SortModel model)
     {
       if (model is null)
         throw new ArgumentNullException(nameof(model));
@@ -19,10 +19,10 @@ namespace Shamyr.Cloud.Authority.Service.OrderDefinitions
       {
         case null:
           return null;
-        case UserSortTypes.Username:
+        case SortTypes.Username:
           orderBy = x => x.NormalizedUsername;
           break;
-        case UserSortTypes.Email:
+        case SortTypes.Email:
           orderBy = x => x.NormalizedEmail;
           break;
         default:

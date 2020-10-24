@@ -1,17 +1,17 @@
 ﻿using System;
-using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Authority.Service.Models.EmailTemplates;
+using Shamyr.Cloud.Database.Documents;
 
 namespace Shamyr.Cloud.Authority.Service.Extensions
 {
   public static class EmailTemplateDocExtensions
   {
-    public static EmailTemplateDetailModel ToDetail(this EmailTemplateDoc doc)
+    public static DetailModel ToDetail(this EmailTemplateDoc doc)
     {
       if (doc is null)
         throw new ArgumentNullException(nameof(doc));
 
-      return new EmailTemplateDetailModel
+      return new DetailModel
       {
         Id = doc.Id,
         Name = doc.Name,

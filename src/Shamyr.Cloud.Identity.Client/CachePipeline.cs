@@ -8,7 +8,7 @@ namespace Shamyr.Cloud.Identity.Client
     private readonly LinkedList<Type> fServiceTypes;
 
     public int Length => fServiceTypes.Count;
-     
+
     public CachePipeline()
     {
       fServiceTypes = new LinkedList<Type>();

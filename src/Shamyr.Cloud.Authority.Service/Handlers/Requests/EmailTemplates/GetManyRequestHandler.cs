@@ -9,7 +9,7 @@ using Shamyr.Cloud.Authority.Service.Requests.EmailTemplates;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.EmailTemplates
 {
-  public class GetManyRequestHandler: IRequestHandler<GetManyRequest, ICollection<EmailTemplatePreviewModel>>
+  public class GetManyRequestHandler: IRequestHandler<GetManyRequest, ICollection<PreviewModel>>
   {
     private readonly IEmailTemplateRepository fTemplateRepository;
 
@@ -18,9 +18,10 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.EmailTemplates
       fTemplateRepository = templateRepository;
     }
 
-    public async Task<ICollection<EmailTemplatePreviewModel>> Handle(GetManyRequest request, CancellationToken cancellationToken)
+    public async Task<ICollection<PreviewModel>> Handle(GetManyRequest request, CancellationToken cancellationToken)
     {
-      var dtos = await fTemplateRepository.GetAsync(cancellationToken);
+      var filter = request.Filter.ToDto();
+      var dtos = await fTemplateRepository.GetAsync(filter, cancellationToken);
       return dtos.ToPreview();
     }
   }

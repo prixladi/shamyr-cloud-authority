@@ -20,22 +20,29 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
     private readonly IUserRepository fUserRepository;
     private readonly ISecretService fSecretService;
     private readonly IEmailService fEmailService;
+    private readonly IClientRepository fClientRepository;
     private readonly ITelemetryService fTelemetryService;
 
     public PostRequestHandler(
       IUserRepository userRepository,
       ISecretService secretService,
       IEmailService emailService,
+      IClientRepository clientRepository,
       ITelemetryService telemetryService)
     {
       fUserRepository = userRepository;
       fSecretService = secretService;
       fEmailService = emailService;
+      fClientRepository = clientRepository;
       fTelemetryService = telemetryService;
     }
 
     public async Task<IdModel> Handle(PostRequest request, CancellationToken cancellationToken)
     {
+      var client = await fClientRepository.GetAsync(request.Model.ClientId, cancellationToken);
+      if (client is null)
+        throw new BadRequestException($"Client with ID '{request.Model.ClientId}' doesn't exist.");
+
       if (await fUserRepository.ExistsByUsernameAsync(request.Model.Username, cancellationToken))
         throw new ConflictException($"User with username '{request.Model.Username}' already exists.");
       if (await fUserRepository.ExistsByEmailAsync(request.Model.Email, cancellationToken))
@@ -44,21 +51,22 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
       var user = await RegisterAsync(request.Model, cancellationToken);
 
       var context = fTelemetryService.GetRequestContext();
+      await fEmailService.SendEmailAsync(VerifyAccountEmailContext.New(user, client, context), cancellationToken);
 
-      await fEmailService.SendEmailAsync(VerifyAccountEmailContext.New(user, context), cancellationToken);
-
-      return new IdModel(user.Id);
+      return new IdModel { Id = user.Id };
     }
 
-    public async Task<UserDoc> RegisterAsync(UserPostModel model, CancellationToken cancellationToken)
+    public async Task<UserDoc> RegisterAsync(PostModel model, CancellationToken cancellationToken)
     {
       var secret = fSecretService.CreateSecret(model.Password);
       var user = new UserDoc
       {
         Username = model.Username,
-        NormalizedUsername = model.Username.Normalize(),
+        NormalizedUsername = model.Username.CompareNormalize(),
         Email = model.Email,
-        NormalizedEmail = model.Email.Normalize(),
+        NormalizedEmail = model.Email.CompareNormalize(),
+        GivenName = model.GivenName,
+        FamilyName = model.FamilyName,
         Secret = secret.ToDoc(),
         EmailToken = SecurityUtils.GetUrlToken()
       };

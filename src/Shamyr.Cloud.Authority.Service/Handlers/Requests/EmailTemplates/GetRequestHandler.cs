@@ -8,7 +8,7 @@ using Shamyr.Cloud.Authority.Service.Requests.EmailTemplates;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.EmailTemplates
 {
-  public class GetRequestHandler: IRequestHandler<GetRequest, EmailTemplateDetailModel>
+  public class GetRequestHandler: IRequestHandler<GetRequest, DetailModel>
   {
     private readonly IEmailTemplateRepository fTemplateRepository;
 
@@ -17,7 +17,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.EmailTemplates
       fTemplateRepository = templateRepository;
     }
 
-    public async Task<EmailTemplateDetailModel> Handle(GetRequest request, CancellationToken cancellationToken)
+    public async Task<DetailModel> Handle(GetRequest request, CancellationToken cancellationToken)
     {
       var user = await fTemplateRepository.GetAsync(request.TemplateId, cancellationToken);
       if (user is null)
