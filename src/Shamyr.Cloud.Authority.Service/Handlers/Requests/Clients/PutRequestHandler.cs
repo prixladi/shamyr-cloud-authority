@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Shamyr.Cloud.Authority.Service.Dtos.Clients;
 using Shamyr.Cloud.Authority.Service.Extensions;
 using Shamyr.Cloud.Authority.Service.Repositories;
 using Shamyr.Cloud.Authority.Service.Requests.Clients;

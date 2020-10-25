@@ -38,7 +38,7 @@ namespace Shamyr.Cloud.Identity.Service.Authentication
       var client = await fClientRepository.GetAsync(id, Context.RequestAborted);
       if (client is null)
         return AuthenticateResult.Fail("Invalid client ID.");
-      if(client.Secret is null)
+      if (client.Secret is null)
         return AuthenticateResult.Fail("Unable to sign in, secret is not set.");
 
       var secret = new Secret

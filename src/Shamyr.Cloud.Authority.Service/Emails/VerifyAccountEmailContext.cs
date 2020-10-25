@@ -17,9 +17,9 @@ namespace Shamyr.Cloud.Authority.Service.Emails
     public static VerifyAccountEmailContext New(UserDoc user, ClientDoc client, ILoggingContext context)
     {
       return new VerifyAccountEmailContext(
-        user.EmailToken!, 
-        user.Email, 
-        client, 
+        user.EmailToken!,
+        user.Email,
+        client,
         context);
     }
 

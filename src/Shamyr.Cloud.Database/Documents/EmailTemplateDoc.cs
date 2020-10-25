@@ -1,7 +1,5 @@
-﻿using MongoDB.Bson;
-using Shamyr.MongoDB;
+﻿using Shamyr.MongoDB;
 using Shamyr.MongoDB.Attributes;
-using Shamyr.MongoDB.Indexes;
 
 namespace Shamyr.Cloud.Database.Documents
 {

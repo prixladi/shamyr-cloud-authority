@@ -16,6 +16,6 @@ namespace Shamyr.Cloud.Database.Documents
     public ObjectId? PasswordResetEmailTemplateId { get; set; }
     public string? AuthorityUrl { get; set; }
     public string? PortalUrl { get; set; }
-    public bool Disabled { get; set; } 
+    public bool Disabled { get; set; }
   }
 }
