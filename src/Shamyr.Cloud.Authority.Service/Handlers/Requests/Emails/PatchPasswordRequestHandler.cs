@@ -21,7 +21,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Emails
     public PatchPasswordRequestHandler(
       IUserRepository userRepository,
       IEmailService emailService,
-      IClientRepository clientRepository, 
+      IClientRepository clientRepository,
       ITelemetryService telemetryService)
     {
       fUserRepository = userRepository;

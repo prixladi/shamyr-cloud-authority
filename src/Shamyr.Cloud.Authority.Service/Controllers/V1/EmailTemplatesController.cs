@@ -59,7 +59,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [Authorize(UserPolicy._Admin)]
     [ProducesResponseType(typeof(ICollection<PreviewModel>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<ICollection<PreviewModel>> GetManyAsync([FromQuery]QueryFilter filter,CancellationToken cancellationToken)
+    public async Task<ICollection<PreviewModel>> GetManyAsync([FromQuery] QueryFilter filter, CancellationToken cancellationToken)
     {
       return await fMediator.Send(new GetManyRequest(filter), cancellationToken);
     }

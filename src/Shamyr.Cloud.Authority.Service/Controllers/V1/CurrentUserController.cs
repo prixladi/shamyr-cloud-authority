@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Shamyr.Cloud.Authority.Service.Models.CurrentUser;
 using Shamyr.Cloud.Authority.Service.Models.Users;
 using Shamyr.Cloud.Authority.Service.Notifications.CurrentUser;
-using Shamyr.Cloud.Authority.Service.Requests.Token;
 using Shamyr.Cloud.Authority.Service.Requests.CurrentUser;
+using Shamyr.Cloud.Authority.Service.Requests.Token;
 
 namespace Shamyr.Cloud.Authority.Service.Controllers.V1
 {

@@ -41,12 +41,6 @@ services:
       context: .
       dockerfile: ./src/Shamyr.Cloud.Test.Client/Dockerfile
 
-  redis:
-    image: redis:latest
-    volumes:
-      - redisdata:/data
-    command: redis-server --maxmemory 500m --maxmemory-policy allkeys-lru
-
   mongodb:
     image: mongo:latest
     ports:

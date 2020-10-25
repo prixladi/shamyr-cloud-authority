@@ -19,11 +19,11 @@ namespace Shamyr.Cloud.Authority.Service.Emails
     public static PasswordResetEmailContext New(UserDoc user, ClientDoc client, ILoggingContext context)
     {
       return new PasswordResetEmailContext(
-        user.PasswordToken!, 
-        user.Id, 
-        user.Username, 
-        user.Email, 
-        client, 
+        user.PasswordToken!,
+        user.Id,
+        user.Username,
+        user.Email,
+        client,
         context);
     }
 
