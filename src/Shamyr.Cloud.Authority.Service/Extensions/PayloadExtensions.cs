@@ -14,8 +14,6 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
 
       return new UserDoc
       {
-        NormalizedUsername = payload.Name.CompareNormalize(),
-        Username = payload.Name,
         NormalizedEmail = payload.Email.CompareNormalize(),
         Email = payload.Email,
         GivenName = payload.GivenName,

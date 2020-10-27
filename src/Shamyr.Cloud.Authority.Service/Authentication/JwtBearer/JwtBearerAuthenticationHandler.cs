@@ -64,9 +64,6 @@ namespace Shamyr.Cloud.Authority.Service.Authentication.JwtBearer
 
       var userIdentity = user.ToIdentity(identity);
 
-      if (!string.IsNullOrEmpty(user.EmailToken))
-        throw new EmailNotVerifiedException(userIdentity.Base);
-
       if (user.Disabled)
         throw new UserDisabledException();
 

@@ -86,7 +86,7 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
     public async Task<bool> TryUnsetEmailTokenAsync(ObjectId id, string emailToken, CancellationToken cancellationToken)
     {
       var update = Builders<UserDoc>.Update
-       .Set(doc => doc.EmailToken, null);
+       .Unset(doc => doc.EmailToken);
 
       var result = await Collection.UpdateOneAsync(
         doc => doc.Id == id && doc.EmailToken == emailToken,
@@ -101,7 +101,7 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
         .Set(doc => doc.PasswordToken, passwordToken);
 
       return await Collection.FindOneAndUpdateAsync<UserDoc>(
-        doc => doc.Email == email, update,
+        doc => doc.NormalizedEmail == email.CompareNormalize(), update,
         new FindOneAndUpdateOptions<UserDoc, UserDoc> { ReturnDocument = ReturnDocument.After }, cancellationToken);
     }
 
@@ -143,6 +143,16 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
 
       var result = await UpdateAsync(id, update, cancellationToken);
       return result.MatchedCount == 1;
+    }
+
+    public async Task<UserDoc?> GetByEmailAndUnsetTokenAsync(string email, CancellationToken cancellationToken)
+    {
+      var update = Builders<UserDoc>.Update
+       .Unset(doc => doc.EmailToken);
+
+      return await Collection.FindOneAndUpdateAsync<UserDoc>(
+        doc => doc.NormalizedEmail == email.CompareNormalize(),
+        update, new FindOneAndUpdateOptions<UserDoc, UserDoc> { ReturnDocument = ReturnDocument.After }, cancellationToken);
     }
   }
 }
