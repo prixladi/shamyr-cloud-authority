@@ -8,7 +8,7 @@ namespace Shamyr.Cloud.Authority.Service
   public class UserIdentityProfile: ClaimsIdentity
   {
     public ObjectId UserId { get; }
-    public string Username { get; init; } = default!;
+    public string? Username { get; init; } = default!;
     public string Email { get; init; } = default!;
     public string? GivenName { get; init; } = default!;
     public string? FamilyName { get; init; } = default!;

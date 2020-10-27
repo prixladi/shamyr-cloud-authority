@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shamyr.Cloud.Authority.Service.Models;
+using Shamyr.Cloud.Authority.Service.Models.Emails;
 using Shamyr.Cloud.Authority.Service.Notifications.Users;
 using Shamyr.Cloud.Authority.Service.Requests.Emails;
 
@@ -50,7 +51,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     /// Verifies account connected with email
     /// </summary>
     /// <param name="email"></param>
-    /// <param name="emailToken"></param>
+    /// <param name="model"></param>
     /// <param name="cancellationToken"></param>
     /// <response code="204">Email has been verified</response>
     /// <response code="400">Email is invalid or token is invalid</response>
@@ -61,10 +62,10 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<NoContentResult> GetVerifyAsync([FromRoute] string email, [FromQuery] string emailToken, CancellationToken cancellationToken)
+    public async Task<NoContentResult> GetVerifyAsync([FromRoute] string email, [FromBody] TokenModel model, CancellationToken cancellationToken)
     {
-      var model = await fMediator.Send(new PutVerifiedRequest(email: email, emailToken: emailToken), cancellationToken);
-      await fMediator.Publish(new VerificationChangedNotification(model.Id, true), cancellationToken);
+      var result = await fMediator.Send(new PutVerifiedRequest(email: email, emailToken: model.Token), cancellationToken);
+      await fMediator.Publish(new VerificationChangedNotification(result.Id, true), cancellationToken);
       return NoContent();
     }
 

@@ -29,7 +29,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Token
       try
       {
         var payload = await GoogleJsonWebSignature.ValidateAsync(request.Model.IdToken);
-        var user = await fUserRepository.GetByEmailAsync(payload.Email, cancellationToken);
+        var user = await fUserRepository.GetByEmailAndUnsetTokenAsync(payload.Email, cancellationToken);
         if (user is null)
         {
           user = payload.ToUserDoc();

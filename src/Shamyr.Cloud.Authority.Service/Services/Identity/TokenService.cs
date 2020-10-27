@@ -25,11 +25,12 @@ namespace Shamyr.Cloud.Authority.Service.Services.Identity
       var claims = new List<Claim>(8)
       {
         new Claim(ClaimTypes.Name, user.Id.ToString()),
-        new Claim(ClaimTypes.Actor, user.Username),
         new Claim(ClaimTypes.Email, user.Email),
         new Claim(Constants._GrantClaimType, grant)
       };
 
+      if (user.Username != null)
+        claims.Add(new Claim(ClaimTypes.Actor, user.Username));
       if (user.GivenName != null)
         claims.Add(new Claim(ClaimTypes.GivenName, user.GivenName));
       if (user.FamilyName != null)

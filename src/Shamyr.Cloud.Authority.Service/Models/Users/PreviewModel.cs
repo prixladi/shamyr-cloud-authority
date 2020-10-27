@@ -9,7 +9,7 @@ namespace Shamyr.Cloud.Authority.Service.Models.Users
     public ObjectId Id { get; init; }
 
     [Required]
-    public string Username { get; init; } = default!;
+    public string? Username { get; init; } = default!;
 
     public string? GivenName { get; init; } = default!;
 

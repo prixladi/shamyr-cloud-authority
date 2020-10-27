@@ -16,6 +16,9 @@ services:
       BEARER_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkpa5lhUqEqXdeM6Rb7eHovdPXehjIueJg3Zed9qVbDimHpxRYUUzplt2t2DZxA8S9IiGymr53B0yYATMVFHJJVWd3nbFE7W/O6rJN/4Gm9Jy8mIIsvnQfBOkdku5P/aHonIOG6TgwJbM3B90YMuJDcImtaEGzftzqTnVOO+BT/9dGxPW9+z+womfW5OlQL0UIC/ItELfrFm59yDxcJfIeMIWHvvWCDgZG12M+HsAJcSb4tSRVnn1HdzzMlBWwmDi4iqw+ochbUS8z6oBqsVorQtB6s7usSVWJdtR5pPQLIibSpCaHrXAzq4j0UJJkqRv9yA5OaiwBWPPnT0hjrDSeQIDAQAB
       EMAIL_SERVER_URL: http://server.ladislavprix.cz/sendMail.php
       EMAIL_SENDER_ADDRESS: noreply@ladislavprix.cz
+    build:
+      context: .
+      dockerfile: ./src/Shamyr.Cloud.Authority.Service/Dockerfile
 
   identity:
     image: shamyr/cloud/identity/service

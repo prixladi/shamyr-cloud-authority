@@ -8,11 +8,11 @@ namespace Shamyr.Cloud.Database.Documents
   [Collection(nameof(DbCollections.Users))]
   public class UserDoc: DocumentBase
   {
-    [Index(Unique = true)]
-    public string Username { get; set; } = default!;
+    [Index(Unique = true, Sparse = true)]
+    public string? Username { get; set; } = default!;
 
-    [Index(Unique = true)]
-    public string NormalizedUsername { get; set; } = default!;
+    [Index(Unique = true, Sparse = true)]
+    public string? NormalizedUsername { get; set; } = default!;
 
     [Index(Unique = true)]
     public string NormalizedEmail { get; set; } = default!;

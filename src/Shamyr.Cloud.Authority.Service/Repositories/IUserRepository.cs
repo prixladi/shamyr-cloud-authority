@@ -25,5 +25,6 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
     Task<bool> TrySetAdminAsync(ObjectId id, bool admin, CancellationToken cancellationToken);
     Task<bool> TryUnsetEmailTokenAsync(ObjectId id, string emailToken, CancellationToken cancellationToken);
     Task<bool> TryAddSecretAsync(ObjectId id, SecretDoc secret, CancellationToken cancellationToken);
+    Task<UserDoc?> GetByEmailAndUnsetTokenAsync(string email, CancellationToken cancellationToken);
   }
 }

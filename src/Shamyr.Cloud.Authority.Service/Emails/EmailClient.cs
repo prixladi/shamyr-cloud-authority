@@ -8,6 +8,8 @@ using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.Emails
 {
+  // This is just testing email client using my personal public API -> Don't use this in production!
+  // TODO: Implement client using some service like Mailgun.
   public class EmailClient: IEmailClient
   {
     private readonly IEmailClientConfig fConfig;
@@ -37,7 +39,7 @@ namespace Shamyr.Cloud.Authority.Service.Emails
               new KeyValuePair<string?, string?>("to", recipient.Address),
               new KeyValuePair<string?, string?>("subject", subject),
               new KeyValuePair<string?, string?>("message", body.Content),
-              new KeyValuePair<string?, string?>("isBodyHtml", body.IsHtml.ToString()),
+              new KeyValuePair<string?, string?>("isBodyHtml", body.IsHtml.ToString().ToLower()),
               new KeyValuePair<string?, string?>("sender", fConfig.SenderAddress)
           });
 
