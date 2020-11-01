@@ -20,6 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
       builder.Services.AddSingleton<ITokenService, TokenService>();
       builder.Services.AddSingleton<ITokenConfigurationRepository, TokenConfigurationRepository>();
+      builder.Services.AddSingleton<IClaimsIdentityService, ClaimsIdentityService>();
 
       builder.Services.AddHostedService<TokenConfigurationCronService>();
 

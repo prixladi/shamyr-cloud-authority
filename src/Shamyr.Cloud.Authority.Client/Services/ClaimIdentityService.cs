@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Shamyr.Cloud.Authority.Client.Services
 {
-  public class ClaimsIdentityService: IClaimsIdentityService
+  internal class ClaimsIdentityService: IClaimsIdentityService
   {
     private readonly IHttpContextAccessor fHttpContextAccessor;
 

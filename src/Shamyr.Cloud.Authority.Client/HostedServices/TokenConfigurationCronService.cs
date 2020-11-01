@@ -9,7 +9,6 @@ using Shamyr.Cloud.Authority.Models;
 using Shamyr.Extensions.Hosting;
 using Shamyr.Logging;
 using Shamyr.Operations;
-using Shamyr.Security;
 
 namespace Shamyr.Cloud.Authority.Client.HostedServices
 {
@@ -38,17 +37,15 @@ namespace Shamyr.Cloud.Authority.Client.HostedServices
         SameExceptions = SameExceptions
       };
 
-      var data = new PasswordHashData(default, default, default, default);
-
-      using (fLogger.TrackDependency(fContext, "Token configuration service loading.", "REST", RoleNames._AuthorityService, string.Empty, out var trackingContext))
+      using (fLogger.TrackDependency(fContext, "REST", "Token configuration service loading.", RoleNames._AuthorityService, string.Empty, out var trackingContext))
       {
         await new RetryOperation<TokenConfigurationModel>(Operation, operationConfig)
          .Catch<TokenConfigurationModel, HttpRequestException>(fLogger)
          .Catch<TokenConfigurationModel, Exception>(fLogger, true)
          .OnFail(trackingContext)
-         .OnFail(fLogger, $"Unable to load authrority configuration. Signing key may be deprecated!")
+         .OnFail(fLogger, $"Unable to load authority configuration. Signing key may be deprecated!")
          .OnSuccess(trackingContext)
-         .OnSuccess(fLogger, $"Loaded new authrority configuration.")
+         .OnSuccess(fLogger, $"Loaded new authority configuration.")
          .OnSuccess((result, contex) => configurationRepository.Set(result))
          .ExecuteAsync(trackingContext, cancellationToken);
       }
