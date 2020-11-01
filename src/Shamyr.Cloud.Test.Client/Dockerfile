@@ -10,9 +10,8 @@ COPY src/Shamyr.Cloud.Test.Client/Shamyr.Cloud.Test.Client.csproj Shamyr.Cloud.T
 COPY src/Shamyr.Cloud.Identity.Client/Shamyr.Cloud.Identity.Client.csproj Shamyr.Cloud.Identity.Client/
 COPY src/Shamyr.Cloud.Identity.Models/Shamyr.Cloud.Identity.Models.csproj Shamyr.Cloud.Identity.Models/
 COPY src/Shamyr.Cloud.Core/Shamyr.Cloud.Core.csproj Shamyr.Cloud.Core/
-COPY src/Shamyr.Cloud.Identity.Client/Shamyr.Cloud.Identity.Client.csproj Shamyr.Cloud.Identity.Client/
-COPY src/Shamyr.Cloud.Identity.Signal.Messages/Shamyr.Cloud.Identity.Signal.Messages.csproj Shamyr.Cloud.Identity.Signal.Messages/
-COPY src/Shamyr.Cloud.Identity.Models/Shamyr.Cloud.Identity.Models.csproj Shamyr.Cloud.Identity.Models/
+COPY src/Shamyr.Cloud.Authority.Client/Shamyr.Cloud.Authority.Client.csproj Shamyr.Cloud.Authority.Client/
+COPY src/Shamyr.Cloud.Authority.Models/Shamyr.Cloud.Authority.Models.csproj Shamyr.Cloud.Authority.Models/
 COPY src/Shamyr.Cloud.Swashbuckle/Shamyr.Cloud.Swashbuckle.csproj Shamyr.Cloud.Swashbuckle/
 
 COPY NuGet.config .
@@ -27,9 +26,8 @@ COPY src/Shamyr.Cloud.Test.Client/ Shamyr.Cloud.Test.Client/
 COPY src/Shamyr.Cloud.Identity.Client/ Shamyr.Cloud.Identity.Client/
 COPY src/Shamyr.Cloud.Identity.Models/ Shamyr.Cloud.Identity.Models/
 COPY src/Shamyr.Cloud.Core/ Shamyr.Cloud.Core/
-COPY src/Shamyr.Cloud.Identity.Client/ Shamyr.Cloud.Identity.Client/
-COPY src/Shamyr.Cloud.Identity.Signal.Messages/ Shamyr.Cloud.Identity.Signal.Messages/
-COPY src/Shamyr.Cloud.Identity.Models/ Shamyr.Cloud.Identity.Models/
+COPY src/Shamyr.Cloud.Authority.Client/ Shamyr.Cloud.Authority.Client/
+COPY src/Shamyr.Cloud.Authority.Models/ Shamyr.Cloud.Authority.Models/
 COPY src/Shamyr.Cloud.Swashbuckle/ Shamyr.Cloud.Swashbuckle/
 
 WORKDIR Shamyr.Cloud.Test.Client
