@@ -6,11 +6,11 @@ namespace Shamyr.Cloud.Authority.Service.Models.Clients
 {
   public record PostModel
   {
-    [StringLength(50, MinimumLength = 5)]
+    [StringLength(ModelConstants._MaxClientNameLength, MinimumLength = ModelConstants._MinClientNameLength)]
     [Required]
     public string Name { get; init; } = default!;
 
-    [StringLength(int.MaxValue, MinimumLength = 5)]
+    [StringLength(ModelConstants._MaxSecretLength, MinimumLength = ModelConstants._MaxClientNameLength)]
     public string? Secret { get; init; } = default!;
 
     public ObjectId? VerifyAccountEmailTemplateId { get; init; }

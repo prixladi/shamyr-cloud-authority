@@ -18,7 +18,7 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
 
       string normalizedUsername = username.CompareNormalize();
 
-      return query.Where(doc => doc.NormalizedUsername.Contains(normalizedUsername));
+      return query.Where(doc => doc.NormalizedUsername != null && doc.NormalizedUsername.Contains(normalizedUsername));
     }
 
     public static IMongoQueryable<UserDoc> WhereEmailContains(this IMongoQueryable<UserDoc> query, string? email)

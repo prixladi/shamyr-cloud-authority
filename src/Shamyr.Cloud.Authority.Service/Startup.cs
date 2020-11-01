@@ -47,9 +47,7 @@ namespace Shamyr.Cloud.Authority.Service
     public static void Configure(IApplicationBuilder app)
     {
       app.UseCors(CorsConfig.Setup);
-
       app.UseExceptionHandling();
-
       app.UseRouting();
       app.UseAuthentication();
       app.UseAuthorization();

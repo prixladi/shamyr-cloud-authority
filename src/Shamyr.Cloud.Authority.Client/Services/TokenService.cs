@@ -12,7 +12,7 @@ using Shamyr.Security.IdentityModel;
 namespace Shamyr.Cloud.Authority.Client.Services
 {
   [Singleton]
-  public class TokenService: ITokenService
+  internal class TokenService: ITokenService
   {
     private readonly ITokenConfigurationRepository fTokenConfigurationRepository;
     private readonly RSA fRsa;

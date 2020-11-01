@@ -9,7 +9,7 @@ using Shamyr.Threading;
 namespace Shamyr.Cloud.Authority.Client.Repositories
 {
   [Singleton]
-  public class TokenConfigurationRepository: ITokenConfigurationRepository
+  internal class TokenConfigurationRepository: ITokenConfigurationRepository
   {
     private readonly LinkedList<TaskCompletionSource<TokenConfigurationModel>> fConfigurationSources = new LinkedList<TaskCompletionSource<TokenConfigurationModel>>();
 

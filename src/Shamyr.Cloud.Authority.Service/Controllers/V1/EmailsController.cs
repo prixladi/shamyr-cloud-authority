@@ -19,11 +19,13 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
   [Route("api/v1/emails", Name = "Emails")]
   public class EmailsController: ControllerBase
   {
-    private readonly IMediator fMediator;
+    private readonly ISender fSender;
+    private readonly IPublisher fPublisher;
 
-    public EmailsController(IMediator mediator)
+    public EmailsController(ISender sender, IPublisher publisher)
     {
-      fMediator = mediator;
+      fSender = sender;
+      fPublisher = publisher;
     }
 
     /// <summary>
@@ -43,7 +45,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<NoContentResult> PatchVerifyAsync([FromRoute] string email, [FromBody] ClientIdModel model, CancellationToken cancellationToken)
     {
-      await fMediator.Send(new PatchVerificationRequest(email, model), cancellationToken);
+      await fSender.Send(new PatchVerificationRequest(email, model), cancellationToken);
       return NoContent();
     }
 
@@ -64,8 +66,8 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<NoContentResult> GetVerifyAsync([FromRoute] string email, [FromBody] TokenModel model, CancellationToken cancellationToken)
     {
-      var result = await fMediator.Send(new PutVerifiedRequest(email: email, emailToken: model.Token), cancellationToken);
-      await fMediator.Publish(new VerificationChangedNotification(result.Id, true), cancellationToken);
+      var result = await fSender.Send(new PutVerifiedRequest(email: email, emailToken: model.Token), cancellationToken);
+      await fPublisher.Publish(new VerificationChangedNotification(result.Id, true), cancellationToken);
       return NoContent();
     }
 
@@ -83,7 +85,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<NoContentResult> PatchPasswordResetAsync([FromRoute] string email, [FromBody] ClientIdModel model, CancellationToken cancellationToken)
     {
-      await fMediator.Send(new PatchPasswordResetRequest(email, model), cancellationToken);
+      await fSender.Send(new PatchPasswordResetRequest(email, model), cancellationToken);
       return NoContent();
     }
   }

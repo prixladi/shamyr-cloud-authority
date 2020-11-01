@@ -20,7 +20,7 @@ namespace Shamyr.Cloud.Authority.Service.OrderDefinitions
         case null:
           return null;
         case SortTypes.Username:
-          orderBy = x => x.NormalizedUsername;
+          orderBy = x => x.NormalizedUsername!;
           break;
         case SortTypes.Email:
           orderBy = x => x.NormalizedEmail;

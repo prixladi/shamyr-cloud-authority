@@ -4,7 +4,7 @@ using Shamyr.Cloud.Authority.Client.Factories;
 using Shamyr.Cloud.Authority.Client.HostedServices;
 using Shamyr.Cloud.Authority.Client.Repositories;
 using Shamyr.Cloud.Authority.Client.Services;
-using Shamyr.Cloud.Identity.Client.Authentication;
+using Shamyr.Cloud.Authority.Client.Authentication;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -23,8 +23,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
       builder.Services.AddHostedService<TokenConfigurationCronService>();
 
-      return builder.AddScheme<AuthenticationSchemeOptions, IdentityAuthenticationHandler>
-        (IdentityAuthenticationDefaults._AuthenticationScheme, "Identity authentication", null);
+      return builder.AddScheme<AuthenticationSchemeOptions, AuthorityAuthenticationHandler>
+        (AuthorityAuthenticationDefaults._AuthenticationScheme, "Identity authentication", null);
     }
   }
 }

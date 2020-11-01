@@ -1,4 +1,5 @@
 ﻿using System;
+using Shamyr.Cloud.Identity.Client;
 
 namespace Shamyr.Cloud.Identity.Client.Test
 {

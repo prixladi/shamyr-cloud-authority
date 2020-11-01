@@ -11,7 +11,7 @@ namespace Shamyr.Cloud.Authority.Service.Emails
 
     public string PasswordToken { get; }
     public ObjectId UserId { get; }
-    public string Username { get; }
+    public string? Username { get; }
     public string Email { get; }
     public ClientDoc Client { get; }
     public ObjectId? EmailTemplateId => Client.PasswordResetEmailTemplateId;
@@ -27,12 +27,12 @@ namespace Shamyr.Cloud.Authority.Service.Emails
         context);
     }
 
-    public PasswordResetEmailContext(string passwordToken, ObjectId userId, string username, string email, ClientDoc client, ILoggingContext context)
+    public PasswordResetEmailContext(string passwordToken, ObjectId userId, string? username, string email, ClientDoc client, ILoggingContext context)
       : base(context)
     {
       PasswordToken = passwordToken ?? throw new ArgumentNullException(nameof(passwordToken));
       UserId = userId;
-      Username = username ?? throw new ArgumentNullException(nameof(username));
+      Username = username;
       Email = email ?? throw new ArgumentNullException(nameof(email));
       Client = client ?? throw new ArgumentNullException(nameof(client));
     }

@@ -29,7 +29,7 @@ namespace Shamyr.Cloud.Authority.Service.Configs
         {
           string authorization = context.Request.Headers["Authorization"];
           if (authorization is not null && authorization.StartsWith("Bearer "))
-            context.Token = authorization.Substring("Bearer ".Length);
+            context.Token = authorization["Bearer ".Length..];
 
           return Task.CompletedTask;
         }

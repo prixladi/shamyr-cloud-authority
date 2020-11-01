@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Shamyr.Cloud.Authority.Client.Reactions;
+using Shamyr.Cloud.Identity.Client.Reactions;
 using Shamyr.Cloud.Identity.Client.Services;
 using Shamyr.Cloud.Identity.Client.SignalR;
 using Shamyr.Extensions.DependencyInjection;

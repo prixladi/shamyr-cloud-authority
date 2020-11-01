@@ -2,19 +2,21 @@
 using Newtonsoft.Json;
 using Shamyr.Cloud.Database.Documents;
 
+using static Shamyr.Cloud.Authority.Service.Models.ModelConstants;
+
 namespace Shamyr.Cloud.Authority.Service.Models.EmailTemplates
 {
   public record PutModel
   {
-    [StringLength(25, MinimumLength = 1)]
+    [StringLength(_MaxTemplateNameLength, MinimumLength = _MinTemplateNameLength)]
     [Required]
     public string Name { get; init; } = default!;
 
-    [StringLength(50, MinimumLength = 1)]
+    [StringLength(_MaxTemplateSubjectLength, MinimumLength = _MinTemplateSubjectLength)]
     [Required]
     public string Subject { get; init; } = default!;
 
-    [StringLength(int.MaxValue, MinimumLength = 1)]
+    [StringLength(_MaxTemplateBodyLength, MinimumLength = _MinTemplateBodyLength)]
     [Required]
     public string Body { get; init; } = default!;
 

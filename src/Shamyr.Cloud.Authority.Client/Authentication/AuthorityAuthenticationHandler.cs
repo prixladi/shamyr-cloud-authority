@@ -10,15 +10,15 @@ using Microsoft.Extensions.Options;
 using Shamyr.Cloud.Authority.Client.Factories;
 using Shamyr.Cloud.Authority.Client.Services;
 
-namespace Shamyr.Cloud.Identity.Client.Authentication
+namespace Shamyr.Cloud.Authority.Client.Authentication
 {
-  public class IdentityAuthenticationHandler: AuthenticationHandler<AuthenticationSchemeOptions>
+  public class AuthorityAuthenticationHandler: AuthenticationHandler<AuthenticationSchemeOptions>
   {
     private readonly IPrincipalFactory fPrincipalFactory;
     private readonly IServiceProvider fServiceProvider;
     private readonly ITokenService fTokenService;
 
-    public IdentityAuthenticationHandler(
+    public AuthorityAuthenticationHandler(
       IOptionsMonitor<AuthenticationSchemeOptions> options,
       ILoggerFactory logger,
       UrlEncoder encoder,
@@ -35,7 +35,7 @@ namespace Shamyr.Cloud.Identity.Client.Authentication
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-      var token = GetIdentityToken();
+      var token = GetAuthorityToken();
       if (string.IsNullOrEmpty(token) || !IsJwt(token))
         return AuthenticateResult.Fail("Wrong format or missing token.");
 
@@ -48,7 +48,7 @@ namespace Shamyr.Cloud.Identity.Client.Authentication
       return AuthenticateResult.Success(ticket);
     }
 
-    private string? GetIdentityToken()
+    private string? GetAuthorityToken()
     {
       string? token = Request
         .Query
@@ -63,7 +63,7 @@ namespace Shamyr.Cloud.Identity.Client.Authentication
           .FirstOrDefault(x => x.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase));
 
         if (!string.IsNullOrEmpty(accessToken))
-          token = accessToken.Substring("Bearer ".Length);
+          token = accessToken["Bearer ".Length..];
       }
 
       return token;

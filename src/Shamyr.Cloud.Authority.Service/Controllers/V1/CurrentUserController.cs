@@ -20,11 +20,13 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
   [Route("api/v1/users/current", Name = "Current user")]
   public class CurrrentUserController: ControllerBase
   {
-    private readonly IMediator fMediator;
+    private readonly ISender fSender;
+    private readonly IPublisher fPublisher;
 
-    public CurrrentUserController(IMediator mediator)
+    public CurrrentUserController(ISender sender, IPublisher publisher)
     {
-      fMediator = mediator;
+      fSender = sender;
+      fPublisher = publisher;
     }
 
     /// <summary>
@@ -36,7 +38,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(typeof(DetailModel), StatusCodes.Status200OK)]
     public async Task<DetailModel> GetAsync(CancellationToken cancellationToken)
     {
-      return await fMediator.Send(new GetRequest { }, cancellationToken);
+      return await fSender.Send(new GetRequest { }, cancellationToken);
     }
 
     /// <summary>
@@ -53,7 +55,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<NoContentResult> PostPasswordAsync([FromBody] PostPasswordModel model, CancellationToken cancellationToken)
     {
-      await fMediator.Send(new PostPasswordRequest(model), cancellationToken);
+      await fSender.Send(new PostPasswordRequest(model), cancellationToken);
       return NoContent();
     }
 
@@ -71,9 +73,9 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<NoContentResult> PutPasswordAsync([FromBody] PutPasswordModel model, CancellationToken cancellationToken)
     {
-      await fMediator.Send(new PutPasswordRequest(model), cancellationToken);
-      await fMediator.Send(new LogoutRequest(), cancellationToken);
-      await fMediator.Publish(new LoggedOutNotification(), cancellationToken);
+      await fSender.Send(new PutPasswordRequest(model), cancellationToken);
+      await fSender.Send(new LogoutRequest(), cancellationToken);
+      await fPublisher.Publish(new LoggedOutNotification(), cancellationToken);
 
       return NoContent();
     }

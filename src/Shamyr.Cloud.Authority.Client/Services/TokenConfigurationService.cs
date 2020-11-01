@@ -8,7 +8,7 @@ using Shamyr.Text.Json;
 
 namespace Shamyr.Cloud.Authority.Client.Services
 {
-  public class TokenConfigurationService: ITokenConfigurationService
+  internal class TokenConfigurationService: ITokenConfigurationService
   {
     public async Task<TokenConfigurationModel> GetAsync(Uri authorityUrl, ILoggingContext context, CancellationToken cancellationToken)
     {

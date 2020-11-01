@@ -15,11 +15,13 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
   [Route("api/v1/token")]
   public class TokenController: ControllerBase
   {
-    private readonly IMediator fMediator;
+    private readonly ISender fSender;
+    private readonly IPublisher fPublisher;
 
-    public TokenController(IMediator mediator)
+    public TokenController(ISender sender, IPublisher publisher)
     {
-      fMediator = mediator;
+      fSender = sender;
+      fPublisher = publisher;
     }
 
     /// <summary>
@@ -32,8 +34,8 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<NoContentResult> DeleteAsync(CancellationToken cancellationToken)
     {
-      await fMediator.Send(new LogoutRequest(), cancellationToken);
-      await fMediator.Publish(new LoggedOutNotification(), cancellationToken);
+      await fSender.Send(new LogoutRequest(), cancellationToken);
+      await fPublisher.Publish(new LoggedOutNotification(), cancellationToken);
 
       return NoContent();
     }
@@ -46,7 +48,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [HttpGet("configuration")]
     public async Task<TokenConfigurationModel> GetConfigurationAsync(CancellationToken cancellationToken)
     {
-      return await fMediator.Send(new GetConfigurationRequest(), cancellationToken);
+      return await fSender.Send(new GetConfigurationRequest(), cancellationToken);
     }
 
     /// <summary>
@@ -62,7 +64,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public Task<TokensModel> PostPasswordLoginAsync([FromBody] PasswordLoginPostModel model, CancellationToken cancellationToken)
     {
-      return fMediator.Send(new PostPasswordLoginRequest(model), cancellationToken);
+      return fSender.Send(new PostPasswordLoginRequest(model), cancellationToken);
     }
 
     /// <summary>
@@ -78,7 +80,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public Task<TokensModel> PutGoogleLoginAsync([FromBody] GoogleLoginPostModel model, CancellationToken cancellationToken)
     {
-      return fMediator.Send(new PostGoogleLoginRequest(model), cancellationToken);
+      return fSender.Send(new PostGoogleLoginRequest(model), cancellationToken);
     }
 
     /// <summary>
@@ -94,7 +96,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public Task<TokensModel> PutRefreshLoginAsync([FromBody] RefreshLoginPostModel model, CancellationToken cancellationToken)
     {
-      return fMediator.Send(new PostRefreshLoginRequest(model), cancellationToken);
+      return fSender.Send(new PostRefreshLoginRequest(model), cancellationToken);
     }
   }
 }

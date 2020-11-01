@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Shamyr.Cloud.Authority.Service.Authorization;
+using Shamyr.Cloud.Authority.Service.Models;
 using Shamyr.Cloud.Authority.Service.Models.EmailTemplates;
 using Shamyr.Cloud.Authority.Service.Requests.EmailTemplates;
 
@@ -21,11 +22,11 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
   {
     private const string _GetEmailTemplateRoute = "GetEmailTemplate";
 
-    private readonly IMediator fMediator;
+    private readonly ISender fSender;
 
-    public EmailTemplatesController(IMediator mediator)
+    public EmailTemplatesController(ISender sender)
     {
-      fMediator = mediator;
+      fSender = sender;
     }
 
     /// <summary>
@@ -38,12 +39,12 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     /// <response code="403">Insufficient permission</response>
     [HttpPost]
     [Authorize(UserPolicy._Admin)]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(IdModel), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<IActionResult> PostAsync([FromBody] PostModel model, CancellationToken cancellationToken)
     {
-      var idModel = await fMediator.Send(new PostRequest(model), cancellationToken);
+      var idModel = await fSender.Send(new PostRequest(model), cancellationToken);
       return CreatedAtRoute(_GetEmailTemplateRoute, new { id = idModel.Id.ToString() }, idModel);
     }
 
@@ -61,7 +62,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ICollection<PreviewModel>> GetManyAsync([FromQuery] QueryFilter filter, CancellationToken cancellationToken)
     {
-      return await fMediator.Send(new GetManyRequest(filter), cancellationToken);
+      return await fSender.Send(new GetManyRequest(filter), cancellationToken);
     }
 
     /// <summary>
@@ -79,7 +80,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<DetailModel> GetAsync([FromRoute] ObjectId id, CancellationToken cancellationToken)
     {
-      return await fMediator.Send(new GetRequest(id), cancellationToken);
+      return await fSender.Send(new GetRequest(id), cancellationToken);
     }
 
     /// <summary>
@@ -100,7 +101,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> PutAsync([FromRoute] ObjectId id, [FromBody] PutModel model, CancellationToken cancellationToken)
     {
-      await fMediator.Send(new PutRequest(id, model), cancellationToken);
+      await fSender.Send(new PutRequest(id, model), cancellationToken);
       return NoContent();
     }
 
@@ -122,7 +123,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> PatchAsync([FromRoute] ObjectId id, [FromBody] PatchModel model, CancellationToken cancellationToken)
     {
-      await fMediator.Send(new PatchRequest(id, model), cancellationToken);
+      await fSender.Send(new PatchRequest(id, model), cancellationToken);
       return NoContent();
     }
   }

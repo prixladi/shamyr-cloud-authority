@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.1.2</Version>
+    <Version>1.2.2</Version>
     <Authors>Ladislav Prix</Authors>
     <Company>Shamyr</Company>
     <NeutralLanguage>en</NeutralLanguage>
@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shamyr" Version="1.0.38" />
+    <PackageReference Include="Shamyr" Version="1.0.41" />
   </ItemGroup>
 
   <ItemGroup>

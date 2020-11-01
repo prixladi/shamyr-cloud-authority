@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shamyr.Cloud.Identity.Client.Authentication;
+using Shamyr.Cloud.Authority.Client.Authentication;
 
 namespace Shamyr.Cloud.Identity.Client.Test
 {
@@ -30,8 +30,8 @@ namespace Shamyr.Cloud.Identity.Client.Test
 
       services.AddAuthentication(options =>
       {
-        options.DefaultAuthenticateScheme = IdentityAuthenticationDefaults._AuthenticationScheme;
-        options.DefaultChallengeScheme = IdentityAuthenticationDefaults._AuthenticationScheme;
+        options.DefaultAuthenticateScheme = AuthorityAuthenticationDefaults._AuthenticationScheme;
+        options.DefaultChallengeScheme = AuthorityAuthenticationDefaults._AuthenticationScheme;
       })
       .AddAuthorityBearerAuthentication<IdentityClientConfig, PrincipalFactory>();
     }

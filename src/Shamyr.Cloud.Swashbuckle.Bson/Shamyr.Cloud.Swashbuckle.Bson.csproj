@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.1.2</Version>
+    <Version>1.2.2</Version>
     <Authors>Ladislav Prix</Authors>
     <Company>Shamyr</Company>
     <NeutralLanguage>en</NeutralLanguage>
@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Bson" Version="2.11.2" />
+    <PackageReference Include="MongoDB.Bson" Version="2.11.3" />
   </ItemGroup>
   
   <ItemGroup>

@@ -4,7 +4,7 @@ services:
   authority:
     image: shamyr/cloud/authority/service
     ports:
-      - 8080:80
+      - 8085:80
     environment:
       MONGO_URL: mongodb://mongodb
       MONGO_DATABASE_NAME: ShamyrIdentity

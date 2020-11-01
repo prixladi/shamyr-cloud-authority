@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.1.2</Version>
+    <Version>1.2.2</Version>
     <Authors>Ladislav Prix</Authors>
     <Company>Shamyr</Company>
     <NeutralLanguage>en</NeutralLanguage>
@@ -15,10 +15,10 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-rc.2.20475.17" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0-rc.2.20475.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0-rc.2.20475.5" />
-    <PackageReference Include="Shamyr.AspNetCore.Authentication" Version="1.0.38" />
-    <PackageReference Include="Shamyr.Security" Version="1.0.38" />
-    <PackageReference Include="Shamyr.Text.Json" Version="1.0.38" />
-    <PackageReference Include="Shamyr.Threading" Version="1.0.38" />
+    <PackageReference Include="Shamyr.AspNetCore.Authentication" Version="1.0.41" />
+    <PackageReference Include="Shamyr.Security" Version="1.0.41" />
+    <PackageReference Include="Shamyr.Text.Json" Version="1.0.41" />
+    <PackageReference Include="Shamyr.Threading" Version="1.0.41" />
   </ItemGroup>
 
   <ItemGroup>

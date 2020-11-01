@@ -59,7 +59,7 @@ namespace Shamyr.Cloud.Authority.Service.SignalR.Hubs
 
     public async Task<SubscribeEventsResponse> SubscribeResourceAsync(SubscribeEventsRequest request)
     {
-      if (!Context.Items.TryGetValue(typeof(Connection), out var value) || !(value is Connection connection) || connection.ClientId is null)
+      if (!Context.Items.TryGetValue(typeof(Connection), out var value) || value is not Connection connection || connection.ClientId is null)
         throw new UnauthorizedException("Client is unauthorized.");
 
       await fClientService.SubscribeToResourcesAsync(request.Resources, Context.ConnectionId, Context.ConnectionAborted);
