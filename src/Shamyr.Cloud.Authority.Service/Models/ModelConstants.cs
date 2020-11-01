@@ -11,22 +11,22 @@
     public const int _MaxUsernameLength = 60;
     public const int _MinUsernameLength = 6;
 
-    public const int _MaxGivenNameLength = 0;
-    public const int _MinGivenNameLength = 100;
+    public const int _MaxGivenNameLength = 100;
+    public const int _MinGivenNameLength = 0;
 
-    public const int _MaxFamilyNameLength = 0;
-    public const int _MinFamilyNameLength = 100;
+    public const int _MaxFamilyNameLength = 100;
+    public const int _MinFamilyNameLength = 0;
 
     public const int _MaxClientNameLength = 60;
     public const int _MinClientNameLength = 2;
 
-    public const int _MaxTemplateNameLength = 0;
-    public const int _MinTemplateNameLength = 100;
+    public const int _MaxTemplateNameLength = 100;
+    public const int _MinTemplateNameLength = 0;
 
-    public const int _MaxTemplateSubjectLength = 0;
-    public const int _MinTemplateSubjectLength = 100;
+    public const int _MaxTemplateSubjectLength = 100;
+    public const int _MinTemplateSubjectLength = 0;
 
-    public const int _MaxTemplateBodyLength = 0;
-    public const int _MinTemplateBodyLength = 30_000;
+    public const int _MaxTemplateBodyLength = 30_000;
+    public const int _MinTemplateBodyLength = 0;
   }
 }
