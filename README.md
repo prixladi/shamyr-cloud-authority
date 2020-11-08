@@ -6,4 +6,4 @@ Identity and Access control project with client library for **ASP.NET Core**.
 
 ### `docker-compose up`
 
-Runs Authority and Identity service containers and builds images if does not exist.
+Runs service container and builds image if it does not exist.

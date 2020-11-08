@@ -20,29 +20,15 @@ services:
       context: .
       dockerfile: ./src/Shamyr.Cloud.Authority.Service/Dockerfile
 
-  identity:
-    image: shamyr/cloud/identity/service
-    ports:
-      - 8081:80
-    environment:
-      MONGO_URL: mongodb://mongodb
-      MONGO_DATABASE_NAME: ShamyrIdentity
-    build:
-      context: .
-      dockerfile: ./src/Shamyr.Cloud.Identity.Service/Dockerfile
-
   test:
     image: shamyr/cloud/test/client
     ports:
       - 8082:80
     environment:
-      IDENTITY_URL: http://identity/
       AUTHORITY_URL: http://authority/
-      CLIENT_ID: 5f257d6e714ce236e9870292
-      CLIENT_SECRET: string
     build:
       context: .
-      dockerfile: ./src/Shamyr.Cloud.Test.Client/Dockerfile
+      dockerfile: ./src/Shamyr.Cloud.Authority.Client.Test/Dockerfile
 
   mongodb:
     image: mongo:latest
