@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.2.7</Version>
+    <Version>1.2.9</Version>
     <Authors>Ladislav Prix</Authors>
     <Company>Shamyr</Company>
     <NeutralLanguage>en</NeutralLanguage>
@@ -12,14 +12,14 @@
   
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-rc.2.20475.17" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0-rc.2.20475.5" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0-rc.2.20475.5" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0-rc.2.20475.5" />
-    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.42" />
-    <PackageReference Include="Shamyr.Security" Version="1.0.42" />
-    <PackageReference Include="Shamyr.Text.Json" Version="1.0.42" />
-    <PackageReference Include="Shamyr.Threading" Version="1.0.42" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.43" />
+    <PackageReference Include="Shamyr.Security" Version="1.0.43" />
+    <PackageReference Include="Shamyr.Text.Json" Version="1.0.43" />
+    <PackageReference Include="Shamyr.Threading" Version="1.0.43" />
   </ItemGroup>
   
   <ItemGroup>
