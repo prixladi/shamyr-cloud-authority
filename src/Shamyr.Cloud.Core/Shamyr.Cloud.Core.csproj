@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <Version>1.2.9</Version>
+    <Version>1.2.10</Version>
     <Authors>Ladislav Prix</Authors>
     <Company>Shamyr</Company>
     <NeutralLanguage>en</NeutralLanguage>
@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.43" />
-    <PackageReference Include="Shamyr.Security" Version="1.0.43" />
+    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.44" />
+    <PackageReference Include="Shamyr.Security" Version="1.0.44" />
   </ItemGroup>
 
 </Project>

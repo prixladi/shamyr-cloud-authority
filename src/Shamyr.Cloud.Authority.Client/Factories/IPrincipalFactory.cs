@@ -8,6 +8,6 @@ namespace Shamyr.Cloud.Authority.Client.Factories
 {
   public interface IPrincipalFactory
   {
-    Task<ClaimsPrincipal> CreateAsync(IServiceProvider serviceProvider, string challenge, UserModel model, CancellationToken cancellationToken);
+    Task<ClaimsPrincipal> CreateAsync(IServiceProvider serviceProvider, string authenticationType, UserModel model, CancellationToken cancellationToken);
   }
 }

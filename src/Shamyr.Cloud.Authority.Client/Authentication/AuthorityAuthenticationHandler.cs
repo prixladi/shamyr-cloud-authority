@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Shamyr.Cloud.Authority.Client.Factories;
 using Shamyr.Cloud.Authority.Client.Services;
+using Shamyr.Cloud.Authority.Models;
 
 namespace Shamyr.Cloud.Authority.Client.Authentication
 {
@@ -43,7 +44,7 @@ namespace Shamyr.Cloud.Authority.Client.Authentication
       if (user is null)
         return AuthenticateResult.Fail("Token is in wrong format.");
 
-      var userPrincipal = await fPrincipalFactory.CreateAsync(fServiceProvider, Scheme.Name, user, Context.RequestAborted);
+      var userPrincipal = await fPrincipalFactory.CreateAsync(fServiceProvider, Constants._AuthenticationName, user, Context.RequestAborted);
       var ticket = new AuthenticationTicket(userPrincipal, Scheme.Name);
       return AuthenticateResult.Success(ticket);
     }

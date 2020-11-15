@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Shamyr.Cloud.Authority.Client;
+using Shamyr.Cloud.Authority.Client.Authentication;
 using Shamyr.Cloud.Authority.Client.Factories;
 using Shamyr.Cloud.Authority.Client.HostedServices;
 using Shamyr.Cloud.Authority.Client.Repositories;
 using Shamyr.Cloud.Authority.Client.Services;
-using Shamyr.Cloud.Authority.Client.Authentication;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -24,8 +24,10 @@ namespace Microsoft.Extensions.DependencyInjection
 
       builder.Services.AddHostedService<TokenConfigurationCronService>();
 
-      return builder.AddScheme<AuthenticationSchemeOptions, AuthorityAuthenticationHandler>
-        (AuthorityAuthenticationDefaults._AuthenticationScheme, "Identity authentication", null);
+      var scheme = AuthorityAuthenticationDefaults._AuthenticationScheme;
+      var name = AuthorityAuthenticationDefaults._AuthenticationSchemeDisplayName;
+
+      return builder.AddScheme<AuthenticationSchemeOptions, AuthorityAuthenticationHandler>(scheme, name, null);
     }
   }
 }

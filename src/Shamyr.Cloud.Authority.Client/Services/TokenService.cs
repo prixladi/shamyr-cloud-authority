@@ -45,7 +45,9 @@ namespace Shamyr.Cloud.Authority.Client.Services
         ValidateIssuerSigningKey = true,
         ValidIssuer = config.Issuer,
         ValidAudience = config.Audience,
-        IssuerSigningKey = fRsa.ToSecurityKey(config.PublicKey, true)
+        IssuerSigningKey = fRsa.ToSecurityKey(config.PublicKey, true),
+        NameClaimType = Constants._NameClaim,
+        RoleClaimType = Constants._RoleClaim
       };
     }
 
@@ -53,22 +55,24 @@ namespace Shamyr.Cloud.Authority.Client.Services
     {
       return new UserModel
       {
-        Id = GetClaim(principal, ClaimTypes.Name),
-        Email = GetClaim(principal, ClaimTypes.Actor),
-        Username = GetClaim(principal, ClaimTypes.Email),
-        GivenName = GetClaim(principal, ClaimTypes.GivenName),
-        FamilyName = GetClaim(principal, ClaimTypes.Surname),
+        Id = GetClaim(principal, Constants._NameClaim),
+        Email = GetClaim(principal, Constants._UsernameClaim),
+        Username = TryGetClaim(principal, Constants._EmailClaim),
+        GivenName = TryGetClaim(principal, Constants._GivenNameClaim),
+        FamilyName = TryGetClaim(principal, Constants._FamilyNameClaim),
         Admin = principal.IsInRole(nameof(UserModel.Admin)),
       };
     }
 
-    private string GetClaim(ClaimsPrincipal principal, string claimName)
+    private string? TryGetClaim(ClaimsPrincipal principal, string claimName)
     {
       var claim = principal.FindFirst(claimName);
-      if (claim is null)
-        throw new InvalidOperationException($"Token is missing '{ClaimTypes.Name}' claim.");
+      return claim?.Value;
+    }
 
-      return claim.Value;
+    private string GetClaim(ClaimsPrincipal principal, string claimName)
+    {
+      return TryGetClaim(principal, claimName) ?? throw new InvalidOperationException($"Token is missing '{claimName}' claim.");
     }
   }
 }

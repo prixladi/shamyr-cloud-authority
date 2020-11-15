@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Shamyr.Cloud.Authority.Models;
 using Shamyr.Security.IdentityModel;
 
 namespace Shamyr.Cloud.Authority.Service.Configs
@@ -23,12 +23,14 @@ namespace Shamyr.Cloud.Authority.Service.Configs
 
       options.RequireHttpsMetadata = false;
       options.SaveToken = false;
+      options.MapInboundClaims = false;
+
       options.Events = new JwtBearerEvents
       {
         OnMessageReceived = context =>
         {
           string authorization = context.Request.Headers["Authorization"];
-          if (authorization is not null && authorization.StartsWith("Bearer "))
+          if (authorization is not null && authorization.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
             context.Token = authorization["Bearer ".Length..];
 
           return Task.CompletedTask;
@@ -43,8 +45,8 @@ namespace Shamyr.Cloud.Authority.Service.Configs
         ValidateLifetime = true,
         ClockSkew = TimeSpan.FromMinutes(5),
         IssuerSigningKey = rsa.ToSecurityKey(config.BearerPublicKey, true),
-        NameClaimType = ClaimTypes.Name,
-        RoleClaimType = ClaimTypes.Role
+        NameClaimType = Constants._NameClaim,
+        RoleClaimType = Constants._RoleClaim
       };
     }
   }

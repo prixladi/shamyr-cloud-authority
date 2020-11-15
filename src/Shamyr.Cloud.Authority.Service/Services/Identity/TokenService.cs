@@ -24,19 +24,19 @@ namespace Shamyr.Cloud.Authority.Service.Services.Identity
       var issuedAtUtc = DateTime.UtcNow;
       var claims = new List<Claim>(8)
       {
-        new Claim(ClaimTypes.Name, user.Id.ToString()),
-        new Claim(ClaimTypes.Email, user.Email),
-        new Claim(Constants._GrantClaimType, grant)
+        new Claim(Constants._NameClaim, user.Id.ToString()),
+        new Claim(Constants._EmailClaim, user.Email),
+        new Claim(Constants._GrantClaim, grant)
       };
 
       if (user.Username != null)
-        claims.Add(new Claim(ClaimTypes.Actor, user.Username));
+        claims.Add(new Claim(Constants._UsernameClaim, user.Username));
       if (user.GivenName != null)
-        claims.Add(new Claim(ClaimTypes.GivenName, user.GivenName));
+        claims.Add(new Claim(Constants._GivenNameClaim, user.GivenName));
       if (user.FamilyName != null)
-        claims.Add(new Claim(ClaimTypes.Surname, user.FamilyName));
+        claims.Add(new Claim(Constants._FamilyNameClaim, user.FamilyName));
       if (user.Admin)
-        claims.Add(new Claim(ClaimTypes.Role, nameof(UserDoc.Admin)));
+        claims.Add(new Claim(Constants._RoleClaim, nameof(UserModel.Admin)));
 
       using var rsa = RSA.Create();
       var dto = new JwtSecurityTokenDto
