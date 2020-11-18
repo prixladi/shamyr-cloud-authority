@@ -2,7 +2,7 @@
 {
   public static class CustomStatusCodes
   {
-    public static int Status430NotVerified = 430;
-    public static int Status431UserDisabled = 431;
+    public const int _Status430NotVerified = 430;
+    public const int _Status431UserDisabled = 431;
   }
 }

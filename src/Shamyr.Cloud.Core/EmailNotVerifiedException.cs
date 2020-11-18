@@ -10,7 +10,7 @@ namespace Shamyr.Cloud
     public EmailNotVerifiedException(object emailPrincipal)
       : base("Email was not verified.")
     {
-      StatusCode = CustomStatusCodes.Status430NotVerified;
+      StatusCode = CustomStatusCodes._Status430NotVerified;
       EmailPrincipal = emailPrincipal ?? throw new ArgumentNullException(nameof(emailPrincipal));
     }
   }

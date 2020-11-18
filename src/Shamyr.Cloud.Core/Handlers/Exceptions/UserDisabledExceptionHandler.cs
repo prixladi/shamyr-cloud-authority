@@ -6,7 +6,7 @@ namespace Shamyr.Cloud.Handlers.Exceptions
   {
     protected override int DoGetStatusCode(UserDisabledException exception)
     {
-      return CustomStatusCodes.Status431UserDisabled;
+      return CustomStatusCodes._Status431UserDisabled;
     }
   }
 }

@@ -3,6 +3,6 @@
   public class UserDisabledException: StatusException
   {
     public UserDisabledException()
-      : base(CustomStatusCodes.Status431UserDisabled, "User is disabled.") { }
+      : base(CustomStatusCodes._Status431UserDisabled, "User is disabled.") { }
   }
 }

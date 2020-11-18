@@ -8,7 +8,7 @@ namespace Shamyr.Cloud.Handlers.Exceptions
   {
     protected override int DoGetStatusCode(EmailNotVerifiedException exception)
     {
-      return CustomStatusCodes.Status430NotVerified;
+      return CustomStatusCodes._Status430NotVerified;
     }
 
     protected override MessageResponseModel DoCreateResponseModel(EmailNotVerifiedException exception)

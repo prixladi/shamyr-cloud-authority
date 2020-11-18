@@ -13,5 +13,6 @@ namespace Shamyr.Cloud.Authority.Service.Configs
     public bool MapDiscriminators => true;
     public int MetadataVersion => 3;
     public TimeSpan LockDuration => TimeSpan.FromMinutes(1);
+    public bool IgnoreFieldsIfNull => true;
   }
 }
