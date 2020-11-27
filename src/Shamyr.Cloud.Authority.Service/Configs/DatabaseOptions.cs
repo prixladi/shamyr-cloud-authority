@@ -10,9 +10,11 @@ namespace Shamyr.Cloud.Authority.Service.Configs
   {
     public List<Assembly> MigrationAssemblies => new List<Assembly> { typeof(EnvVariables).Assembly };
     public List<Assembly> DatabaseAssemblies => new List<Assembly> { typeof(DbCollections).Assembly };
-    public bool MapDiscriminators => true;
     public int MetadataVersion => 3;
     public TimeSpan LockDuration => TimeSpan.FromMinutes(1);
+
+    public bool MapDiscriminators => true;
     public bool IgnoreFieldsIfNull => true;
+    public bool UseCammelCaseConvention => true;
   }
 }

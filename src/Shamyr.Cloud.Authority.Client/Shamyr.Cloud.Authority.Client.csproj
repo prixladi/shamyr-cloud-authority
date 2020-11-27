@@ -16,10 +16,10 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.47" />
-    <PackageReference Include="Shamyr.Security" Version="1.0.47" />
-    <PackageReference Include="Shamyr.Text.Json" Version="1.0.47" />
-    <PackageReference Include="Shamyr.Threading" Version="1.0.47" />
+    <PackageReference Include="Shamyr.AspNetCore" Version="1.0.49" />
+    <PackageReference Include="Shamyr.Security" Version="1.0.49" />
+    <PackageReference Include="Shamyr.Text.Json" Version="1.0.49" />
+    <PackageReference Include="Shamyr.Threading" Version="1.0.49" />
   </ItemGroup>
   
   <ItemGroup>
