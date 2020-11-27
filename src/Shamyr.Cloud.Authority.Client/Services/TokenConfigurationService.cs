@@ -18,10 +18,7 @@ namespace Shamyr.Cloud.Authority.Client.Services
       result.EnsureSuccessStatusCode();
 
       var body = await result.Content.ReadAsStringAsync(cancellationToken);
-      return await JsonConvert.DeserializeAsync<TokenConfigurationModel>(body, new JsonSerializerOptions
-      {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-      }, cancellationToken);
+      return await JsonConvert.DeserializeAsync<TokenConfigurationModel>(body, JsonConvert.CammelCaseOptions, cancellationToken);
     }
   }
 }
