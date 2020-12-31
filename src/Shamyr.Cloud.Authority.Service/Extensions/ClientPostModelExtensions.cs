@@ -14,6 +14,7 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
       return new ClientDoc
       {
         Name = model.Name,
+        RequireEmailVerification = model.RequireEmailVerification,
         PasswordResetEmailTemplateId = model.PasswordResetEmailTemplateId,
         VerifyAccountEmailTemplateId = model.VerifyAccountEmailTemplateId,
         AuthorityUrl = model.AuthorityUrl,

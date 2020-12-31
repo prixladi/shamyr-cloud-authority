@@ -14,6 +14,7 @@ namespace Shamyr.Cloud.Database.Documents
     public SecretDoc? Secret { get; set; }
     public ObjectId? VerifyAccountEmailTemplateId { get; set; }
     public ObjectId? PasswordResetEmailTemplateId { get; set; }
+    public bool RequireEmailVerification { get; set; }
     public string? AuthorityUrl { get; set; }
     public string? PortalUrl { get; set; }
     public bool Disabled { get; set; }

@@ -14,6 +14,8 @@ namespace Shamyr.Cloud.Authority.Service.Models.Clients
     [Required]
     public bool Disabled { get; init; }
 
+    public bool RequireEmailVerification { get; set; }
+
     public ObjectId? VerifyAccountEmailTemplateId { get; init; }
 
     public ObjectId? PasswordResetEmailTemplateId { get; init; }

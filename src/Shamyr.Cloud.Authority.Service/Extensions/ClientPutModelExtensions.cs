@@ -14,6 +14,7 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
 
       return new UpdateDto(
         Name: model.Name,
+        RequireEmailVerification: model.RequireEmailVerification,
         VerifyAccountEmailTemplateId: model.VerifyAccountEmailTemplateId,
         PasswordResetEmailTemplateId: model.PasswordResetEmailTemplateId,
         AuthorityUrl: model.AuthorityUrl,

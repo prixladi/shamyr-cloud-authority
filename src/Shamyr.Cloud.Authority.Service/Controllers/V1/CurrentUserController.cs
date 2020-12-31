@@ -48,7 +48,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     /// <param name="cancellationToken"></param>
     /// <response code="204">Password changed</response>
     /// <response code="400">Invalid model or invalid old password</response>
-    /// <response code="409">User already has password, use PUT /current/user/password</response>
+    /// <response code="409">User already has password, use PUT /users/current/password</response>
     [HttpPost("password")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -60,13 +60,13 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     }
 
     /// <summary>
-    /// Changes current user password
+    /// Changes current user's password
     /// </summary>
     /// <param name="model"></param>
     /// <param name="cancellationToken"></param>
     /// <response code="204">Password changed</response>
     /// <response code="400">Invalid model or invalid old password</response>
-    /// <response code="409">User does't have password set, use POST /current/user/password</response>
+    /// <response code="409">User does't have password set, use POST /users/current/password</response>
     [HttpPut("password")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,6 +77,24 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
       await fSender.Send(new LogoutRequest(), cancellationToken);
       await fPublisher.Publish(new LoggedOutNotification(), cancellationToken);
 
+      return NoContent();
+    }
+
+    /// <summary>
+    /// Changes current user's profile
+    /// </summary>
+    /// <param name="model"></param>
+    /// <param name="cancellationToken"></param>
+    /// <response code="204">Profile changed</response>
+    /// <response code="400">Invalid model</response>
+    /// <response code="409">Username is already occupied</response>
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    public async Task<NoContentResult> PutAsync([FromBody] PutModel model, CancellationToken cancellationToken)
+    {
+      await fSender.Send(new PutRequest(model), cancellationToken);
       return NoContent();
     }
   }

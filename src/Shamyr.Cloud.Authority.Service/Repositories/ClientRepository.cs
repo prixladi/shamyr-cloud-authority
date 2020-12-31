@@ -38,12 +38,13 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
     public async Task<bool> UpdateAsync(ObjectId id, UpdateDto updateDto, CancellationToken cancellationToken)
     {
       var update = Builders<ClientDoc>.Update
-        .Set(x => x.Name, updateDto.Name)
-        .Set(x => x.PasswordResetEmailTemplateId, updateDto.PasswordResetEmailTemplateId)
-        .Set(x => x.VerifyAccountEmailTemplateId, updateDto.VerifyAccountEmailTemplateId)
-        .Set(x => x.PortalUrl, updateDto.PortalUrl)
-        .Set(x => x.AuthorityUrl, updateDto.AuthorityUrl)
-        .Set(x => x.Secret, updateDto.Secret);
+        .Set(doc => doc.Name, updateDto.Name)
+        .Set(doc => doc.RequireEmailVerification, updateDto.RequireEmailVerification)
+        .Set(doc => doc.PasswordResetEmailTemplateId, updateDto.PasswordResetEmailTemplateId)
+        .Set(doc => doc.VerifyAccountEmailTemplateId, updateDto.VerifyAccountEmailTemplateId)
+        .Set(doc => doc.PortalUrl, updateDto.PortalUrl)
+        .Set(doc => doc.AuthorityUrl, updateDto.AuthorityUrl)
+        .Set(doc => doc.Secret, updateDto.Secret);
 
       var result = await UpdateAsync(id, update, cancellationToken);
       return result.MatchedCount == 1;

@@ -8,11 +8,11 @@ namespace Shamyr.Cloud
     public string? Username { get; }
     public string Email { get; }
 
-    public UserIdentity(string id, string? username, string email)
+    public UserIdentity(string id, string email, string? username)
     {
       Id = id ?? throw new ArgumentNullException(nameof(id));
-      Username = username ?? throw new ArgumentNullException(nameof(username));
       Email = email ?? throw new ArgumentNullException(nameof(email));
+      Username = username;
     }
   }
 }

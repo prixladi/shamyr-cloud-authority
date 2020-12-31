@@ -43,12 +43,12 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
       if (client is null)
         throw new BadRequestException($"Client with ID '{request.Model.ClientId}' doesn't exist.");
 
-      if (await fUserRepository.ExistsByUsernameAsync(request.Model.Username, cancellationToken))
+      if (request.Model.Username != null && await fUserRepository.ExistsByUsernameAsync(request.Model.Username, cancellationToken))
         throw new ConflictException($"User with username '{request.Model.Username}' already exists.");
       if (await fUserRepository.ExistsByEmailAsync(request.Model.Email, cancellationToken))
         throw new ConflictException($"User with email '{request.Model.Email}' already exists.");
 
-      var user = await RegisterAsync(request.Model, cancellationToken);
+      var user = await RegisterAsync(request.Model, client, cancellationToken);
 
       var context = fTelemetryService.GetRequestContext();
       await fEmailService.SendEmailAsync(VerifyAccountEmailContext.New(user, client, context), cancellationToken);
@@ -56,18 +56,19 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
       return new IdModel { Id = user.Id };
     }
 
-    public async Task<UserDoc> RegisterAsync(PostModel model, CancellationToken cancellationToken)
+    public async Task<UserDoc> RegisterAsync(PostModel model, ClientDoc client, CancellationToken cancellationToken)
     {
       var secret = fSecretService.CreateSecret(model.Password);
       var user = new UserDoc
       {
         Username = model.Username,
-        NormalizedUsername = model.Username.CompareNormalize(),
+        NormalizedUsername = model.Username?.CompareNormalize(),
         Email = model.Email,
         NormalizedEmail = model.Email.CompareNormalize(),
         GivenName = model.GivenName,
         FamilyName = model.FamilyName,
         Secret = secret.ToDoc(),
+        Verified = !client.RequireEmailVerification,
         EmailToken = SecurityUtils.GetUrlToken()
       };
 

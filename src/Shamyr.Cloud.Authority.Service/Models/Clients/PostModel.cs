@@ -13,6 +13,8 @@ namespace Shamyr.Cloud.Authority.Service.Models.Clients
     [StringLength(ModelConstants._MaxSecretLength, MinimumLength = ModelConstants._MaxClientNameLength)]
     public string? Secret { get; init; } = default!;
 
+    public bool RequireEmailVerification { get; set; }
+
     public ObjectId? VerifyAccountEmailTemplateId { get; init; }
 
     public ObjectId? PasswordResetEmailTemplateId { get; init; }
