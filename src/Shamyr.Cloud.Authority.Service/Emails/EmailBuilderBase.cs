@@ -38,7 +38,10 @@ namespace Shamyr.Cloud.Authority.Service.Emails
 
       var template = await fTemplateRepository.GetAsync(context.EmailTemplateId.Value, cancellationToken);
       if (template is null)
-        throw new InvalidOperationException($"Email template with ID '{context.EmailTemplateId.Value}' does not exists.");
+      {
+        fLogger.LogError(context, $"Email template with ID '{context.EmailTemplateId.Value}' does not exists.");
+        return null;
+      }
 
       return new EmailDto
       (
