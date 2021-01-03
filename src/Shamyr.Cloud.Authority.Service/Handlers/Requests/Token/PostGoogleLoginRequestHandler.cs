@@ -29,8 +29,8 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Token
       try
       {
         var payload = await GoogleJsonWebSignature.ValidateAsync(request.Model.IdToken);
-        // By logging with google we automaticaly validate user's email, hence token unset
-        var user = await fUserRepository.GetByEmailAndUnsetTokenAsync(payload.Email, cancellationToken);
+        // By logging with google we automaticaly validate user's email, hence verification
+        var user = await fUserRepository.GetByEmailAndVerifyAsync(payload.Email, cancellationToken);
         if (user is null)
         {
           user = payload.ToUserDoc();

@@ -25,7 +25,7 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
     Task<UserDoc?> GetByEmailAsync(string email, CancellationToken cancellationToken);
     Task<UserDoc?> GetByRefreshTokenAsync(string refreshToken, CancellationToken cancellationToken);
     Task<UserDoc?> SetPasswordTokenAsync(string email, string passwordToken, CancellationToken cancellationToken);
-    Task<UserDoc?> GetByEmailAndUnsetTokenAsync(string email, CancellationToken cancellationToken);
+    Task<UserDoc?> GetByEmailAndVerifyAsync(string email, CancellationToken cancellationToken);
 
     Task<List<UserDoc>> GetAsync(FilterDto filter, OrderDefinition<UserDoc>? sort, CancellationToken cancellationToken);
     Task<int> GetUserCountAsync(FilterDto filter, CancellationToken cancellationToken);

@@ -146,10 +146,11 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
       return result.MatchedCount == 1;
     }
 
-    public async Task<UserDoc?> GetByEmailAndUnsetTokenAsync(string email, CancellationToken cancellationToken)
+    public async Task<UserDoc?> GetByEmailAndVerifyAsync(string email, CancellationToken cancellationToken)
     {
       var update = Builders<UserDoc>.Update
-       .Unset(doc => doc.EmailToken);
+       .Unset(doc => doc.EmailToken)
+       .Set(doc => doc.Verified, true);
 
       return await Collection.FindOneAndUpdateAsync<UserDoc>(
         doc => doc.NormalizedEmail == email.CompareNormalize(),
