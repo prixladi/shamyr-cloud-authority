@@ -17,7 +17,8 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
         NormalizedEmail = payload.Email.CompareNormalize(),
         Email = payload.Email,
         GivenName = payload.GivenName,
-        FamilyName = payload.FamilyName
+        FamilyName = payload.FamilyName,
+        Verified = true
       };
     }
   }
