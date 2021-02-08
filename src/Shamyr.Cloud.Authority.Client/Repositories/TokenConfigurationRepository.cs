@@ -34,8 +34,10 @@ namespace Shamyr.Cloud.Authority.Client.Repositories
       finally
       {
         if (source is not null)
+        {
           lock (fConfigurationSources)
             fConfigurationSources.Remove(source);
+        }
       }
     }
 
@@ -56,7 +58,6 @@ namespace Shamyr.Cloud.Authority.Client.Repositories
 
         foreach (var source in fConfigurationSources)
           source.SetResult(configuration);
-
       }
     }
   }

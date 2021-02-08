@@ -29,7 +29,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.CurrentUser
         throw new ConflictException("User does not have any password set.");
 
       if (!fSecretService.ComparePasswords(request.Model.OldPassword, user.Secret))
-        throw new BadRequestException($"Invalid password provided.");
+        throw new BadRequestException("Invalid password provided.");
 
       var secret = fSecretService.CreateSecret(request.Model.NewPassword);
       await fUserRepository.SetSecretAsync(user.UserId, secret.ToDoc(), cancellationToken);

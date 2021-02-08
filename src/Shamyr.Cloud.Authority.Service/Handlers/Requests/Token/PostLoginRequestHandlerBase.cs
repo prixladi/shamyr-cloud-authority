@@ -27,7 +27,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Token
       UserDoc user = await GetUserAsync(request, cancellationToken);
 
       if (!user.Verified)
-        throw new EmailNotVerifiedException(new UserIdentity(user.Id.ToString(), username: user.Username, email: user.Email));
+        throw new EmailNotVerifiedException(new UserIdentity(user.Id.ToString(), email: user.Email, username: user.Username));
       if (user.Disabled)
         throw new UserDisabledException();
 

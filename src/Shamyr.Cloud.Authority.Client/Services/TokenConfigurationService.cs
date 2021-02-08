@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Shamyr.Cloud.Authority.Models;
@@ -17,7 +18,9 @@ namespace Shamyr.Cloud.Authority.Client.Services
       result.EnsureSuccessStatusCode();
 
       var body = await result.Content.ReadAsStringAsync(cancellationToken);
-      return await JsonConvert.DeserializeAsync<TokenConfigurationModel>(body, JsonConvert.CammelCaseOptions, cancellationToken);
+      var model = await JsonConvert.DeserializeAsync<TokenConfigurationModel>(body, JsonConvert.CammelCaseOptions, cancellationToken);
+      Debug.Assert(model != null);
+      return model;
     }
   }
 }

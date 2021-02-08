@@ -29,7 +29,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Notifications
     {
       var context = fTelemetryService.GetRequestContext();
       var @event = new UserLoggedOutEvent(fIdentityService.Current.UserId.ToString(), context);
-      var method = nameof(IRemoteClient.UserLoggedOutEventAsync);
+      const string method = nameof(IRemoteClient.UserLoggedOutEventAsync);
       return fBrodacastHubService.SendEventAsync(@event, method, context, cancellationToken);
     }
   }

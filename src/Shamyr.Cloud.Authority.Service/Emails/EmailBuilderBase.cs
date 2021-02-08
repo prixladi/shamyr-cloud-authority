@@ -46,8 +46,8 @@ namespace Shamyr.Cloud.Authority.Service.Emails
       return new EmailDto
       (
         RecipientAddress: GetMailAddress((TContext)context),
-        Body: BuildBody((TContext)context, template.Body),
         Subject: BuildSubject((TContext)context, template.Subject),
+        Body: BuildBody((TContext)context, template.Body),
         IsBodyHtml: template.IsHtml
       );
     }

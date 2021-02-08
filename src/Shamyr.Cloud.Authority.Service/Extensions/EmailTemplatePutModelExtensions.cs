@@ -14,9 +14,9 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
       return new UpdateWithBodyDto(
         Name: model.Name,
         Subject: model.Subject,
-        Body: model.Body,
         IsHtml: model.IsHtml,
-        Type: model.Type);
+        Type: model.Type,
+        Body: model.Body);
     }
 
     public static UpdateDto ToDto(this PatchModel model)

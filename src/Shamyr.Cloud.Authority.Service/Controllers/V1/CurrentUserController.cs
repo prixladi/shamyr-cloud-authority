@@ -38,7 +38,7 @@ namespace Shamyr.Cloud.Authority.Service.Controllers.V1
     [ProducesResponseType(typeof(DetailModel), StatusCodes.Status200OK)]
     public async Task<DetailModel> GetAsync(CancellationToken cancellationToken)
     {
-      return await fSender.Send(new GetRequest { }, cancellationToken);
+      return await fSender.Send(new GetRequest(), cancellationToken);
     }
 
     /// <summary>

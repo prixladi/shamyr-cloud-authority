@@ -11,7 +11,6 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
     public UserLoggedOutEvent(string userId, string scopeId, string? parentScopeId)
       : base(userId, scopeId, parentScopeId) { }
 
-
     public UserLoggedOutEvent(string userId, ILoggingContext operationContext)
       : base(userId, operationContext) { }
   }

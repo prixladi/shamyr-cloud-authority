@@ -51,8 +51,8 @@ namespace Shamyr.Cloud.Authority.Service.SignalR.Hubs
       {
         ClientLoginStatus.Ok => new LoginResponse(request.GetContext()),
         ClientLoginStatus.ClientNotFound => throw new UnauthorizedException($"Client with Id '{request.ClientId}' not found."),
-        ClientLoginStatus.SecretNotSet => throw new UnauthorizedException($"Client does not have secret set."),
-        ClientLoginStatus.InvalidSecret => throw new UnauthorizedException($"Invalid client secret."),
+        ClientLoginStatus.SecretNotSet => throw new UnauthorizedException("Client does not have secret set."),
+        ClientLoginStatus.InvalidSecret => throw new UnauthorizedException("Invalid client secret."),
         _ => throw new NotImplementedException(result.ToString()),
       };
     }

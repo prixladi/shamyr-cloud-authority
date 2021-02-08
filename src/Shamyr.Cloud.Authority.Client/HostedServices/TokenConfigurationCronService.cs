@@ -43,10 +43,10 @@ namespace Shamyr.Cloud.Authority.Client.HostedServices
          .Catch<TokenConfigurationModel, HttpRequestException>(fLogger)
          .Catch<TokenConfigurationModel, Exception>(fLogger, true)
          .OnFail(trackingContext)
-         .OnFail(fLogger, $"Unable to load authority configuration. Signing key may be deprecated!")
+         .OnFail(fLogger, "Unable to load authority configuration. Signing key may be deprecated!")
          .OnSuccess(trackingContext)
-         .OnSuccess(fLogger, $"Loaded new authority configuration.")
-         .OnSuccess((result, contex) => configurationRepository.Set(result))
+         .OnSuccess(fLogger, "Loaded new authority configuration.")
+         .OnSuccess((result, _) => configurationRepository.Set(result))
          .ExecuteAsync(trackingContext, cancellationToken);
       }
     }

@@ -29,6 +29,5 @@ namespace Shamyr.Cloud.Authority.Service.Repositories
 
     Task<List<UserDoc>> GetAsync(FilterDto filter, OrderDefinition<UserDoc>? sort, CancellationToken cancellationToken);
     Task<int> GetUserCountAsync(FilterDto filter, CancellationToken cancellationToken);
-
   }
 }

@@ -12,12 +12,12 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
   {
     private async Task LoginAsync(string clientId, string clientSecret, ILoggingContext context, CancellationToken cancellationToken)
     {
-      using (fLogger.TrackRequest(context, $"Authority Hub Login.", out var requestContext))
+      using (fLogger.TrackRequest(context, "Authority Hub Login.", out var requestContext))
       {
         try
         {
           var request = new LoginRequest(clientId, clientSecret, requestContext);
-          var method = nameof(IRemoteServer.LoginAsync);
+          const string method = nameof(IRemoteServer.LoginAsync);
           await fState.Connection.InvokeAsync<LoginResponse>(method, request, cancellationToken);
           requestContext.Success();
         }
@@ -31,12 +31,12 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
 
     private async Task SubscribeResourcesAsync(string[] resources, ILoggingContext context, CancellationToken cancellationToken)
     {
-      using (fLogger.TrackRequest(context, $"Authority Hub Subscribe resources.", out var requestContext))
+      using (fLogger.TrackRequest(context, "Authority Hub Subscribe resources.", out var requestContext))
       {
         try
         {
           var request = new SubscribeEventsRequest(resources, requestContext);
-          var method = nameof(IRemoteServer.SubscribeResourceAsync);
+          const string method = nameof(IRemoteServer.SubscribeResourceAsync);
           await fState.Connection.InvokeAsync<SubscribeEventsResponse>(method, request, cancellationToken);
           requestContext.Success();
         }

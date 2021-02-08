@@ -32,7 +32,7 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
       else
         fLogger.LogInformation(fState.Context, $"Reconected to url '{fState.SignalUrl}' with connection id '{connectionId}'.");
 
-      if (fAuthroizeTask is null || fAuthroizeTask.IsCompleted || fAuthroizeTask.IsFaulted || fAuthroizeTask.IsCanceled)
+      if (fAuthroizeTask?.IsCompleted != false || fAuthroizeTask.IsFaulted || fAuthroizeTask.IsCanceled)
         fAuthroizeTask = AuthorizeConnectionAsync(fState.Context, fState.CancellationSource.Token);
 
       return Task.CompletedTask;

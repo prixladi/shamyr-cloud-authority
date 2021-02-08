@@ -17,8 +17,9 @@ namespace Shamyr.Cloud.Swashbuckle.Bson
       context
         .ApiDescription
         .ParameterDescriptions
-        .Where(x => x.ModelMetadata != null)
-        .Where(x => x.ModelMetadata.ContainerType == typeof(ObjectId) || x.ModelMetadata.ContainerType == typeof(ObjectId?))
+        .Where(x => x.ModelMetadata != null &&
+          (x.ModelMetadata.ContainerType == typeof(ObjectId) ||
+           x.ModelMetadata.ContainerType == typeof(ObjectId?)))
         .ToList()
         .ForEach(x =>
         {
@@ -46,7 +47,9 @@ namespace Shamyr.Cloud.Swashbuckle.Bson
           paramName = parts[0];
         }
         else
+        {
           paramName = description.ParameterDescriptor.Name;
+        }
 
         if (addedParams.Add(paramName))
           AddObjectIdQuery(operation, paramName, description);

@@ -22,6 +22,6 @@ namespace Shamyr.Cloud.Authority.Service
       UserId = userId;
     }
 
-    public UserIdentity Base => new UserIdentity(id: UserId.ToString(), username: Username, email: Email);
+    public UserIdentity Base => new UserIdentity(id: UserId.ToString(), email: Email, username: Username);
   }
 }

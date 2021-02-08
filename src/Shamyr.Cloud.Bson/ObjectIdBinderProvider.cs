@@ -13,7 +13,9 @@ namespace Shamyr.Cloud.Bson
 
       if (context.Metadata.ModelType == typeof(ObjectId)
           || context.Metadata.ModelType == typeof(ObjectId?))
+      {
         return new ObjectIdBinder();
+      }
 
       // TODO: Find out right solution for this one
       return default!;

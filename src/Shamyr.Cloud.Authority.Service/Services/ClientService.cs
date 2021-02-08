@@ -51,7 +51,7 @@ namespace Shamyr.Cloud.Authority.Service.Services
         .ToArray();
 
       if (invalidResources.Length > 0)
-        throw new BadRequestException($"Resources '{string.Join((","), invalidResources)}' are invalid.");
+        throw new BadRequestException($"Resources '{string.Join(",", invalidResources)}' are invalid.");
 
       foreach (var resource in resources)
         await fHubContext.Groups.AddToGroupAsync(connectionId, resource, cancellationToken);

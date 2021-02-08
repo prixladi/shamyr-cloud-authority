@@ -55,7 +55,7 @@ namespace Shamyr.Cloud.Authority.Service.Authentication.JwtBearer
     private async Task<(UserDoc, UserIdentityProfile)> ValidateUserAsync(string? name, ClaimsIdentity identity, CancellationToken cancellationToken)
     {
       if (name is null || !ObjectId.TryParse(name, out var userId))
-        throw new Exception($"User ID has invalid format.");
+        throw new Exception("User ID has invalid format.");
 
       var user = await fUserRepository.GetAsync(userId, cancellationToken);
 
@@ -74,15 +74,15 @@ namespace Shamyr.Cloud.Authority.Service.Authentication.JwtBearer
     {
       var issuedAtClaim = principal.FindFirst(JwtRegisteredClaimNames.Iat);
       if (issuedAtClaim is null)
-        throw new Exception($"User 'issued-at' claim is null.");
+        throw new Exception("User 'issued-at' claim is null.");
 
       if (!long.TryParse(issuedAtClaim.Value, out var iatSeconds))
-        throw new Exception($"User 'issued-at' claim has invalid format.");
+        throw new Exception("User 'issued-at' claim has invalid format.");
 
       var offset = DateTimeOffset.FromUnixTimeSeconds(iatSeconds);
 
       if (user.LogoutUtc.HasValue && offset.UtcDateTime < user.LogoutUtc.Value)
-        throw new UnauthorizedException($"User is logged out.");
+        throw new UnauthorizedException("User is logged out.");
     }
   }
 }

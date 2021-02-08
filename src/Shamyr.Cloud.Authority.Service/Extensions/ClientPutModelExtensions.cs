@@ -14,12 +14,12 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
 
       return new UpdateDto(
         Name: model.Name,
+        Secret: secret,
         RequireEmailVerification: model.RequireEmailVerification,
         VerifyAccountEmailTemplateId: model.VerifyAccountEmailTemplateId,
         PasswordResetEmailTemplateId: model.PasswordResetEmailTemplateId,
         AuthorityUrl: model.AuthorityUrl,
-        PortalUrl: model.PortalUrl,
-        Secret: secret);
+        PortalUrl: model.PortalUrl);
     }
   }
 }

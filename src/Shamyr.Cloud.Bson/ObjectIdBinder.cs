@@ -10,7 +10,9 @@ namespace Shamyr.Cloud.Bson
     {
       if (bindingContext.ModelType != typeof(ObjectId)
           && bindingContext.ModelType != typeof(ObjectId?))
+      {
         return Task.CompletedTask;
+      }
 
       var valueProviderResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);
       if (valueProviderResult == ValueProviderResult.None)

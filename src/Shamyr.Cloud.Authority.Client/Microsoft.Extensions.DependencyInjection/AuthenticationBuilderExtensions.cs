@@ -24,8 +24,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
       builder.Services.AddHostedService<TokenConfigurationCronService>();
 
-      var scheme = AuthorityAuthenticationDefaults._AuthenticationScheme;
-      var name = AuthorityAuthenticationDefaults._AuthenticationSchemeDisplayName;
+      const string scheme = AuthorityAuthenticationDefaults._AuthenticationScheme;
+      const string name = AuthorityAuthenticationDefaults._AuthenticationSchemeDisplayName;
 
       return builder.AddScheme<AuthenticationSchemeOptions, AuthorityAuthenticationHandler>(scheme, name, null);
     }

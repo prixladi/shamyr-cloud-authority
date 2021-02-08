@@ -14,10 +14,9 @@ namespace Shamyr.Cloud.Authority.Service.Extensions
       return new FilterDto(
         Skip: filter.Skip,
         Take: filter.Take,
+        Username: filter.Username,
         Email: filter.Email,
-        Admin: filter.Admin,
-        Username: filter.Username
-      );
+        Admin: filter.Admin);
     }
   }
 }

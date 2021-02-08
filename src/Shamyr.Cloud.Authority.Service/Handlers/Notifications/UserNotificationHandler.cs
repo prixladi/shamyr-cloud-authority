@@ -33,7 +33,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Notifications
     {
       var context = fTelemetryService.GetRequestContext();
       var @event = new UserDisabledChangedEvent(notification.UserId.ToString(), notification.Disabled, context);
-      var method = nameof(IRemoteClient.UserLoggedOutEventAsync);
+      const string method = nameof(IRemoteClient.UserLoggedOutEventAsync);
       await fClientHubService.SendEventAsync(@event, method, context, cancellationToken);
     }
 
@@ -41,7 +41,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Notifications
     {
       var context = fTelemetryService.GetRequestContext();
       var @event = new UserLoggedOutEvent(notification.UserId.ToString(), context);
-      var method = nameof(IRemoteClient.UserLoggedOutEventAsync);
+      const string method = nameof(IRemoteClient.UserLoggedOutEventAsync);
       await fClientHubService.SendEventAsync(@event, method, context, cancellationToken);
     }
 
@@ -49,7 +49,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Notifications
     {
       var context = fTelemetryService.GetRequestContext();
       var @event = new UserVerifiedChangedEvent(notification.UserId.ToString(), notification.Verified, context);
-      var method = nameof(IRemoteClient.UserVerifiedChangedEventAsync);
+      const string method = nameof(IRemoteClient.UserVerifiedChangedEventAsync);
       return fClientHubService.SendEventAsync(@event, method, context, cancellationToken);
     }
 
@@ -57,7 +57,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Notifications
     {
       var context = fTelemetryService.GetRequestContext();
       var @event = new UserAdminChangedEvent(notification.UserId.ToString(), notification.Admin, context);
-      var method = nameof(IRemoteClient.UserLoggedOutEventAsync);
+      const string method = nameof(IRemoteClient.UserLoggedOutEventAsync);
       await fClientHubService.SendEventAsync(@event, method, context, cancellationToken);
     }
   }

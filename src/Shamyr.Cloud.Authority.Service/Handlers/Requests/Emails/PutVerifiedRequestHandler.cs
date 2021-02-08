@@ -24,7 +24,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Emails
         throw new ConflictException($"Account with email '{request.Email}' is already verified.");
 
       if (!await fUserRepository.TryUnsetEmailTokenAndSetVerifiedAsync(user.Id, request.EmailToken, cancellationToken))
-        throw new BadRequestException($"Invalid token.");
+        throw new BadRequestException("Invalid token.");
 
       return new IdModel { Id = user.Id };
     }
