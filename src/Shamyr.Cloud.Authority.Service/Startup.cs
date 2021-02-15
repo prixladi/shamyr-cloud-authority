@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using Shamyr.Cloud.Authority.Service.Authentication.JwtBearer;
 using Shamyr.Cloud.Authority.Service.Configs;
 using Shamyr.Cloud.Authority.Service.IoC;
@@ -14,7 +14,8 @@ namespace Shamyr.Cloud.Authority.Service
   {
     public static void ConfigureServices(IServiceCollection services)
     {
-      services.AddLogging(LoggingConfig.Setup);
+      services.AddExtensibleLogger();
+
       services.AddCors();
       services.AddOptions();
       services.AddControllers(MvcConfig.SetupMvcOptions)
@@ -32,8 +33,6 @@ namespace Shamyr.Cloud.Authority.Service
 
       services.AddEmails();
 
-      services.AddApplicationInsights(AppInsightsConfig.Setup);
-
       services.AddServiceAssembly();
 
       services.AddMediatR(typeof(Startup));
@@ -46,8 +45,11 @@ namespace Shamyr.Cloud.Authority.Service
 
     public static void Configure(IApplicationBuilder app)
     {
+      app.UseSerilogRequestLogging(LoggingConfig.SetupRequests);
+      
       app.UseCors(CorsConfig.Setup);
       app.UseExceptionHandling();
+
       app.UseRouting();
       app.UseAuthentication();
       app.UseAuthorization();

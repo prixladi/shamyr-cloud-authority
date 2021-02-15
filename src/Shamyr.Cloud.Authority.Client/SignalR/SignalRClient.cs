@@ -41,7 +41,7 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
       fState.Connection.On<TokenConfigurationChangedEvent>(nameof(IRemoteClient.TokenConfigurationChangedAsync), TokenConfigurationChangedEventAsync);
     }
 
-    public async void Connect(CancellationToken cancellationToken)
+    public async Task Connect(CancellationToken cancellationToken)
     {
       using (fLogger.TrackRequest(fState.Context, $"Connecting to {fState.SignalUrl}.", out var requestContext))
       {

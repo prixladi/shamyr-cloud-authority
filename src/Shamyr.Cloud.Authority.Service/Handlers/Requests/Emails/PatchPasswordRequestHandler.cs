@@ -2,11 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Shamyr.AspNetCore.ApplicationInsights.Services;
 using Shamyr.Cloud.Authority.Service.Emails;
 using Shamyr.Cloud.Authority.Service.Repositories;
 using Shamyr.Cloud.Authority.Service.Requests.Emails;
 using Shamyr.Cloud.Authority.Service.Services;
+using Shamyr.ExtensibleLogging;
 using Shamyr.Security;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Emails
@@ -16,18 +16,18 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Emails
     private readonly IUserRepository fUserRepository;
     private readonly IEmailService fEmailService;
     private readonly IClientRepository fClientRepository;
-    private readonly ITelemetryService fTelemetryService;
+    private readonly ILoggingContextService fLoggingContextService;
 
     public PatchPasswordRequestHandler(
       IUserRepository userRepository,
       IEmailService emailService,
       IClientRepository clientRepository,
-      ITelemetryService telemetryService)
+      ILoggingContextService loggingContextService)
     {
       fUserRepository = userRepository;
       fEmailService = emailService;
       fClientRepository = clientRepository;
-      fTelemetryService = telemetryService;
+      fLoggingContextService = loggingContextService;
     }
 
     public async Task<Unit> Handle(PatchPasswordResetRequest request, CancellationToken cancellationToken)
@@ -45,7 +45,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Emails
 
       Debug.Assert(user is not null);
 
-      var context = fTelemetryService.GetRequestContext();
+      var context = fLoggingContextService.GetRequestContext();
       // TODO: Solve "too many password reset requests"
       await fEmailService.SendEmailAsync(PasswordResetEmailContext.New(user, client, context), cancellationToken);
       return Unit.Value;

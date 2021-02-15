@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Shamyr.AspNetCore.ApplicationInsights.Services;
 using Shamyr.Cloud.Authority.Service.Emails;
 using Shamyr.Cloud.Authority.Service.Extensions;
 using Shamyr.Cloud.Authority.Service.Models;
@@ -11,6 +10,7 @@ using Shamyr.Cloud.Authority.Service.Requests.Users;
 using Shamyr.Cloud.Authority.Service.Services;
 using Shamyr.Cloud.Database.Documents;
 using Shamyr.Cloud.Services;
+using Shamyr.ExtensibleLogging;
 using Shamyr.Security;
 
 namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
@@ -21,20 +21,20 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
     private readonly ISecretService fSecretService;
     private readonly IEmailService fEmailService;
     private readonly IClientRepository fClientRepository;
-    private readonly ITelemetryService fTelemetryService;
+    private readonly ILoggingContextService fLoggingContextService;
 
     public PostRequestHandler(
       IUserRepository userRepository,
       ISecretService secretService,
       IEmailService emailService,
       IClientRepository clientRepository,
-      ITelemetryService telemetryService)
+      ILoggingContextService loggingContextService)
     {
       fUserRepository = userRepository;
       fSecretService = secretService;
       fEmailService = emailService;
       fClientRepository = clientRepository;
-      fTelemetryService = telemetryService;
+      fLoggingContextService = loggingContextService;
     }
 
     public async Task<IdModel> Handle(PostRequest request, CancellationToken cancellationToken)
@@ -50,7 +50,7 @@ namespace Shamyr.Cloud.Authority.Service.Handlers.Requests.Users
 
       var user = await RegisterAsync(request.Model, client, cancellationToken);
 
-      var context = fTelemetryService.GetRequestContext();
+      var context = fLoggingContextService.GetRequestContext();
       await fEmailService.SendEmailAsync(VerifyAccountEmailContext.New(user, client, context), cancellationToken);
 
       return new IdModel { Id = user.Id };

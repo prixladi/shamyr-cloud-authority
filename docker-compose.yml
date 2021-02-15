@@ -1,6 +1,32 @@
 version: '3.4'
 
 services:
+  elasticsearch01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.0
+    ports:
+      - 9200:9200
+    container_name: elasticsearch01
+    environment:
+      - node.name=elasticsearch01
+      - cluster.name=es-docker-cluster
+      - cluster.initial_master_nodes=elasticsearch01
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+       soft: -1
+       hard: -1
+    volumes:
+      - elasticdata:/usr/share/elasticsearch/data
+  
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.0
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch01:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch01:9200
+
   authority:
     image: shamyr/cloud/authority/service
     ports:
@@ -8,6 +34,7 @@ services:
     environment:
       MONGO_URL: mongodb://mongodb
       MONGO_DATABASE_NAME: ShamyrIdentity
+      MONGO_DEBUG_LOG: "true"
       BEARER_TOKEN_ISSUER: Shamyr Authority
       BEARER_TOKEN_AUDIENCE: Clients
       REFRESH_TOKEN_DURATION: 604800
@@ -16,19 +43,11 @@ services:
       BEARER_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkpa5lhUqEqXdeM6Rb7eHovdPXehjIueJg3Zed9qVbDimHpxRYUUzplt2t2DZxA8S9IiGymr53B0yYATMVFHJJVWd3nbFE7W/O6rJN/4Gm9Jy8mIIsvnQfBOkdku5P/aHonIOG6TgwJbM3B90YMuJDcImtaEGzftzqTnVOO+BT/9dGxPW9+z+womfW5OlQL0UIC/ItELfrFm59yDxcJfIeMIWHvvWCDgZG12M+HsAJcSb4tSRVnn1HdzzMlBWwmDi4iqw+ochbUS8z6oBqsVorQtB6s7usSVWJdtR5pPQLIibSpCaHrXAzq4j0UJJkqRv9yA5OaiwBWPPnT0hjrDSeQIDAQAB
       EMAIL_SERVER_URL: http://server.ladislavprix.cz/sendMail.php
       EMAIL_SENDER_ADDRESS: noreply@ladislavprix.cz
+      ELASTIC_URL: http://elasticsearch01:9200
+      LOG_LEVEL: information
     build:
       context: .
       dockerfile: ./src/Shamyr.Cloud.Authority.Service/Dockerfile
-
-  test:
-    image: shamyr/cloud/test/client
-    ports:
-      - 8082:80
-    environment:
-      AUTHORITY_URL: http://authority/
-    build:
-      context: .
-      dockerfile: ./src/Shamyr.Cloud.Authority.Client.Test/Dockerfile
 
   mongodb:
     image: mongo:latest
@@ -50,3 +69,4 @@ services:
 volumes:
   redisdata:
   mongodata:
+  elasticdata:

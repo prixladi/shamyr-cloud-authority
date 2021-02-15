@@ -2,10 +2,9 @@
 {
   public static class EnvVariables
   {
-    public const string _AppInsightsKey = "APP_INSIGHTS_KEY";
-
     public const string _MongoUrl = "MONGO_URL";
     public const string _MongoDatabaseName = "MONGO_DATABASE_NAME";
+    public const string _MongoDebugLog = "MONGO_DEBUG_LOG";
 
     public const string _BearerTokenIssuer = "BEARER_TOKEN_ISSUER";
     public const string _BearerTokenAudience = "BEARER_TOKEN_AUDIENCE";
@@ -16,5 +15,9 @@
 
     public const string _EmailServerUrl = "EMAIL_SERVER_URL";
     public const string _EmailSenderAddress = "EMAIL_SENDER_ADDRESS";
+
+    public const string _ElasticUrl = "ELASTIC_URL";
+
+    public const string _LogLevel = "LOG_LEVEL";
   }
 }

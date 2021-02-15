@@ -2,6 +2,6 @@
 {
   public static class RoleNames
   {
-    public const string _AuthorityService = "Authrority service";
+    public const string _AuthorityService = "authority-service";
   }
 }

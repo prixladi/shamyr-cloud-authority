@@ -154,3 +154,6 @@ dotnet_diagnostic.RCS1090.severity = none
 
 # RCS1079: Throwing of new NotImplementedException
 dotnet_diagnostic.RCS1079.severity = none
+
+# RCS1173: UIse coalesce expression insted of 'if'
+dotnet_diagnostic.RCS1173.severity = none

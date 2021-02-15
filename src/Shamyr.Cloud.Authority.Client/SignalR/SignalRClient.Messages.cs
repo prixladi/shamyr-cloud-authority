@@ -48,22 +48,22 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
       }
     }
 
-    private async void UserLoggedOutEventAsync(UserLoggedOutEvent @event)
+    private async Task UserLoggedOutEventAsync(UserLoggedOutEvent @event)
     {
       await HandleEventAsync(@event);
     }
 
-    private async void UserVerifiedChangedEventAsync(UserVerifiedChangedEvent @event)
+    private async Task UserVerifiedChangedEventAsync(UserVerifiedChangedEvent @event)
     {
       await HandleEventAsync(@event);
     }
 
-    private async void UserDisabledChangedEventAsync(UserDisabledChangedEvent @event)
+    private async Task UserDisabledChangedEventAsync(UserDisabledChangedEvent @event)
     {
       await HandleEventAsync(@event);
     }
 
-    private async void UserAdminChangedEventAsync(UserAdminChangedEvent @event)
+    private async Task UserAdminChangedEventAsync(UserAdminChangedEvent @event)
     {
       await HandleEventAsync(@event);
     }

@@ -15,7 +15,7 @@ namespace Shamyr.Cloud.Authority.Client.SignalR
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-      fHubClient.Connect(cancellationToken);
+      Task.Run(() => fHubClient.Connect(cancellationToken), cancellationToken);
       return Task.CompletedTask;
     }
 
