@@ -20,9 +20,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
       if (context is null)
         throw new ArgumentNullException(nameof(context));
 
-      if (context.ScopeId != message.ScopeId)
-        throw new ArgumentException("Unable to change contex, because it has different correlation id than message.", nameof(context));
-
+      message.ScopeId = context.ScopeId;
       message.ParentScopeId = context.ParentScopeId;
     }
   }

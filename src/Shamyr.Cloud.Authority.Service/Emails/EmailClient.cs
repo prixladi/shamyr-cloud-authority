@@ -8,7 +8,7 @@ using Shamyr.Logging;
 
 namespace Shamyr.Cloud.Authority.Service.Emails
 {
-  // This is just testing email client using my personal public API -> Don't use this in production!
+  // TODO: This is just testing email client using my personal public API -> Don't use this in production!
   // TODO: Implement client using some service like Mailgun.
   public class EmailClient: IEmailClient
   {

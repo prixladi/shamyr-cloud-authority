@@ -17,7 +17,6 @@
     public const string _EmailSenderAddress = "EMAIL_SENDER_ADDRESS";
 
     public const string _ElasticUrl = "ELASTIC_URL";
-
     public const string _LogLevel = "LOG_LEVEL";
   }
 }

@@ -1,33 +1,7 @@
 version: '3.4'
 
 services:
-  elasticsearch01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.0
-    ports:
-      - 9200:9200
-    container_name: elasticsearch01
-    environment:
-      - node.name=elasticsearch01
-      - cluster.name=es-docker-cluster
-      - cluster.initial_master_nodes=elasticsearch01
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-       soft: -1
-       hard: -1
-    volumes:
-      - elasticdata:/usr/share/elasticsearch/data
-  
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.9.0
-    ports:
-      - 5601:5601
-    environment:
-      ELASTICSEARCH_URL: http://elasticsearch01:9200
-      ELASTICSEARCH_HOSTS: http://elasticsearch01:9200
-
-  authority:
+  service:
     image: shamyr/cloud/authority/service
     ports:
       - 8080:80
@@ -58,6 +32,32 @@ services:
       MONGO_LOG_DIR: /dev/null
     volumes:
       - mongodata:/data/db
+
+  elasticsearch01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.0
+    ports:
+      - 9200:9200
+    container_name: elasticsearch01
+    environment:
+      - node.name=elasticsearch01
+      - cluster.name=es-docker-cluster
+      - cluster.initial_master_nodes=elasticsearch01
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+       soft: -1
+       hard: -1
+    volumes:
+      - elasticdata:/usr/share/elasticsearch/data
+  
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.0
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch01:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch01:9200
 
   swaggerui:
     image: swaggerapi/swagger-ui:latest

@@ -5,7 +5,7 @@ namespace Shamyr.Cloud.Authority.Signal.Messages
 {
   public abstract class EventBase
   {
-    public string ScopeId { get; }
+    public string ScopeId { get; internal set; }
 
     public string? ParentScopeId { get; internal set; }
 

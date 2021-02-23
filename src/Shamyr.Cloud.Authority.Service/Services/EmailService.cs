@@ -31,7 +31,7 @@ namespace Shamyr.Cloud.Authority.Service.Services
       var dto = await builder.TryBuildAsync(context, cancellationToken);
       if (dto is null)
       {
-        fLogger.LogError(context, $"For email '{context.EmailType}' does not exist template in DB.");
+        fLogger.LogWarning(context, $"For email of '{context.EmailType}' for client ID '{context.Client.Id}' does not exist template in DB.");
         return;
       }
 

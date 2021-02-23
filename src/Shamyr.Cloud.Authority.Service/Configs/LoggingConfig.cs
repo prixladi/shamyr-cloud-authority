@@ -14,19 +14,24 @@ namespace Shamyr.Cloud.Authority.Service.Configs
   {
     public static void Setup(WebHostBuilderContext _, LoggerConfiguration config)
     {
-      var elasticUrl = EnvVariable.Get(EnvVariables._ElasticUrl);
       LogEventLevel logLevel = LogEventLevel.Warning;
-      if(Enum.TryParse(EnvVariable.TryGet(EnvVariables._LogLevel), true, out LogEventLevel level))
+      if (Enum.TryParse(EnvVariable.TryGet(EnvVariables._LogLevel), true, out LogEventLevel level))
         logLevel = level;
 
       config
         .MinimumLevel.Is(logLevel)
         .Enrich.FromLogContext()
-        .WriteTo.Console()
-        .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticUrl))
+        .WriteTo.Console();
+
+      var elasticUrl = EnvVariable.TryGet(EnvVariables._ElasticUrl);
+      if (elasticUrl is not null)
+      {
+        config.WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticUrl))
         {
-          IndexFormat = $"{RoleNames._AuthorityService}-logs-{DateTime.UtcNow:yyyy-MM}"
+          IndexFormat = $"{RoleNames._AuthorityService}-logs-{DateTime.UtcNow:yyyy-MM}",
+          AutoRegisterTemplate = true
         });
+      }
     }
 
     public static void SetupRequests(RequestLoggingOptions options)
